@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import { Section } from "../components";
 
-type Props = {}
+type Props = {};
 
 export const Contact = (props: Props) => {
   return (
-    <div>Contact</div>
-  )
-}
+    <Section id="id-contact" backgroundColor="red.200">
+      Contact
+    </Section>
+  );
+};

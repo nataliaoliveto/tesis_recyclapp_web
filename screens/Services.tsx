@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import { Section } from "../components";
 
-type Props = {}
+type Props = {};
 
 export const Services = (props: Props) => {
   return (
-    <div>Services</div>
-  )
-}
+    <Section id="id-services" backgroundColor="blue.200">
+      Services
+    </Section>
+  );
+};

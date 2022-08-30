@@ -1,21 +1,25 @@
-import React from 'react'
+import React from "react";
 import Link from "next/link";
-import {Text} from "@chakra-ui/react"
+import { Text, Image, Stack } from "@chakra-ui/react";
 
-type Props = {}
+type Props = {};
 
 export interface NavbarLinkProps {
   href: string;
+  img?: string;
   label: string;
 }
 
 export const NavbarLink = (props: NavbarLinkProps) => {
-  const {href, label} = props;
+  const { href, img, label } = props;
   return (
-    <Link href={href}>
-    <Text as="span" cursor="pointer" fontWeight={600}>
-      {label}
-    </Text>
-  </Link>
-  )
-}
+    <Link href={href} scroll={false}>
+      <Stack spacing={2} direction="row">
+        <Image src={img} width="6" height="6" />
+        <Text as="span" cursor="pointer" fontWeight={600}>
+          {label}
+        </Text>
+      </Stack>
+    </Link>
+  );
+};

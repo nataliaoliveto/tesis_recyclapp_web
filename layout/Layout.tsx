@@ -1,12 +1,12 @@
-import {VStack, Flex} from "@chakra-ui/react";
-import {Navbar, Footer} from "../components"
+import { VStack, Flex } from "@chakra-ui/react";
+import { Navbar, Footer } from "../components";
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
 export const Layout: React.FC<LayoutProps> = (props) => {
-  const {children} = props;
+  const { children } = props;
 
   return (
     <>
@@ -20,7 +20,6 @@ export const Layout: React.FC<LayoutProps> = (props) => {
           {/* Footer */}
           <Footer />
         </Flex>
-
       </VStack>
     </>
   );

@@ -1,7 +1,6 @@
-import { Hero, About, Services, Download, Rating, Contact } from "../screens"
-import { Layout } from "../layout"
-import type { NextPage } from 'next'
-
+import { Hero, About, Services, Download, Rating, Contact } from "../screens";
+import { Layout } from "../layout";
+import type { NextPage } from "next";
 
 const Home: NextPage = () => {
   return (
@@ -13,7 +12,7 @@ const Home: NextPage = () => {
       <Rating />
       <Contact />
     </Layout>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

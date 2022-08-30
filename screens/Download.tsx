@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import { Section } from "../components";
 
-type Props = {}
+type Props = {};
 
 export const Download = (props: Props) => {
   return (
-    <div>Download</div>
-  )
-}
+    <Section id="id-download" backgroundColor="yellow.200">
+      Download
+    </Section>
+  );
+};
