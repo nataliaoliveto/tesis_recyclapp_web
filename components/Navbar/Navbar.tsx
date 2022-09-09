@@ -13,9 +13,11 @@ import {
   Icon,
   useDisclosure,
 } from "@chakra-ui/react";
+import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import { NavbarLinkProps } from "./NavbarLink";
 import { NavbarLink } from "./NavbarLink";
 import Link from "next/link";
+
 
 type Props = {};
 
@@ -31,7 +33,7 @@ export const Navbar = (props: Props) => {
     {
       href: "#id-about",
       img: "/icons/aboutRecyclapp.png",
-      label: "Acerca de RecyclApp",
+      label: "APP",
     },
     {
       href: "#id-services",
@@ -56,7 +58,7 @@ export const Navbar = (props: Props) => {
     {
       href: "#id-footer",
       img: "/icons/footer.png",
-      label: "Quiénes somos",
+      label: "Nosotros",
     },
   ];
 
@@ -71,7 +73,7 @@ export const Navbar = (props: Props) => {
       width="full"
       zIndex={"modal"}
     >
-      <Container height="full" maxW="container.xl">
+      <Container height="full" maxW="full">
         <Flex alignItems="center" height="full" justifyContent="space-between">
           <Link href="/">
             <a>
@@ -82,7 +84,7 @@ export const Navbar = (props: Props) => {
           </Link>
           <Stack
             direction="row"
-            display={{ base: "none", lg: "flex" }}
+            display={{ base: "none", xl: "flex" }}
             fontSize="lg"
             fontWeight={700}
             spacing={12}
@@ -100,8 +102,8 @@ export const Navbar = (props: Props) => {
           </Stack>
           <Icon
             _hover={{ cursor: "pointer" }}
-            // as={FaBars}
-            display={{ base: "flex", lg: "none" }}
+            as={HamburgerIcon}
+            display={{ base: "flex", xl: "none" }}
             h={6}
             w={6}
             onClick={onOpen}
@@ -114,7 +116,7 @@ export const Navbar = (props: Props) => {
               <VStack mb={10} mt={4}>
                 <Icon
                   _hover={{ cursor: "pointer" }}
-                  // as={FaWindowClose}
+                  as={CloseIcon}
                   h={6}
                   position="absolute"
                   right={4}

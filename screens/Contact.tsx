@@ -16,8 +16,11 @@ type Props = {};
 export const Contact = (props: Props) => {
   return (
     <Section id="id-contact" backgroundColor="red.200">
-      <Text textAlign="center" as="h2" fontSize="48px">
-        Contact👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀
+      <Box display="flex" justifyContent="center" py={4}>
+        <Box w="213px" h="213px" bgColor="cyan.600"/>
+      </Box>
+      <Text textAlign="center" as="h2" fontSize="42px">
+        Contacto
       </Text>
       <Box w="full" display="flex" alignItems="center" flexDirection="column">
         <Flex
@@ -26,18 +29,21 @@ export const Contact = (props: Props) => {
           maxW="600px"
           flexDirection="column"
           textAlign="center"
+          color="#707070"
+          py={8}
         >
           <Text>¿Necesitas mayor asistencia?</Text>
           <Text>Dejanos tu consulta y nos pondremos en contacto</Text>
         </Flex>
         <Stack
-          p={6}
-          borderRadius="10px"
+          px={6}
+          py={8}
+          borderRadius="40px"
           w="full"
           justifyContent="center"
           bgColor="blue.600"
           direction="column"
-          spacing={4}
+          spacing={6}
           maxW="580px"
           mb={10}
           shadow="md"
