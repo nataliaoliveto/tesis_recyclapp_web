@@ -25,7 +25,7 @@ export const Rating = () => {
           </Stack>
         </Box>
       </Section>
-      <Section id="id-rating" backgroundColor="blue.600">
+      <Section backgroundColor="blue.600">
         <Box w="full" display="flex" alignItems="center" flexDirection="column">
           <Text as="h2" fontSize="42px" textAlign="center" mb={10}>
             ¡Nos interesa tu opinión!

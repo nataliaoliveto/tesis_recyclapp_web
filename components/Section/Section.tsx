@@ -2,7 +2,7 @@ import React from "react";
 import { VStack, Box, Container } from "@chakra-ui/react";
 
 interface SectionProps {
-  id: string;
+  id?: string;
   backgroundColor?: string;
   children: React.ReactNode;
 }
