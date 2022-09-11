@@ -8,6 +8,7 @@ import {
   Stack,
   FormLabel,
   Button,
+  Image
 } from "@chakra-ui/react";
 import { Section } from "../components";
 
@@ -15,13 +16,13 @@ type Props = {};
 
 export const Contact = (props: Props) => {
   return (
-    <Section id="id-contact" backgroundColor="red.200">
+    <Section id="id-contact" backgroundColor="gray.100" >
       <Box display="flex" justifyContent="center" py={4}>
-        <Box w="213px" h="213px" bgColor="cyan.600"/>
+        <Image src="/icons/headset.png" width="128px" height="128px" alt="headset atención al usuario"/>
       </Box>
-      <Text textAlign="center" as="h2" fontSize="42px">
+      <Text textAlign="center" as="h2" fontSize="42px" color="gray.500">
         Contacto
-      </Text>
+      </Text>      
       <Box w="full" display="flex" alignItems="center" flexDirection="column">
         <Flex
           alignItems="center"
@@ -29,11 +30,11 @@ export const Contact = (props: Props) => {
           maxW="600px"
           flexDirection="column"
           textAlign="center"
-          color="#707070"
+          color="gray.500"
           py={8}
         >
-          <Text>¿Necesitas mayor asistencia?</Text>
-          <Text>Dejanos tu consulta y nos pondremos en contacto</Text>
+          <Text fontSize="20px">¿Necesitas mayor asistencia?</Text>
+          <Text fontSize="20px">Dejanos tu consulta y nos pondremos en contacto</Text>
         </Flex>
         <Stack
           px={6}
@@ -41,12 +42,13 @@ export const Contact = (props: Props) => {
           borderRadius="40px"
           w="full"
           justifyContent="center"
-          bgColor="blue.600"
+          bgColor="gray.50"
           direction="column"
           spacing={6}
           maxW="580px"
           mb={10}
           shadow="md"
+          color="gray.500"
         >
           <Box>
             <FormLabel>Ingresa tu nombre</FormLabel>
@@ -61,7 +63,7 @@ export const Contact = (props: Props) => {
             <Textarea />
           </Box>
         </Stack>
-        <Button bgColor="primary.500">Enviar consulta</Button>
+        <Button bgColor="teal.500" color="gray.100">Enviar consulta</Button>
       </Box>
     </Section>
   );

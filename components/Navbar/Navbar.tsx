@@ -57,7 +57,7 @@ export const Navbar = (props: Props) => {
     },
     {
       href: "#id-footer",
-      img: "/icons/footer.png",
+      img: "/icons/leaves.png",
       label: "Nosotros",
     },
   ];
@@ -77,7 +77,7 @@ export const Navbar = (props: Props) => {
         <Flex alignItems="center" height="full" justifyContent="space-between">
           <Link href="/">
             <a>
-              <Text color="primary.500" fontSize="3xl" fontWeight={900}>
+              <Text color="gray.700" fontSize="3xl" fontWeight={900}>
                 RecyclApp
               </Text>
             </a>

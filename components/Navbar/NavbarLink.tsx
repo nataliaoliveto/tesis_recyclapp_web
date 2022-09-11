@@ -16,7 +16,7 @@ export const NavbarLink = (props: NavbarLinkProps) => {
     <Link href={href} scroll={false}>
       <Stack spacing={2} direction="row">
         <Image src={img} width="6" height="6" />
-        <Text as="span" cursor="pointer" fontWeight={600}>
+        <Text as="span" cursor="pointer" fontWeight={600} color="gray.700">
           {label}
         </Text>
       </Stack>

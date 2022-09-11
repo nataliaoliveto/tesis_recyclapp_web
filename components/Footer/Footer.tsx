@@ -6,9 +6,9 @@ type Props = {};
 
 export const Footer = (props: Props) => {
   return (
-    <Stack id="id-footer" bgColor="red.600" alignItems="center" color="#707070">
+    <Stack id="id-footer" bgColor="red.600" alignItems="center" color="gray.600">
       <Stack
-        backgroundColor="#F8F8F8"
+        backgroundColor="gray.200"
         py={48}
         direction="row"
         justifyContent="center"
@@ -82,7 +82,7 @@ export const Footer = (props: Props) => {
         alignItems="center"
         justifyContent="center"
         py={6}
-        bgColor="#C5EBC5"
+        bgColor="green.100"
         style={{ marginTop: 0 }}
         w="full"
       >

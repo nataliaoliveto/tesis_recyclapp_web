@@ -13,8 +13,8 @@ import { Section, RatingCard } from "../components";
 export const Rating = () => {
   return (
     <>
-      <Section id="id-rating" backgroundColor="blue.200">
-        <Box display="flex" justifyContent="center" flexDir="column">
+      <Section id="id-rating" backgroundColor="green.300" >
+        <Box display="flex" justifyContent="center" flexDir="column" color="gray.500">
           <Text as="h2" fontSize="42px" textAlign="center" mb={10}>
             ¿Qué opinan de RecyclApp?
           </Text>
@@ -25,8 +25,8 @@ export const Rating = () => {
           </Stack>
         </Box>
       </Section>
-      <Section backgroundColor="blue.600">
-        <Box w="full" display="flex" alignItems="center" flexDirection="column">
+      <Section backgroundColor="gray.200">
+        <Box w="full" display="flex" alignItems="center" flexDirection="column" color="gray.600">
           <Text as="h2" fontSize="42px" textAlign="center" mb={10}>
             ¡Nos interesa tu opinión!
           </Text>
@@ -36,12 +36,13 @@ export const Rating = () => {
             borderRadius="40px"
             w="full"
             justifyContent="center"
-            bgColor="blue.600"
+            bgColor="gray.100"
             direction="column"
             spacing={6}
             maxW="580px"
             mb={10}
-            shadow="md"
+            shadow="md" 
+            color="gray.600"           
           >
             <Box>
               <FormLabel>Ingresa tu nombre</FormLabel>
@@ -53,10 +54,10 @@ export const Rating = () => {
             </Box>
             <Box>
               <FormLabel>Valora la app</FormLabel>
-              <Box w="full" bgColor="red.300" h="42px" borderRadius="8px" />
-            </Box>
+              <Box w="full" bgColor="orange.300" h="42px" borderRadius="8px" />
+              </Box>
           </Stack>
-          <Button bgColor="primary.500">Enviar consulta</Button>
+          <Button bgColor="orange.300" color="gray.50">Enviar opinión</Button>
         </Box>
       </Section>
     </>
