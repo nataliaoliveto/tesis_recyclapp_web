@@ -6,7 +6,14 @@ type Props = {};
 
 export const Footer = (props: Props) => {
   return (
-    <Stack id="id-footer" bgColor="red.600" alignItems="center" color="gray.600">
+    <Stack 
+      id="id-footer" 
+      bgColor="red.600" 
+      alignItems="center" 
+      color="gray.600" 
+      px={4}
+      py={4}
+    >
       <Stack
         backgroundColor="gray.200"
         py={48}
@@ -17,7 +24,7 @@ export const Footer = (props: Props) => {
         alignItems="center"
       >
         <Flex bgColor="blue.500" flexDirection="column" maxW="400px">
-          <Text fontSize="64px" lineHeight={1} >
+          <Text fontSize="64px" lineHeight={1}>
             Seguinos en las redes
           </Text>
           <Text fontSize="30px" lineHeight={1.3}>
@@ -32,7 +39,7 @@ export const Footer = (props: Props) => {
           position="relative"
           py={4}
           px={4}
-          h="250px"
+          h="350px"
           w="400px"
         >
           <Box
@@ -68,7 +75,7 @@ export const Footer = (props: Props) => {
             h="100px"
             bgColor="facebook.300"
             position="absolute"
-            top={14}
+            top={"35%"}
             right={0}
           >
             <a href="https://www.facebook.com/recyclappok">

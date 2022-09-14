@@ -10,7 +10,7 @@ export const DonationCard = () => {
       px={4}
       py={4}
       pb={8}
-      h="330px"
+      minH="330px"
       justifyContent="space-between"
       borderRadius="20px"
       position="relative"
@@ -58,7 +58,7 @@ export const DonationCard = () => {
           src="/icons/happy.png"
           width={"64px"}
           height={"64px"}
-          alt="mitad ciudad mitad planeta"
+          alt="carita feliz"
         />
       </Box>
     </Stack>

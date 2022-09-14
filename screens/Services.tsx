@@ -1,5 +1,12 @@
 import React from "react";
-import { Stack, Box, Text, UnorderedList, ListItem } from "@chakra-ui/react";
+import {
+  Stack,
+  Box,
+  Text,
+  UnorderedList,
+  ListItem,
+  OrderedList,
+} from "@chakra-ui/react";
 import { Section, AdvertisingPlanCard, DonationCard } from "../components";
 
 type Props = {};
@@ -11,7 +18,7 @@ export const Services = (props: Props) => {
         <Stack
           direction="row"
           justifyContent="center"
-          spacing={8}
+          spacing={16}
           alignItems="center"
         >
           <Box w="300px" h="500px" bgColor="yellow.500" />
@@ -31,12 +38,20 @@ export const Services = (props: Props) => {
             <Stack direction="column" px={4} maxW="600px" bgColor="red.100">
               <Stack direction="row" alignItems="center" bgColor="green.200">
                 <Box w="300px" h="500px" bgColor="yellow.500" />
-                <Text as="h2" fontSize="32px">
-                  Wiki y noticias
-                </Text>
+                <Box
+                  display="flex"
+                  bgColor="yellow.200"
+                  px={4}
+                  py={2}
+                  borderRadius="full"
+                >
+                  <Text as="h2" fontSize="32px" fontWeight={600}>
+                    Wiki y noticias
+                  </Text>
+                </Box>
               </Stack>
-              <Stack maxW="400px">
-                <Text>Donde podrás aprender</Text>
+              <Stack maxW="400px" fontSize="24px" pl={2}>
+                <Text fontWeight={600}>Donde podrás aprender</Text>
                 <UnorderedList>
                   <ListItem>
                     Los diferentes tipos de materiales que son reciclables y los
@@ -52,13 +67,32 @@ export const Services = (props: Props) => {
           </Stack>
           <Stack direction="row" alignItems="center" bgColor="cyan.400">
             <Stack direction="column" px={4} maxW="600px" bgColor="red.100">
-              <Stack direction="row" alignItems="center" bgColor="green.200">
+              <Stack
+                direction="row"
+                alignItems="center"
+                bgColor="green.200"
+                spacing={8}
+              >
                 <Box w="300px" h="500px" bgColor="yellow.500" />
                 <Stack maxW="280px">
-                  <Text as="h2" fontSize="32px">
-                    Publicidad
-                  </Text>
-                  <Text fontSize="14px">
+                  <Box
+                    display="flex"
+                    bgColor="blue.200"
+                    px={4}
+                    py={2}
+                    borderRadius="full"
+                    justifyContent="center"
+                  >
+                    <Text
+                      as="h2"
+                      fontSize="32px"
+                      textAlign="center"
+                      fontWeight={600}
+                    >
+                      Publicidad
+                    </Text>
+                  </Box>
+                  <Text fontSize="24px" textAlign="center">
                     ¿Tu negocio sigue políticas verdes? Tenemos un espacio
                     exclusivo para vos. Visita nuestros planes de contratación
                     debajo
@@ -66,7 +100,7 @@ export const Services = (props: Props) => {
                 </Stack>
               </Stack>
               <Stack maxW="400px">
-                <Text>
+                <Text fontSize="24px">
                   Noticias de impacto general en el medioambiente y contenido
                   multimedia externo en plataformas de Streaming
                 </Text>
@@ -90,6 +124,9 @@ export const Services = (props: Props) => {
             spacing={6}
             direction={{ base: "column", lg: "row" }}
             textAlign="center"
+            p={4}
+            borderRadius="24px"
+            shadow="lg"
           >
             <AdvertisingPlanCard
               titleBgColor="teal.100"
@@ -164,6 +201,26 @@ export const Services = (props: Props) => {
             </Stack>
           </Stack>
         </Stack>
+        <Section>
+          <Stack
+            w="full"
+            bgColor="blue.200"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Stack>
+              <Box display="flex" flexDirection="column">
+                <OrderedList>
+                  <ListItem>Puntos Verdes</ListItem>
+                  <ListItem>Composteras Comunitarias</ListItem>
+                  <ListItem>Tiendas adheridas</ListItem>
+                </OrderedList>
+              </Box>
+            </Stack>
+            <Stack></Stack>
+            <Stack></Stack>
+          </Stack>
+        </Section>
       </Section>
     </>
   );
