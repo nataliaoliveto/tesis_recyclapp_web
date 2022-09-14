@@ -201,26 +201,51 @@ export const Services = (props: Props) => {
             </Stack>
           </Stack>
         </Stack>
-        <Section>
-          <Stack
-            w="full"
-            bgColor="blue.200"
-            alignItems="center"
-            justifyContent="center"
-          >
-            <Stack>
-              <Box display="flex" flexDirection="column">
-                <OrderedList>
-                  <ListItem>Puntos Verdes</ListItem>
-                  <ListItem>Composteras Comunitarias</ListItem>
-                  <ListItem>Tiendas adheridas</ListItem>
-                </OrderedList>
-              </Box>
+
+        <Stack
+          pt={8}
+          w="full"
+          bgColor="blue.200"
+          alignItems="center"
+          justifyContent="center"
+          direction="row"
+        >
+          <Stack direction="column" justifyContent="center" h="full">
+            <Box display="flex" flexDirection="column" maxW="400px">
+              <OrderedList>
+                <ListItem>
+                  Podrás publicar qué materiales ofreces o buscas (o necesitas
+                  que trasladen a un Punto Verde)
+                </ListItem>
+                <ListItem>
+                  Otro reciclador confirma que necesita o tiene esos materiales
+                </ListItem>
+                <ListItem>Arreglan el traslado o encuentro</ListItem>
+              </OrderedList>
+            </Box>
+            <Stack maxW="400px" bgColor="red.200" direction="row" p={8}>
+              <Box minW="120px" h="120px" bgColor="blue.100" />
+              <Text>
+                Si no cuentan con transporte pueden optar por nuestro servicio
+                de traslado de materiales
+              </Text>
             </Stack>
-            <Stack></Stack>
-            <Stack></Stack>
           </Stack>
-        </Section>
+          <Stack>
+            <Box w="300px" h="500px" bgColor="red.200" />
+          </Stack>
+          <Stack h="full" spacing={8}>
+            <Box display="flex" flexDirection="column">
+              <Text>En este menú podrás ver rápidamente:</Text>
+              <Text>tus publicaciones activas</Text>
+              <Text>las publicaciones aceptadas por ambas partes</Text>
+              <Text>todas las publicaciones activas</Text>
+            </Box>
+            <Box display="flex" flexDirection="column">
+              <Text>¡Exclusivo para repartidores!</Text>
+            </Box>
+          </Stack>
+        </Stack>
       </Section>
     </>
   );
