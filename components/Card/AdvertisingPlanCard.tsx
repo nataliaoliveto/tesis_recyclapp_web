@@ -1,5 +1,5 @@
 import React from "react";
-import { Stack, Box, Text } from "@chakra-ui/react";
+import { Stack, Box, Text, Button } from "@chakra-ui/react";
 
 interface IAdvertisingPlanCard {
   titleBgColor: string;
@@ -30,7 +30,7 @@ export const AdvertisingPlanCard = ({
       </Box>
       <Stack>
         <Text fontSize="24px" fontWeight={600} color="gray.600">
-          Precio de unica vez
+          Precio de única vez
         </Text>
         <Text fontSize="24px" fontWeight={600} color="teal.600">
           ARS {oneTimePrice}
@@ -41,7 +41,7 @@ export const AdvertisingPlanCard = ({
 
       <Stack>
         <Text fontSize="24px" fontWeight={600} color="gray.600">
-          Precio recurrente por dia
+          Precio recurrente por día
         </Text>
         <Text fontSize="24px" fontWeight={600} color="teal.600">
           ARS {recurringDailyPrice}
@@ -49,14 +49,26 @@ export const AdvertisingPlanCard = ({
       </Stack>
       <Box>
         <Text fontSize="20px" color="gray.600" mx={6}>
-          Se actualiza el mismo dia a la semana siguiente
+          Se actualiza el mismo día a la semana siguiente
         </Text>
       </Box>
-      <Box pb={20}>
+      <Box >
         <Text fontSize="16px" color="gray.400">
-          Duración mínima por 4 periodos
+          Duración mínima por 4 períodos
         </Text>
       </Box>
+      <a href="#id-contact">
+        <Button
+          borderColor={"teal.200"}
+          borderStyle="solid"
+          borderWidth={"thin"}
+          borderRadius="2xl"
+          backgroundColor={"gray.50"}
+          color="gray.500"
+        >
+          Solicitar
+        </Button>
+      </a>
     </Stack>
   );
 };

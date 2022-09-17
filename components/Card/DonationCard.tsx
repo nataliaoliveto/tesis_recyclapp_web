@@ -1,5 +1,5 @@
 import React from "react";
-import { Stack, Box, Text, Image } from "@chakra-ui/react";
+import { Stack, Box, Text, Image, Button } from "@chakra-ui/react";
 
 export const DonationCard = () => {
   return (
@@ -43,7 +43,18 @@ export const DonationCard = () => {
           ayuda
         </Text>
       </Box>
-
+      <a href="#id-contact">
+        <Button
+          borderColor={"yellow.400"}
+          borderStyle="solid"
+          borderWidth={"thin"}
+          borderRadius="2xl"
+          backgroundColor={"gray.50"}
+          color="gray.500"
+        >
+          Solicitar
+        </Button>
+      </a>
       <Box display="flex" h="2px" w="full" bgColor="yellow.200" />
       
       <Box

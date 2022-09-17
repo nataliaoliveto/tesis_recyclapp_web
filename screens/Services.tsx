@@ -7,7 +7,7 @@ import {
   ListItem,
   OrderedList,
 } from "@chakra-ui/react";
-import { Section, AdvertisingPlanCard, DonationCard } from "../components";
+import { Section, AdvertisingPlanCard, DonationCard, StoreSubscriptionCard } from "../components";
 
 type Props = {};
 
@@ -127,6 +127,7 @@ export const Services = (props: Props) => {
             p={4}
             borderRadius="24px"
             shadow="lg"
+            backgroundColor="gray.50"
           >
             <AdvertisingPlanCard
               titleBgColor="teal.100"
@@ -208,9 +209,16 @@ export const Services = (props: Props) => {
           bgColor="blue.200"
           alignItems="center"
           justifyContent="center"
-          direction="row"
+          direction={{ base: "column", lg: "row" }}
         >
           <Stack direction="column" justifyContent="center" h="full">
+            <Box display="flex" w="full" justifyContent="center">
+              <Box bgColor="yellow.200" py={2} px={8} borderRadius="full">
+                <Text fontSize="24px" fontWeight={600}>
+                  Publicaciones
+                </Text>
+              </Box>
+            </Box>
             <Box display="flex" flexDirection="column" maxW="400px">
               <OrderedList>
                 <ListItem>
@@ -220,16 +228,9 @@ export const Services = (props: Props) => {
                 <ListItem>
                   Otro reciclador confirma que necesita o tiene esos materiales
                 </ListItem>
-                <ListItem>Arreglan el traslado o encuentro</ListItem>
+                <ListItem>Arreglan el punto de encuentro</ListItem>
               </OrderedList>
-            </Box>
-            <Stack maxW="400px" bgColor="red.200" direction="row" p={8}>
-              <Box minW="120px" h="120px" bgColor="blue.100" />
-              <Text>
-                Si no cuentan con transporte pueden optar por nuestro servicio
-                de traslado de materiales
-              </Text>
-            </Stack>
+            </Box>            
           </Stack>
           <Stack>
             <Box w="300px" h="500px" bgColor="red.200" />
@@ -240,10 +241,108 @@ export const Services = (props: Props) => {
               <Text>tus publicaciones activas</Text>
               <Text>las publicaciones aceptadas por ambas partes</Text>
               <Text>todas las publicaciones activas</Text>
+            </Box>            
+          </Stack>
+        </Stack>
+
+        <Stack
+          pt={8}
+          w="full"
+          bgColor="cyan.200"
+          alignItems="center"
+          justifyContent="center"
+          direction="column"
+        >
+          <Stack direction="column" mb={8} justifyContent="center" spacing={4}>
+            <Text textAlign="center">
+              Participando en la aplicación podés obtener
+            </Text>
+            <Box display="flex" w="full" justifyContent="center">
+              <Box bgColor="green.200" py={2} px={8} borderRadius="full">
+                <Text fontSize="24px" fontWeight={600}>
+                  Puntos y beneficios
+                </Text>
+              </Box>
             </Box>
-            <Box display="flex" flexDirection="column">
-              <Text>¡Exclusivo para repartidores!</Text>
+            <Stack direction={{ base: "column", md: "row" }} spacing={8}>
+              <Box minW="250px" h="400px" bgColor="red.200" />
+              <Box
+                display="flex"
+                flexDirection="column"
+                maxW="450px"
+                justifyContent="center"
+              >
+                <Text fontSize="24px">
+                  Por cada publicación en la que participes, sumarás puntos que luego podrás intercambiar por
+                  beneficios ofrecidos por las Tiendas adheridas
+                </Text>
+              </Box>
+            </Stack>
+          </Stack>
+          <Stack spacing={8}>
+            <Box display="flex" w="full" justifyContent="center">
+              <Box bgColor="green.200" py={2} px={8} borderRadius="full">
+                <Text fontSize="24px" fontWeight={600}>
+                  Tiendas adheridas
+                </Text>
+              </Box>
             </Box>
+            <Stack
+              direction={{ base: "column", lg: "row" }}
+              maxW="600px"
+              alignItems="center"
+            >
+              <Stack direction="column" justifyContent="center" spacing={6}>
+                <Text fontSize="24px">
+                  Si te registras como Tienda en nuestra aplicación, los demás
+                  recicladores podrán conocer tus servicios
+                </Text>
+                <Text fontSize="24px">
+                  Podrás adquirir materiales de las publicaciones y reducir el
+                  costo de esta materia prima a cero
+                </Text>
+                <Text fontSize="24px">
+                  Además podrás ofrecer beneficios a aquellos que cuenten con
+                  puntos acumulados
+                </Text>
+              </Stack>
+              <Box minW="250px" h="400px" bgColor="red.200" />
+            </Stack>
+          </Stack>
+        </Stack>
+      </Section>
+      <Section>
+        <Stack justifyContent="center" alignItems="center">
+          <Text
+            as="h2"
+            fontSize="36px"
+            fontWeight={600}
+            mb={8}
+            color="gray.600"
+          >
+            Planes para Tiendas
+          </Text>
+          <Stack
+            spacing={6}
+            direction={{ base: "column", lg: "row" }}
+            textAlign="center"
+            p={4}
+            borderRadius="24px"
+            shadow="lg"
+            backgroundColor="gray.50"
+          >
+            <StoreSubscriptionCard
+              titleBgColorSS="teal.200"
+              titleSS="La tienda ofrece beneficios"
+              message="con al menos dos beneficios activos ofrecidos a los usuarios"
+              monthlyPrice="1.500"
+            />
+            <StoreSubscriptionCard
+              titleBgColorSS="teal.100"
+              titleSS="La tienda no ofrece beneficios"
+              message=""
+              monthlyPrice="2.500"
+            />
           </Stack>
         </Stack>
       </Section>

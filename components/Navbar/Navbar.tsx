@@ -26,9 +26,9 @@ export const Navbar = (props: Props) => {
 
   const NAVBAR_LINKS: NavbarLinkProps[] = [
     {
-      href: "#id-hero",
-      img: "/icons/hero.png",
-      label: "Inicio",
+      href: "#id-login",
+      img: "/icons/login.png",
+      label: "Ingresar",
     },
     {
       href: "#id-about",
@@ -65,7 +65,7 @@ export const Navbar = (props: Props) => {
   return (
     <Box
       as="nav"
-      bg={"white"}
+      bg={"gray.50"}
       boxShadow="2xl"
       height={20}
       position={"sticky"}

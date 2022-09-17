@@ -1,4 +1,4 @@
-import { Hero, About, Services, Download, Rating, Contact } from "../screens";
+import { Hero, About, Services, Download, Rating, Contact, Login } from "../screens";
 import { Layout } from "../layout";
 import type { NextPage } from "next";
 
@@ -9,6 +9,7 @@ const Home: NextPage = () => {
       <About />
       <Services />
       <Download />
+      <Login />
       <Rating />
       <Contact />
     </Layout>
