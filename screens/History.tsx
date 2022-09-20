@@ -20,8 +20,8 @@ export const History = (props: Props) => {
 
           <Text fontSize="24px" maxW="1000px" textAlign="center">
             El cuidado del medioambiente es un problema que se agrava con el
-            paso del tiempo y, ante la falta de acciones, <b>comienza a modificarse
-            el ecosistema en el que vivimos.</b>
+            paso del tiempo y, ante la falta de acciones,{" "}
+            <b>comienza a modificarse el ecosistema en el que vivimos.</b>
           </Text>
 
           <Box>
@@ -36,12 +36,12 @@ export const History = (props: Props) => {
               spacing={8}
               p={8}
             >
-            <Image
-              src="/icons/survey.png"
-              width="256px"
-              height="256px"
-              alt="gráfico de barras de estadística"
-            />
+              <Image
+                src="/icons/survey.png"
+                width="256px"
+                height="256px"
+                alt="gráfico de barras de estadística"
+              />
               <Text maxW="460px" fontSize="24px">
                 Hicimos encuestas a decenas de personas que afirmaron querer
                 ayudar al planeta pero que no sabían cómo comenzar o les costaba
@@ -54,20 +54,21 @@ export const History = (props: Props) => {
           <Text maxW="860px" fontSize="24px" textAlign="center">
             De allí nació nuestro objetivo para contribuir a la sociedad con un
             espacio en común en el que dispongan de toda la información
-            necesaria para adoptar <b>las tres R (reducir, reutilizar y reciclar)</b> y
-            poder interactuar con otras personas e incentivarlas con beneficios
-            por sus acciones
+            necesaria para adoptar{" "}
+            <b>las tres R (reducir, reutilizar y reciclar)</b> y poder
+            interactuar con otras personas e incentivarlas con beneficios por
+            sus acciones
           </Text>
 
           <Image
-              src="/icons/tripleR.png"
-              width="256px"
-              height="256px"
-              alt="ciclo de tres R reducir, reutilizar y reciclar"
-            />
+            src="/icons/tripleR.png"
+            width="256px"
+            height="256px"
+            alt="ciclo de tres R reducir, reutilizar y reciclar"
+          />
         </Stack>
         <Stack
-          spacing={8}
+          spacing={6}
           bgColor="gray.500"
           py={8}
           px={{ base: "0px", sm: "30px", md: "80px" }}
@@ -75,7 +76,6 @@ export const History = (props: Props) => {
           <Grid
             templateColumns={{ base: "repeat(4, 1fr)", lg: "repeat(12, 1fr)" }}
             bgColor="blue.100"
-            gap={4}
           >
             <GridItem
               colStart={{ base: 3, lg: 10 }}
@@ -87,8 +87,8 @@ export const History = (props: Props) => {
             </GridItem>
 
             <GridItem
-              colStart={{ base: 2, lg: 5 }}
-              colEnd={{ base: 4, lg: 10 }}
+              colStart={{ base: 2, lg: 6 }}
+              colEnd={{ base: 4, lg: 12 }}
             >
               <Text fontSize="24px" textAlign="right">
                 Ofrecer un espacio donde las personas interactúen y dispongan de
@@ -99,7 +99,6 @@ export const History = (props: Props) => {
             </GridItem>
           </Grid>
           <Grid
-            gap={4}
             templateColumns={{ base: "repeat(4, 1fr)", lg: "repeat(12, 1fr)" }}
             bgColor="yellow.100"
           >
@@ -118,12 +117,11 @@ export const History = (props: Props) => {
             </GridItem>
           </Grid>
           <Grid
-            gap={4}
             templateColumns={{ base: "repeat(4, 1fr)", lg: "repeat(12, 1fr)" }}
             bgColor="cyan.100"
           >
             <GridItem
-              colStart={{ base: 3, lg: 10 }}
+              colStart={{ base: 3, lg: 9 }}
               colEnd={{ base: 4, lg: 12 }}
             >
               <Text fontSize="48px" fontWeight={600} textAlign="right">

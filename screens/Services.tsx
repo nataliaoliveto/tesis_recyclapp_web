@@ -151,7 +151,7 @@ export const Services = (props: Props) => {
         </Stack>
       </Section>
       <Section>
-        <Stack w="full" bgColor="teal.400" alignItems="center">
+        <Stack w="full" alignItems="center">
           <DonationCard />
         </Stack>
       </Section>

@@ -1,13 +1,15 @@
 import React from "react";
 import { Section } from "../components";
 import { Button } from "@chakra-ui/react";
+import { Register } from "./Register";
 
 type Props = {};
 
 export const Login = (props: Props) => {
   return (
     <Section id="id-login" backgroundColor="cyan.200">
-      Login
+      Usuario
+      Contraseña 
 
     <Button
         borderColor={"teal.200"}
@@ -32,6 +34,8 @@ export const Login = (props: Props) => {
           Registrarse
         </Button>
       </a>
+
+      <Register />
       
       <a href="#id-contact">
         <Button

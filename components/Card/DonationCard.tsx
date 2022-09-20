@@ -11,6 +11,7 @@ export const DonationCard = () => {
       py={4}
       pb={8}
       minH="330px"
+      shadow="lg"
       justifyContent="space-between"
       borderRadius="20px"
       position="relative"
@@ -31,7 +32,7 @@ export const DonationCard = () => {
           Donaciones
         </Text>
       </Box>
-      <Box display="flex" maxW="730px" alignSelf="center" >
+      <Box display="flex" maxW="730px" alignSelf="center">
         <Text fontSize="22px" fontWeight={600} color="gray.600">
           ¿Te interesa colaborar económicamente con el mantenimiento de la
           aplicación, pero no a través de la publicidad?
@@ -56,7 +57,7 @@ export const DonationCard = () => {
         </Button>
       </a>
       <Box display="flex" h="2px" w="full" bgColor="yellow.200" />
-      
+
       <Box
         display={{ base: "none", md: "flex" }}
         h="65px"

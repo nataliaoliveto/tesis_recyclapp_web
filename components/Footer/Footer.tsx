@@ -6,16 +6,8 @@ type Props = {};
 
 export const Footer = (props: Props) => {
   return (
-    <Stack 
-      id="id-footer" 
-      bgColor="red.600" 
-      alignItems="center" 
-      color="gray.600" 
-      px={4}
-      py={4}
-    >
+    <Stack id="id-footer" alignItems="center" color="gray.600" px={4}>
       <Stack
-        backgroundColor="gray.200"
         py={48}
         direction="row"
         justifyContent="center"
@@ -23,7 +15,7 @@ export const Footer = (props: Props) => {
         maxW="900px"
         alignItems="center"
       >
-        <Flex bgColor="blue.500" flexDirection="column" maxW="400px">
+        <Flex flexDirection="column" maxW="400px">
           <Text fontSize="64px" lineHeight={1}>
             Seguinos en las redes
           </Text>
@@ -34,54 +26,69 @@ export const Footer = (props: Props) => {
             ¡No te olvides de seguirnos!
           </Text>
         </Flex>
-        <Flex
-          bgColor="cyan.600"
-          position="relative"
-          py={4}
-          px={4}
-          h="350px"
-          w="400px"
-        >
-          <Box
-            w="100px"
-            h="100px"
-            bgColor="red.300"
-            position="absolute"
-            top={0}
-          >
-            <a href="https://www.instagram.com/recyclappok/">
-              <Image src="/icons/instagram.png" width="64px" height="64px" alt="Instagram link"/>
-              <Text>Instagram</Text>
-            </a>
+        <Flex position="relative" py={4} px={4} h="350px" w="400px">
+          <Box w="100px" h="100px" position="absolute" top={0}>
+            <Box
+              as="a"
+              href="https://www.instagram.com/recyclappok/"
+              display="flex"
+              flexDir="column"
+              alignItems="center"
+            >
+              <Image
+                src="/icons/instagram.png"
+                width="64px"
+                height="64px"
+                alt="Instagram link"
+                mb={1}
+              />
+              <Text>RecyclAppOk</Text>
+            </Box>
           </Box>
           <Box
             w="100px"
             h="100px"
-            bgColor="twitter.300"
             position="absolute"
             marginLeft="auto"
             marginRight="auto"
             right={0}
             left={0}
-            bottom={0} 
+            bottom={0}
           >
-            <a href="https://twitter.com/recyclappok">
-              <Image src="/icons/twitter.png" width="64px" height="64px" alt="Twitter link"/>
-              Twitter
-            </a>
+            <Box
+              as="a"
+              href="https://twitter.com/recyclappok"
+              display="flex"
+              flexDir="column"
+              alignItems="center"
+            >
+              <Image
+                src="/icons/twitter.png"
+                width="64px"
+                height="64px"
+                alt="Twitter link"
+                mb={1}
+              />
+              RecyclAppOk
+            </Box>
           </Box>
-          <Box
-            w="100px"
-            h="100px"
-            bgColor="facebook.300"
-            position="absolute"
-            top={"35%"}
-            right={0}
-          >
-            <a href="https://www.facebook.com/recyclappok">
-              <Image src="/icons/facebook.png" width="64px" height="64px" alt="Facebook link"/>
-              Facebook
-            </a>
+          <Box w="100px" h="100px" position="absolute" top={"35%"} right={0}>
+            <Box
+              as="a"
+              href="https://www.facebook.com/recyclappok"
+              display="flex"
+              flexDir="column"
+              alignItems="center"
+            >
+              <Image
+                src="/icons/facebook.png"
+                width="64px"
+                height="64px"
+                alt="Facebook link"
+                mb={1}
+              />
+              RecyclAppOk
+            </Box>
           </Box>
         </Flex>
       </Stack>
@@ -89,9 +96,9 @@ export const Footer = (props: Props) => {
         alignItems="center"
         justifyContent="center"
         py={6}
-        bgColor="green.100"
         style={{ marginTop: 0 }}
         w="full"
+        bgColor="green.300"
       >
         <Text textAlign="center">
           RecyclApp © 2022 Todos los derechos reservados | Desarrollado por
