@@ -6,25 +6,43 @@ import {
   UnorderedList,
   ListItem,
   OrderedList,
+  Image,
 } from "@chakra-ui/react";
-import { Section, AdvertisingPlanCard, DonationCard, StoreSubscriptionCard } from "../components";
+import {
+  Section,
+  AdvertisingPlanCard,
+  DonationCard,
+  StoreSubscriptionCard,
+} from "../components";
 
 type Props = {};
 
 export const Services = (props: Props) => {
   return (
     <>
-      <Section id="id-services" backgroundColor="blue.200">
+      <Section id="id-services" backgroundColor="gray.75">
         <Stack
-          direction="row"
+          direction={{ base: "column", lg: "row" }}
           justifyContent="center"
           spacing={16}
           alignItems="center"
+          color="gray.600"
         >
-          <Box w="300px" h="500px" bgColor="yellow.500" />
-          <Text as="h2" fontSize="42px">
-            Nuestros servicios
-          </Text>
+          <Image
+            src="/assets/mobilePhone.png"
+            width="252px"
+            height="534px"
+            alt="estructura de un celular"
+          />
+          <Stack direction="column"
+          justifyContent="center"
+          alignItems="center"
+          >
+            <Text as="h2" fontSize="42px" fontWeight={"600"} textAlign="center">
+              Nuestros servicios
+            </Text>
+            <Box width={"300px"} h="10px" bgColor="green.100" />
+          </Stack>
         </Stack>
       </Section>
       <Section backgroundColor="blue.600">
@@ -33,11 +51,17 @@ export const Services = (props: Props) => {
           justifyContent="center"
           spacing={8}
           alignItems={{ base: "center", lg: "flex-start" }}
+          color="gray.600"
         >
           <Stack direction="row" alignItems="center" bgColor="cyan.400">
             <Stack direction="column" px={4} maxW="600px" bgColor="red.100">
               <Stack direction="row" alignItems="center" bgColor="green.200">
-                <Box w="300px" h="500px" bgColor="yellow.500" />
+                <Image
+                  src="/assets/mobilePhone.png"
+                  width="252px"
+                  height="534px"
+                  alt="estructura de un celular"
+                />
                 <Box
                   display="flex"
                   bgColor="yellow.200"
@@ -73,7 +97,12 @@ export const Services = (props: Props) => {
                 bgColor="green.200"
                 spacing={8}
               >
-                <Box w="300px" h="500px" bgColor="yellow.500" />
+                <Image
+                  src="/assets/mobilePhone.png"
+                  width="252px"
+                  height="534px"
+                  alt="estructura de un celular"
+                />
                 <Stack maxW="280px">
                   <Box
                     display="flex"
@@ -171,7 +200,12 @@ export const Services = (props: Props) => {
               </Box>
             </Box>
             <Stack direction={{ base: "column", lg: "row" }} spacing={8}>
-              <Box w="300px" h="500px" bgColor="blue" />
+            <Image
+                  src="/assets/mobilePhone.png"
+                  width="252px"
+                  height="534px"
+                  alt="estructura de un celular"
+                />
               <Stack justifyContent="center" maxW="360px">
                 <Box display="flex" flexDirection="column">
                   <Text maxW="260px" fontSize="20px" fontWeight={300}>
@@ -198,7 +232,12 @@ export const Services = (props: Props) => {
                   </Text>
                 </Box>
               </Stack>
-              <Box w="300px" h="500px" bgColor="red" />
+              <Image
+                  src="/assets/mobilePhone.png"
+                  width="252px"
+                  height="534px"
+                  alt="estructura de un celular"
+                />
             </Stack>
           </Stack>
         </Stack>
@@ -230,10 +269,15 @@ export const Services = (props: Props) => {
                 </ListItem>
                 <ListItem>Arreglan el punto de encuentro</ListItem>
               </OrderedList>
-            </Box>            
+            </Box>
           </Stack>
           <Stack>
-            <Box w="300px" h="500px" bgColor="red.200" />
+          <Image
+                  src="/assets/mobilePhone.png"
+                  width="252px"
+                  height="534px"
+                  alt="estructura de un celular"
+                />
           </Stack>
           <Stack h="full" spacing={8}>
             <Box display="flex" flexDirection="column">
@@ -241,7 +285,7 @@ export const Services = (props: Props) => {
               <Text>tus publicaciones activas</Text>
               <Text>las publicaciones aceptadas por ambas partes</Text>
               <Text>todas las publicaciones activas</Text>
-            </Box>            
+            </Box>
           </Stack>
         </Stack>
 
@@ -265,7 +309,12 @@ export const Services = (props: Props) => {
               </Box>
             </Box>
             <Stack direction={{ base: "column", md: "row" }} spacing={8}>
-              <Box minW="250px" h="400px" bgColor="red.200" />
+            <Image
+                  src="/assets/mobilePhone.png"
+                  width="252px"
+                  height="534px"
+                  alt="estructura de un celular"
+                />
               <Box
                 display="flex"
                 flexDirection="column"
@@ -273,8 +322,9 @@ export const Services = (props: Props) => {
                 justifyContent="center"
               >
                 <Text fontSize="24px">
-                  Por cada publicación en la que participes, sumarás puntos que luego podrás intercambiar por
-                  beneficios ofrecidos por las Tiendas adheridas
+                  Por cada publicación en la que participes, sumarás puntos que
+                  luego podrás intercambiar por beneficios ofrecidos por las
+                  Tiendas adheridas
                 </Text>
               </Box>
             </Stack>
@@ -306,7 +356,12 @@ export const Services = (props: Props) => {
                   puntos acumulados
                 </Text>
               </Stack>
-              <Box minW="250px" h="400px" bgColor="red.200" />
+              <Image
+                  src="/assets/mobilePhone.png"
+                  width="252px"
+                  height="534px"
+                  alt="estructura de un celular"
+                />
             </Stack>
           </Stack>
         </Stack>

@@ -91,7 +91,7 @@ export const Hero = (props: Props) => {
         borderWidth="1px"
         borderRadius="2xl"
       >
-        <Text textAlign={{ base: "center" }} fontSize={{ base: "30px" }}>
+        <Text textAlign={{ base: "center" }} fontSize={{ base: "24px" }} textColor="gray.700">
           Nuestro objetivo principal es que tengan a un click de distancia todas
           las herramientas necesarias para que reciclar sea sencillo y puedan
           incorporarlo en su día a día

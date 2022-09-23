@@ -4,7 +4,9 @@ import { extendTheme } from "@chakra-ui/react";
 
 const colors = {
   gray: {
-    50: "#f9fafa", // blanco background = gray.50
+    //50: "#f9fafa", // blanco background = gray.50
+    50: "#FDFEFE ", // blanco cards & highlight = gray.50
+    75: "#FBFCFC ",  // blanco background = gray.75
     100: "#f1f1f2", // gris claro background = gray.100
     200: "#e7e7e8",
     300: "#d3d4d5", // gris oscuro background = gray.300

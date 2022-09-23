@@ -1,5 +1,5 @@
 import React from "react";
-import { Stack, Box, Center, Text, Image } from "@chakra-ui/react";
+import { Stack, Center, Text, Image } from "@chakra-ui/react";
 import { Section } from "../components";
 import { History } from "./History";
 
@@ -30,6 +30,7 @@ export const About = (props: Props) => {
             p={4}
             shadow="lg"
             fontSize="24px"
+            color={"gray.700"}
           >
             <Image
               src="/icons/recycle.png"
@@ -52,6 +53,7 @@ export const About = (props: Props) => {
             p={4}
             shadow="lg"
             fontSize="24px"
+            color={"gray.700"}
           >
             <Image
               src="/icons/planetEarth.png"
@@ -75,6 +77,7 @@ export const About = (props: Props) => {
             p={4}
             shadow="lg"
             fontSize="24px"
+            color={"gray.700"}
           >
             <Image
               src="/icons/community.png"
@@ -82,7 +85,7 @@ export const About = (props: Props) => {
               height="100px"
               alt="iconos de usuarios conectados entre sí"
             />
-            <Text w="200px" textAlign="center">
+            <Text w="200px" textAlign="center" color={"gray.700"}>
               <b>Conectar con más gente</b> para intercambiar materiales y
               reutilizarlos
             </Text>
@@ -103,7 +106,7 @@ export const About = (props: Props) => {
             />
           </Center>
           <Center pt={50}>
-            <Text w="600px" textAlign="center">
+            <Text w="600px" textAlign="center" color={"gray.700"}>
               Hay Tiendas con políticas de cuidado ambiental que reutilizarían
               estos materiales llevando{" "}
               <b>el costo de su materia prima a cero</b>
@@ -125,7 +128,7 @@ export const About = (props: Props) => {
           justifyContent="center"
         >
           <Center>
-            <Text w="300px" textAlign="center">
+            <Text w="300px" textAlign="center" color={"gray.700"}>
               La <b>materia orgánica</b> también puede ser reducida a través del
               compost para la nutrición de la tierra
             </Text>
@@ -139,14 +142,14 @@ export const About = (props: Props) => {
             />
           </Center>
           <Center>
-            <Text w="300px" textAlign="center">
+            <Text w="300px" textAlign="center" color={"gray.700"}>
               Te contamos cómo comenzar en este proceso y dónde se encuentran
               las <b>composteras comunitarias</b>
             </Text>
           </Center>
         </Stack>
       </Stack>
-      <Stack w="full" bgColor="gray.100" py={6} fontSize="24px" p={100}>
+      <Stack w="full" bgColor="gray.50" py={6} fontSize="24px" p={100}>
         <Stack
           direction={{ base: "column", lg: "row" }}
           justifyContent="center"
@@ -161,7 +164,7 @@ export const About = (props: Props) => {
             />
           </Center>
           <Center maxW="600px">
-            <Text>
+            <Text color={"gray.700"}>
               Para todas las personas comprometidas con las tres R (reducir,
               reutilizar y reciclar) <b>ofrecemos un sistema de puntos</b> que
               van a poder cambiar por descuentos o beneficios en las Tiendas

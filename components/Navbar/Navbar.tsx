@@ -26,7 +26,7 @@ export const Navbar = (props: Props) => {
 
   const NAVBAR_LINKS: NavbarLinkProps[] = [
     {
-      href: "#id-login",
+      href: "/login",
       img: "/icons/login.png",
       label: "Ingresar",
     },

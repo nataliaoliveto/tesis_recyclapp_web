@@ -16,7 +16,7 @@ type Props = {};
 
 export const Contact = (props: Props) => {
   return (
-    <Section id="id-contact" backgroundColor="gray.100" >
+    <Section id="id-contact" backgroundColor="gray.75" >
       <Box display="flex" justifyContent="center" py={4}>
         <Image src="/icons/headset.png" width="128px" height="128px" alt="headset atención al usuario"/>
       </Box>

@@ -6,7 +6,7 @@ type Props = {};
 
 export const Footer = (props: Props) => {
   return (
-    <Stack id="id-footer" alignItems="center" color="gray.600" px={4}>
+    <Stack id="id-footer" alignItems="center" color="gray.600">
       <Stack
         py={48}
         direction="row"

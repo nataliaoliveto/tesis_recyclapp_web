@@ -6,8 +6,8 @@ type Props = {};
 
 export const History = (props: Props) => {
   return (
-    <Section id="id-history" backgroundColor="yellow.100">
-      <Stack w="full" bgColor="gray.100" py={6}>
+    <Section id="id-history" backgroundColor="gray.50">
+      <Stack w="full" bgColor="gray.50" py={6} color={"gray.700"}>
         <Stack
           direction="column"
           justifyContent="center"
@@ -28,7 +28,7 @@ export const History = (props: Props) => {
             <Stack
               maxW="880px"
               minH="300px"
-              bgColor="gray.300"
+              bgColor="gray.200"
               borderRadius="20px"
               direction={{ base: "column", lg: "row" }}
               justifyContent="center"
@@ -67,29 +67,29 @@ export const History = (props: Props) => {
             alt="ciclo de tres R reducir, reutilizar y reciclar"
           />
         </Stack>
-        <Stack
-          spacing={6}
-          bgColor="gray.500"
-          py={8}
-          px={{ base: "0px", sm: "30px", md: "80px" }}
-        >
+        <Stack spacing={6} py={8} px={{ base: "0px", sm: "30px", md: "80px" }}>
           <Grid
             templateColumns={{ base: "repeat(4, 1fr)", lg: "repeat(12, 1fr)" }}
-            bgColor="blue.100"
           >
             <GridItem
-              colStart={{ base: 3, lg: 10 }}
+              colStart={{ base: 3, lg: 9 }}
               colEnd={{ base: 4, lg: 12 }}
             >
-              <Text fontSize="48px" fontWeight={600} textAlign="right">
+              <Text
+                fontSize="48px"
+                fontWeight={600}
+                textAlign="right"
+                color="gray.600"
+              >
                 Misión
               </Text>
             </GridItem>
 
             <GridItem
-              colStart={{ base: 2, lg: 6 }}
-              colEnd={{ base: 4, lg: 12 }}
+              colStart={{ base: 2, lg: 5 }}
+              colEnd={{ base: 4, lg: 10 }}
             >
+              <Box minW="20px" h="10px" bgColor="green.100" />
               <Text fontSize="24px" textAlign="right">
                 Ofrecer un espacio donde las personas interactúen y dispongan de
                 todas las herramientas necesarias para aprender. Donde puedan
@@ -100,15 +100,15 @@ export const History = (props: Props) => {
           </Grid>
           <Grid
             templateColumns={{ base: "repeat(4, 1fr)", lg: "repeat(12, 1fr)" }}
-            bgColor="yellow.100"
           >
             <GridItem colStart={{ base: 2, lg: 2 }} colEnd={{ base: 4, lg: 9 }}>
-              <Text fontSize="48px" fontWeight={600}>
+              <Text fontSize="48px" fontWeight={600} color="gray.600">
                 Visión
               </Text>
             </GridItem>
 
             <GridItem colStart={{ base: 2, lg: 4 }} colEnd={{ base: 4, lg: 9 }}>
+              <Box minW="20px" h="10px" bgColor="cyan.100" />
               <Text fontSize="24px" textAlign="left">
                 Queremos ser el punto de encuentro preferido para la comunidad y
                 acompañarlos día a día en la incorporación de nuevas costumbres
@@ -118,13 +118,17 @@ export const History = (props: Props) => {
           </Grid>
           <Grid
             templateColumns={{ base: "repeat(4, 1fr)", lg: "repeat(12, 1fr)" }}
-            bgColor="cyan.100"
           >
             <GridItem
               colStart={{ base: 3, lg: 9 }}
               colEnd={{ base: 4, lg: 12 }}
             >
-              <Text fontSize="48px" fontWeight={600} textAlign="right">
+              <Text
+                fontSize="48px"
+                fontWeight={600}
+                textAlign="right"
+                color="gray.600"
+              >
                 Objetivo
               </Text>
             </GridItem>
@@ -133,6 +137,7 @@ export const History = (props: Props) => {
               colStart={{ base: 2, lg: 5 }}
               colEnd={{ base: 4, lg: 10 }}
             >
+              <Box minW="20px" h="10px" bgColor="yellow.200" />
               <Text fontSize="24px" textAlign="right">
                 A corto plazo buscamos unir en CABA a diferentes recicladores,
                 tiendas con políticas de cuidado ambiental y personas que
