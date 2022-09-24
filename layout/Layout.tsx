@@ -1,5 +1,5 @@
 import { VStack, Flex } from "@chakra-ui/react";
-import { Navbar, Footer } from "../components";
+import { Navbar, Footer } from "../components"; 
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -10,7 +10,7 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 
   return (
     <>
-      <VStack role="main" spacing={0}>
+      <VStack role="main" spacing={0} backgroundColor="gray.75">
         {/* Navbar */}
         <Navbar />
 

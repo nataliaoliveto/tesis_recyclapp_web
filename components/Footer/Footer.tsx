@@ -6,23 +6,24 @@ type Props = {};
 
 export const Footer = (props: Props) => {
   return (
-    <Stack id="id-footer" alignItems="center" color="gray.600">
+    <Stack id="id-footer" alignItems="center" color="gray.600" backgroundColor="gray.75">
       <Stack
-        py={48}
+        py={40}
         direction="row"
         justifyContent="center"
         w="full"
         maxW="900px"
         alignItems="center"
+        // p={5}
       >
         <Flex flexDirection="column" maxW="400px">
-          <Text fontSize="64px" lineHeight={1}>
+          <Text fontSize="60px" lineHeight={1}>
             Seguinos en las redes
           </Text>
-          <Text fontSize="30px" lineHeight={1.3}>
+          <Text fontSize="24px" lineHeight={1.3}>
             ¿Querés enterarte de las últimas novedades?
           </Text>
-          <Text fontSize="30px" lineHeight={1.3}>
+          <Text fontSize="24px" lineHeight={1.3}>
             ¡No te olvides de seguirnos!
           </Text>
         </Flex>
@@ -42,7 +43,7 @@ export const Footer = (props: Props) => {
                 alt="Instagram link"
                 mb={1}
               />
-              <Text>RecyclAppOk</Text>
+              <Text fontSize="16px">RecyclAppOk</Text>
             </Box>
           </Box>
           <Box
@@ -69,7 +70,7 @@ export const Footer = (props: Props) => {
                 alt="Twitter link"
                 mb={1}
               />
-              RecyclAppOk
+              <Text fontSize="16px">RecyclAppOk</Text>
             </Box>
           </Box>
           <Box w="100px" h="100px" position="absolute" top={"35%"} right={0}>
@@ -87,7 +88,7 @@ export const Footer = (props: Props) => {
                 alt="Facebook link"
                 mb={1}
               />
-              RecyclAppOk
+              <Text fontSize="16px">RecyclAppOk</Text>
             </Box>
           </Box>
         </Flex>
@@ -98,7 +99,7 @@ export const Footer = (props: Props) => {
         py={6}
         style={{ marginTop: 0 }}
         w="full"
-        bgColor="green.300"
+        bgColor="green.100"
       >
         <Text textAlign="center">
           RecyclApp © 2022 Todos los derechos reservados | Desarrollado por

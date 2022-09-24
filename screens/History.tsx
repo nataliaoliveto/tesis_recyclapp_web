@@ -6,17 +6,18 @@ type Props = {};
 
 export const History = (props: Props) => {
   return (
-    <Section id="id-history" backgroundColor="gray.50">
-      <Stack w="full" bgColor="gray.50" py={6} color={"gray.700"}>
+    <Section id="id-history" backgroundColor="gray.75">
+      <Stack w="full" bgColor="gray.75" py={6} color={"gray.700"}>
         <Stack
           direction="column"
           justifyContent="center"
           alignItems="center"
           spacing={8}
         >
-          <Text fontSize="48px" fontWeight={600}>
+          <Text as="h2" fontSize="48px" fontWeight={600}>
             Nuestra Historia
           </Text>
+          <Box width={"400px"} h="8px" bgColor="yellow.300"/>
 
           <Text fontSize="24px" maxW="1000px" textAlign="center">
             El cuidado del medioambiente es un problema que se agrava con el
@@ -28,7 +29,7 @@ export const History = (props: Props) => {
             <Stack
               maxW="880px"
               minH="300px"
-              bgColor="gray.200"
+              bgColor="yellow.200"
               borderRadius="20px"
               direction={{ base: "column", lg: "row" }}
               justifyContent="center"

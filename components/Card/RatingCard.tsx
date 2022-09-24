@@ -1,27 +1,62 @@
 import React from "react";
-import { Stack, Box, Text } from "@chakra-ui/react";
+import { Stack, Box, Text, Image } from "@chakra-ui/react";
+import StarRatingComponent from "react-star-rating-component";
 
-export const RatingCard = () => {
+import second from "../../styles/star-rate.module.css";
+
+interface IRatingCard {
+  text: string;
+  rating: number;
+  name: string;
+}
+
+export const RatingCard = ({ text, rating, name }: IRatingCard) => {
   return (
     <Box
+      className="embla__slide"
       w="412px"
       bgColor="gray.50"
-      h="540px"
+      h="600px"
       borderRadius="40px"
       shadow="md"
       color="gray.600"
     >
       <Stack p={8} alignItems="center" justifyContent="space-between" h="full">
-        <Box>
-          <Box bgColor="red.200" w="full" h="64px" mb={8} />
-          <Text textAlign="center" fontSize="28px">
-            Aprendí mucho con esta app!! Es muy buena para quienes quieren
-            aprender como yo, tiene DE TODO!
+        <Box display="flex" flexDir="column" alignItems="center">
+          <Box
+            as={StarRatingComponent}
+            editing={false}
+            starCount={5}
+            value={rating}
+            name="rate1"
+            className={second.starrate}
+          />
+          <Box width={"200px"} h="4px" bgColor="yellow.950" mb={10}/>
+          <Text textAlign="center" fontSize="28px" mb={10}>
+            {text}
           </Text>
         </Box>
 
-        <Stack>
-          <Text fontSize="32px" fontWeight={500}>Nombre</Text>
+        <Stack
+          backgroundColor={"green.100"}
+          width={350}
+          alignItems={"center"}
+          justifyContent={"center"}
+          h={170}
+          borderTopRadius="full"
+        >
+          <Text
+            fontSize="36px"
+            fontWeight={600}
+            color="gray.500"
+            maxW={325}
+            maxH={80}
+            textAlign="center"
+            inlineSize={"225px"}
+            overflowWrap={"break-word"}
+          >
+            {name}
+          </Text>
         </Stack>
       </Stack>
     </Box>

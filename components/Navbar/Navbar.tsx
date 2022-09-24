@@ -12,24 +12,44 @@ import {
   VStack,
   Icon,
   useDisclosure,
+  Image,
+  Link as ChakraLink,
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import { NavbarLinkProps } from "./NavbarLink";
 import { NavbarLink } from "./NavbarLink";
+import { LoginModal } from "../Modal";
 import Link from "next/link";
 
-
-type Props = {};
-
-export const Navbar = (props: Props) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+export const Navbar = () => {
+  const {
+    isOpen: isOpenDrawer,
+    onOpen: onOpenDrawer,
+    onClose: onCloseDrawer,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenModal,
+    onOpen: onOpenModal,
+    onClose: onCloseModal,
+  } = useDisclosure();
 
   const NAVBAR_LINKS: NavbarLinkProps[] = [
-    {
-      href: "/login",
-      img: "/icons/login.png",
-      label: "Ingresar",
-    },
+    // {
+    //   href: "/login",
+    //   img: "/icons/login.png",
+    //   label: "Ingresar",
+    // },
     {
       href: "#id-about",
       img: "/icons/aboutRecyclapp.png",
@@ -58,7 +78,7 @@ export const Navbar = (props: Props) => {
     {
       href: "#id-footer",
       img: "/icons/leaves.png",
-      label: "Nosotros",
+      label: "Seguinos",
     },
   ];
 
@@ -89,6 +109,19 @@ export const Navbar = (props: Props) => {
             fontWeight={700}
             spacing={12}
           >
+            <ChakraLink onClick={onOpenModal}>
+              <Stack spacing={2} direction="row">
+                <Image src="/icons/login.png" width="6" height="6" />
+                <Text
+                  as="span"
+                  cursor="pointer"
+                  fontWeight={600}
+                  color="gray.700"
+                >
+                  Ingresar
+                </Text>
+              </Stack>
+            </ChakraLink>
             {NAVBAR_LINKS.map((link, index) => {
               return (
                 <NavbarLink
@@ -106,10 +139,10 @@ export const Navbar = (props: Props) => {
             display={{ base: "flex", xl: "none" }}
             h={6}
             w={6}
-            onClick={onOpen}
+            onClick={onOpenDrawer}
           />
         </Flex>
-        <Drawer isOpen={isOpen} placement="top" onClose={onClose}>
+        <Drawer isOpen={isOpenDrawer} placement="top" onClose={onCloseDrawer}>
           <DrawerOverlay p={0} />
           <DrawerContent>
             <DrawerBody>
@@ -121,7 +154,7 @@ export const Navbar = (props: Props) => {
                   position="absolute"
                   right={4}
                   w={6}
-                  onClick={onClose}
+                  onClick={onCloseDrawer}
                 />
                 <Stack align="center" pt={10} spacing={10}>
                   {NAVBAR_LINKS.map((link, index) => (
@@ -138,6 +171,7 @@ export const Navbar = (props: Props) => {
           </DrawerContent>
         </Drawer>
       </Container>
+      <LoginModal isOpenModal={isOpenModal} onCloseModal={onCloseModal} />
     </Box>
   );
 };

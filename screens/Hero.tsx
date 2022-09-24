@@ -11,6 +11,8 @@ export const Hero = (props: Props) => {
         templateColumns="repeat(8, 1fr)"
         templateRows="repeat(1, 1fr)"
         gap={"4"}
+        h="60vh"
+        alignItems="center"
       >
         <GridItem rowSpan={1} colSpan={{ sm: 9, md: 4 }} p="50px" >
           <Box 

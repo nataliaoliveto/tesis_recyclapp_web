@@ -8,9 +8,32 @@ import {
   Textarea,
   Button,
 } from "@chakra-ui/react";
-import { Section, RatingCard } from "../components";
+import { Section, RatingCard, StarRating } from "../components";
+import StarRatingComponent from "react-star-rating-component";
+import useEmblaCarousel from "embla-carousel-react";
+import second from "../styles/star-rate.module.css";
 
 export const Rating = () => {
+  const mockCards = [
+    {
+      id: 0,
+      rating: 5,
+      text: "Aprendí mucho con esta app!! Es muy buena para quienes quieren aprender como yo, tiene DE TODO!",
+      name: "ALEJANDRO DEL MONTE",
+    },
+    {
+      id: 1,
+      rating: 4,
+      text: "me gusta y es fácil de usar pero estaría bueno que agreguen más beneficios.",
+      name: "Santi",
+    },
+    {
+      id: 2,
+      rating: 3,
+      text: "en casa la usamos para acompañar a los chicos en la concientización! PLANETA HAY UNO SOLO, CUIDÉMOSLO!!!",
+      name: "Maria",
+    },
+  ];
   return (
     <>
       <Section id="id-rating" backgroundColor="gray.75">
@@ -21,13 +44,40 @@ export const Rating = () => {
           color="gray.700"
           pb={8}
         >
-          <Text as="h2" fontSize="42px" textAlign="center" mb={10}>
-            ¿Qué opinan de RecyclApp?
-          </Text>
-          <Stack w="full" justifyContent="center" direction="row" spacing={8}>
-            <RatingCard />
-            <RatingCard />
-            <RatingCard />
+          <Stack
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            spacing={8}
+          >
+            <Text
+              as="h2"
+              fontSize="42px"
+              fontWeight={600}
+              color="gray.600"
+              textAlign="center"
+            >
+              ¿Qué opinan de RecyclApp?
+            </Text>
+            <Box width={"400px"} h="8px" bgColor="yellow.950" />
+          </Stack>
+          {/* <RatingCarousel /> */}
+          <Stack
+            w="full"
+            justifyContent="center"
+            alignItems="center"
+            direction={{ base: "column", lg: "row"}}
+            spacing={8}
+            mt={20}
+          >
+            {mockCards.map((ratingCard) => (
+              <RatingCard
+                key={ratingCard.id}
+                text={ratingCard.text}
+                rating={ratingCard.rating}
+                name={ratingCard.name}
+              />
+            ))}
           </Stack>
         </Box>
       </Section>
@@ -39,9 +89,24 @@ export const Rating = () => {
           flexDirection="column"
           color="gray.600"
         >
-          <Text as="h2" fontSize="42px" textAlign="center" mb={10}>
-            ¡Nos interesa tu opinión!
-          </Text>
+          <Stack
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            spacing={8}
+            mb={10}
+          >
+            <Text
+              as="h2"
+              fontSize="42px"
+              fontWeight={600}
+              color="gray.600"
+              textAlign="center"
+            >
+              ¡Nos interesa tu opinión!
+            </Text>
+            <Box width={"400px"} h="8px" bgColor="orange.200" />
+          </Stack>
           <Stack
             px={6}
             py={8}
@@ -66,7 +131,7 @@ export const Rating = () => {
             </Box>
             <Box>
               <FormLabel>Valora la app</FormLabel>
-              <Box w="full" bgColor="orange.300" h="42px" borderRadius="8px" />
+              <StarRating />
             </Box>
           </Stack>
           <Button bgColor="orange.300" color="gray.50">
@@ -77,3 +142,68 @@ export const Rating = () => {
     </>
   );
 };
+
+// const RatingCarousel = () => {
+//   const [emblaRef] = useEmblaCarousel();
+
+//   const mockCards = [
+//     {
+//       id: 0,
+//       rating: 5,
+//       text: "Aprendí mucho con esta app!! Es muy buena para quienes quieren aprender como yo, tiene DE TODO!",
+//       name: "Amara",
+//     },
+//     {
+//       id: 1,
+//       rating: 4,
+//       text: "me gusta y es fácil de usar pero estaría bueno que agreguen más beneficios.",
+//       name: "Santi",
+//     },
+//     {
+//       id: 2,
+//       rating: 3,
+//       text: "en casa la usamos para acompañar a los chicos en la concientización! PLANETA HAY UNO SOLO, CUIDÉMOSLO!!!",
+//       name: "Maria",
+//     },
+//     {
+//       id: 3,
+//       rating: 4,
+//       text: "Recomiendo",
+//       name: "Fede",
+//     },
+//     {
+//       id: 4,
+//       rating: 5,
+//       text: "Muy buena idea!!!!",
+//       name: "Malena",
+//     },
+//     {
+//       id: 2,
+//       rating: 2,
+//       text: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+//       name: "Gonza",
+//     },
+//   ];
+
+//   return (
+//     <Box className="embla" ref={emblaRef}>
+//       <Stack
+//         w="full"
+//         justifyContent="center"
+//         direction="row"
+//         spacing={8}
+//         mt={20}
+//         className="embla__container"
+//       >
+//         {mockCards.map((ratingCard) => (
+//           <RatingCard
+//             key={ratingCard.id}
+//             text={ratingCard.text}
+//             rating={ratingCard.rating}
+//             name={ratingCard.name}
+//           />
+//         ))}
+//       </Stack>
+//     </Box>
+//   );
+// };
