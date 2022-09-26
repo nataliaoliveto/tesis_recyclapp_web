@@ -17,7 +17,7 @@ export const History = (props: Props) => {
           <Text as="h2" fontSize="48px" fontWeight={600}>
             Nuestra Historia
           </Text>
-          <Box width={"400px"} h="8px" bgColor="yellow.300"/>
+          <Box width={"400px"} h="8px" bgColor="yellow.300" />
 
           <Text fontSize="24px" maxW="1000px" textAlign="center">
             El cuidado del medioambiente es un problema que se agrava con el

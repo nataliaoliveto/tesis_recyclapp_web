@@ -1,10 +1,12 @@
 import React from "react";
-import { Stack, Box, Text, Image, Button } from "@chakra-ui/react";
+import { Stack, Box, Text, Image } from "@chakra-ui/react";
+import { DonationCardValues } from "./DonationCardValues";
 
 export const DonationCard = () => {
   return (
     <Stack
-      minW={{ base: "full", lg: "820px" }}
+      minW={{ base: "full", lg: "820px" }}      
+      maxW={{ base: "full", lg: "900px" }}
       textAlign="center"
       bgColor="gray.50"
       px={4}
@@ -44,21 +46,24 @@ export const DonationCard = () => {
           ayuda
         </Text>
       </Box>
-      <a href="#id-contact">
-        <Button
-          borderColor={"yellow.400"}
-          borderStyle="solid"
-          borderWidth={"thin"}
-          borderRadius="2xl"
-          backgroundColor={"gray.50"}
-          color="gray.500"
-        >
-          Solicitar
-        </Button>
-      </a>
-      <Box display="flex" h="2px" w="full" bgColor="yellow.200" />
 
-      <Box
+      <Box display="flex" h="2px" w="full" bgColor="yellow.200" />
+      
+        <Stack
+          spacing={6}
+          direction={{ base: "column", lg: "row" }}
+          textAlign="center"
+          p={4}
+          borderRadius="24px"
+          backgroundColor="gray.50"
+          alignItems="center"
+        >
+          <DonationCardValues donationPrice="100" />
+          <DonationCardValues donationPrice="500" />
+          <DonationCardValues donationPrice="1.000" />
+        </Stack>
+
+      {/* <Box
         display={{ base: "none", md: "flex" }}
         h="65px"
         w="65px"
@@ -72,7 +77,7 @@ export const DonationCard = () => {
           height={"64px"}
           alt="carita feliz"
         />
-      </Box>
+      </Box> */}
     </Stack>
   );
 };

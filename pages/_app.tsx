@@ -6,16 +6,16 @@ const colors = {
   gray: {
     //50: "#f9fafa",
     50: "#ffffff", // blanco cards & highlight = gray.50
-    //50: "#FDFEFE ", 
-    75: "#FBFCFC ",  // blanco background = gray.75
+    //50: "#FDFEFE ",
+    75: "#FBFCFC ", // blanco background = gray.75
     100: "#f1f1f2", // gris claro background = gray.100
     200: "#e7e7e8",
     300: "#d3d4d5", // gris oscuro background = gray.300
     400: "#abadaf", // PROBAR gris claro texto = gray.400
     500: "#7d7f83", // gris oscuro texto = gray.500
-    600: "#52555a", 
+    600: "#52555a",
     700: "#33373d", // header = gray.700
-    800: "#1d2025", 
+    800: "#1d2025",
     900: "#171a1d",
   },
   red: {
@@ -33,8 +33,8 @@ const colors = {
   orange: {
     50: "#fdfaf6",
     100: "#f9ebdb",
-    200: "#f1d4b1", 
-    300: "#e6b273", // botón orange.300 
+    200: "#f1d4b1",
+    300: "#e6b273", // botón orange.300
     400: "#dc9239",
     500: "#c37b24",
     600: "#a5681e",
@@ -46,8 +46,8 @@ const colors = {
     50: "#fefefc",
     100: "#fbf9ea",
     200: "#f4eec2",
-    300: "#ece192", 
-    400: "#dfce4b", // PROBAR yellow.300 
+    300: "#ece192",
+    400: "#dfce4b", // PROBAR yellow.300
     500: "#bba922",
     600: "#95871c",
     700: "#746915",
@@ -63,7 +63,7 @@ const colors = {
     400: "#23bd78",
     500: "#1ea367",
     600: "#198755", //verde oscuro = green.600
-    700: "#136942", 
+    700: "#136942",
     800: "#105636",
     900: "#0d472d",
   },
@@ -74,7 +74,7 @@ const colors = {
     300: "#2dd1da",
     400: "#22b2ba",
     500: "#1d979e", // celeste botón = teal.500
-    600: "#187b80", 
+    600: "#187b80",
     700: "#125f64",
     800: "#0f5053",
     900: "#0d4244",

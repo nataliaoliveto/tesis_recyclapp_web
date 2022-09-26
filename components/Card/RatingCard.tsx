@@ -31,7 +31,7 @@ export const RatingCard = ({ text, rating, name }: IRatingCard) => {
             name="rate1"
             className={second.starrate}
           />
-          <Box width={"200px"} h="4px" bgColor="yellow.950" mb={10}/>
+          <Box width={"200px"} h="4px" bgColor="yellow.950" mb={10} />
           <Text textAlign="center" fontSize="28px" mb={10}>
             {text}
           </Text>

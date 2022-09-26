@@ -6,15 +6,21 @@ type Props = {};
 
 export const Footer = (props: Props) => {
   return (
-    <Stack id="id-footer" alignItems="center" color="gray.600" backgroundColor="gray.75">
+    <Stack
+      id="id-footer"
+      alignItems="center"
+      color="gray.600"
+      backgroundColor="gray.75"
+      mt={10}
+    >
       <Stack
+        px={5}
         py={40}
         direction="row"
         justifyContent="center"
         w="full"
         maxW="900px"
         alignItems="center"
-        // p={5}
       >
         <Flex flexDirection="column" maxW="400px">
           <Text fontSize="60px" lineHeight={1}>

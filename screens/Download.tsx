@@ -46,26 +46,6 @@ export const Download = (props: Props) => {
             flexDir={{ base: "column", lg: "row" }}
             alignItems="center"
           >
-            {/*
-              <Button
-                borderColor={"green.200"}
-                borderStyle="solid"
-                borderWidth={"thin"}
-                borderRadius="2xl"
-                backgroundColor={"green.400"}
-                color="gray.500"
-                width={"256px"}
-                height="76px"
-              >
-               <Image
-                  src="/icons/downloadWhite.png"
-                  width="64px"
-                  height="64px"
-                  alt="Download icon"
-                  mb={1}
-                /> 
-
-              </Button>*/}
             <Image
               src="/assets/google-play-badge.png"
               width="215px"

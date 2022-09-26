@@ -8,32 +8,11 @@ import {
   Textarea,
   Button,
 } from "@chakra-ui/react";
-import { Section, RatingCard, StarRating } from "../components";
+import { Section, RatingCard, StarRating, RatingCarousel } from "../components";
 import StarRatingComponent from "react-star-rating-component";
-import useEmblaCarousel from "embla-carousel-react";
 import second from "../styles/star-rate.module.css";
 
 export const Rating = () => {
-  const mockCards = [
-    {
-      id: 0,
-      rating: 5,
-      text: "Aprendí mucho con esta app!! Es muy buena para quienes quieren aprender como yo, tiene DE TODO!",
-      name: "ALEJANDRO DEL MONTE",
-    },
-    {
-      id: 1,
-      rating: 4,
-      text: "me gusta y es fácil de usar pero estaría bueno que agreguen más beneficios.",
-      name: "Santi",
-    },
-    {
-      id: 2,
-      rating: 3,
-      text: "en casa la usamos para acompañar a los chicos en la concientización! PLANETA HAY UNO SOLO, CUIDÉMOSLO!!!",
-      name: "Maria",
-    },
-  ];
   return (
     <>
       <Section id="id-rating" backgroundColor="gray.75">
@@ -61,24 +40,8 @@ export const Rating = () => {
             </Text>
             <Box width={"400px"} h="8px" bgColor="yellow.950" />
           </Stack>
-          {/* <RatingCarousel /> */}
-          <Stack
-            w="full"
-            justifyContent="center"
-            alignItems="center"
-            direction={{ base: "column", lg: "row"}}
-            spacing={8}
-            mt={20}
-          >
-            {mockCards.map((ratingCard) => (
-              <RatingCard
-                key={ratingCard.id}
-                text={ratingCard.text}
-                rating={ratingCard.rating}
-                name={ratingCard.name}
-              />
-            ))}
-          </Stack>
+
+          <RatingCarousel />
         </Box>
       </Section>
       <Section backgroundColor="gray.75">
@@ -134,7 +97,13 @@ export const Rating = () => {
               <StarRating />
             </Box>
           </Stack>
-          <Button bgColor="orange.300" color="gray.50">
+          <Button
+            bgColor="orange.300"
+            color="gray.50"
+            _hover={{
+              backgroundColor: "green.400",
+            }}
+          >
             Enviar opinión
           </Button>
         </Box>

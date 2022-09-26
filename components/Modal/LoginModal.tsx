@@ -31,7 +31,12 @@ export const LoginModal = ({ isOpenModal, onCloseModal }: ILoginModal) => {
   };
 
   return (
-    <Modal isOpen={isOpenModal} onClose={handleCloseModal} isCentered scrollBehavior="inside">
+    <Modal
+      isOpen={isOpenModal}
+      onClose={handleCloseModal}
+      isCentered
+      scrollBehavior="inside"
+    >
       <ModalOverlay />
       {register ? (
         <ModalContent>
@@ -72,12 +77,19 @@ export const LoginModal = ({ isOpenModal, onCloseModal }: ILoginModal) => {
 
           <ModalFooter>
             <Stack w="full">
-              <Button bgColor="teal.500" color="gray.100" borderRadius="2xl">
+              <Button
+                bgColor="teal.500"
+                color="gray.100"
+                borderRadius="2xl"
+                _hover={{
+                  backgroundColor: "green.400",
+                }}
+              >
                 Crear
               </Button>
               <Button
                 onClick={() => setRegister(false)}
-                borderColor="green.200"
+                borderColor="teal.200"
                 borderStyle="solid"
                 borderWidth="thin"
                 borderRadius="2xl"
@@ -105,23 +117,35 @@ export const LoginModal = ({ isOpenModal, onCloseModal }: ILoginModal) => {
             </FormControl>
           </ModalBody>
 
-          <Box display="flex" px={6}>
+          <Box display="flex" px={6} py={3} alignItems="center">
+            <Text pr={3}>¿Primera vez ingresando? </Text>
             <Link
               fontSize="sm"
               fontWeight={600}
+              _hover={{
+                color: "teal.400",
+              }}
               onClick={() => setRegister(true)}
             >
-              Crear usuario
+              Crear nuevo usuario
             </Link>
           </Box>
 
           <ModalFooter>
             <Stack w="full">
-              <Button bgColor="teal.500" color="gray.100" borderRadius="2xl">
+              <Button
+                bgColor="teal.500"
+                color="gray.100"
+                borderRadius="2xl"
+                _hover={{
+                  backgroundColor: "green.400",
+                  color: "gray.50",
+                }}
+              >
                 Login
               </Button>
               <Button
-                borderColor="green.200"
+                borderColor="teal.200"
                 borderStyle="solid"
                 borderWidth="thin"
                 borderRadius="2xl"
@@ -129,7 +153,7 @@ export const LoginModal = ({ isOpenModal, onCloseModal }: ILoginModal) => {
                 color="gray.500"
                 onClick={onCloseModal}
               >
-                Cancel
+                Cancelar
               </Button>
             </Stack>
           </ModalFooter>

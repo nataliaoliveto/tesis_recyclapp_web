@@ -5,7 +5,6 @@ import {
   Text,
   UnorderedList,
   ListItem,
-  OrderedList,
   Image,
 } from "@chakra-ui/react";
 import {
@@ -52,7 +51,12 @@ export const Services = (props: Props) => {
         >
           <Stack direction="row" alignItems="center" bgColor="cyan.400">
             <Stack direction="column" px={4} maxW="600px" bgColor="red.100">
-              <Stack direction="row" alignItems="center" bgColor="green.200">
+              <Stack
+                direction="row"
+                alignItems="center"
+                bgColor="green.200"
+                justifyContent="center"
+              >
                 <Image
                   src="/assets/mobilePhone.png"
                   width="252px"
@@ -71,28 +75,41 @@ export const Services = (props: Props) => {
                   </Text>
                 </Box>
               </Stack>
-              <Stack maxW="400px" fontSize="24px" pl={2}>
-                <Text fontWeight={600}>Donde podrás aprender</Text>
-                <UnorderedList>
-                  <ListItem>
-                    Los diferentes tipos de materiales que son reciclables y los
-                    que no deben ser tirados como basura orgánica
-                  </ListItem>
-                  <ListItem>
-                    Cómo emplear las técnicas de reciclaje o reutilización
-                  </ListItem>
-                  <ListItem>Cómo hacer compost en casa</ListItem>
-                </UnorderedList>
+              <Stack h="full" spacing={8}>
+                <Box display="flex" flexDirection="column" m={5}>
+                  <Text fontSize="24px">
+                    <b>Wiki</b> donde podrás aprender:
+                  </Text>
+                  <Box width={"350px"} h="4px" bgColor="yellow.200" my={5} />
+                  <UnorderedList>
+                    <ListItem fontSize="20px">
+                      Los diferentes tipos de materiales que son reciclables y
+                      los que no deben ser tirados como basura orgánica
+                    </ListItem>
+                    <ListItem fontSize="20px">
+                      Cómo emplear las técnicas de reciclaje o reutilización
+                    </ListItem>
+                    <ListItem fontSize="20px">
+                      Cómo hacer compost en casa
+                    </ListItem>
+                  </UnorderedList>
+                  <Box width={"350px"} h="4px" bgColor="yellow.200" my={5} />
+                  <Text fontSize="20px" textAlign="center">
+                    <b>Noticias</b> de impacto general en el medioambiente y
+                    contenido multimedia externo en plataformas de Streaming
+                  </Text>
+                </Box>
               </Stack>
             </Stack>
           </Stack>
+
           <Stack direction="row" alignItems="center" bgColor="cyan.400">
             <Stack direction="column" px={4} maxW="600px" bgColor="red.100">
               <Stack
                 direction="row"
                 alignItems="center"
                 bgColor="green.200"
-                spacing={8}
+                justifyContent="center"
               >
                 <Image
                   src="/assets/mobilePhone.png"
@@ -100,36 +117,42 @@ export const Services = (props: Props) => {
                   height="534px"
                   alt="estructura de un celular"
                 />
-                <Stack maxW="280px">
-                  <Box
-                    display="flex"
-                    bgColor="blue.200"
-                    px={4}
-                    py={2}
-                    borderRadius="full"
-                    justifyContent="center"
+                <Box
+                  display="flex"
+                  bgColor="cyan.200"
+                  px={4}
+                  py={2}
+                  borderRadius="full"
+                >
+                  <Text
+                    as="h2"
+                    fontSize={{ base: "26px", lg: "32px" }}
+                    fontWeight={600}
                   >
-                    <Text
-                      as="h2"
-                      fontSize="32px"
-                      textAlign="center"
-                      fontWeight={600}
-                    >
-                      Publicidad
-                    </Text>
-                  </Box>
-                  <Text fontSize="24px" textAlign="center">
+                    Publicidad
+                  </Text>
+                </Box>
+              </Stack>
+              <Stack
+                direction="column"
+                justifyContent="center"
+                h="full"
+                spacing={8}
+              >
+                <Box
+                  display="flex"
+                  flexDirection="column"
+                  maxW="400px"
+                  justifyContent="center"
+                  alignItems="center"
+                  m={5}
+                >
+                  <Text fontSize="20px" textAlign="center">
                     ¿Tu negocio sigue políticas verdes? Tenemos un espacio
                     exclusivo para vos. Visita nuestros planes de contratación
                     debajo
                   </Text>
-                </Stack>
-              </Stack>
-              <Stack maxW="400px">
-                <Text fontSize="24px">
-                  Noticias de impacto general en el medioambiente y contenido
-                  multimedia externo en plataformas de Streaming
-                </Text>
+                </Box>
               </Stack>
             </Stack>
           </Stack>
@@ -162,19 +185,16 @@ export const Services = (props: Props) => {
               titleBgColor="teal.100"
               title="Diaria"
               oneTimePrice="375.-"
-              recurringDailyPrice="335.-"
             />
             <AdvertisingPlanCard
               titleBgColor="teal.200"
               title="Semanal"
-              oneTimePrice="375.-"
-              recurringDailyPrice="335.-"
+              oneTimePrice="2.115.-"
             />
             <AdvertisingPlanCard
               titleBgColor="teal.300"
               title="Mensual"
-              oneTimePrice="375.-"
-              recurringDailyPrice="335.-"
+              oneTimePrice="7.615.-"
             />
           </Stack>
         </Stack>
@@ -269,37 +289,45 @@ export const Services = (props: Props) => {
                 </Text>
               </Box>
             </Box>
-            <Box display="flex" flexDirection="column" maxW="400px">
-              <OrderedList mt={5} mb={5}>
+            <Box
+              display="flex"
+              flexDirection="column"
+              maxW="400px"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Box mt={5} mb={5}></Box>
               <Image
                 src="/icons/numberOne.png"
                 width="32px"
                 height="32px"
                 alt="estructura de un celular"
+                mb="5"
               />
-                <ListItem fontSize="20px">
-                  Podrás publicar qué materiales ofreces o buscas (o necesitas
-                  que trasladen a un Punto Verde)
-                </ListItem>
-                <Image
+              <Text fontSize="20px" textAlign="center">
+                Podrás publicar qué materiales ofreces o buscas (o necesitas que
+                trasladen a un Punto Verde)
+              </Text>
+              <Image
                 src="/icons/numberTwo.png"
                 width="32px"
                 height="32px"
                 alt="estructura de un celular"
+                m="5"
               />
-                <ListItem fontSize="20px">
-                  Otro reciclador confirma que necesita o tiene esos materiales
-                </ListItem>
-                <Image
+              <Text fontSize="20px" textAlign="center">
+                Otro reciclador confirma que necesita o tiene esos materiales
+              </Text>
+              <Image
                 src="/icons/numberThree.png"
                 width="32px"
                 height="32px"
                 alt="estructura de un celular"
+                m="5"
               />
-                <ListItem fontSize="20px">
-                  Arreglan el punto de encuentro
-                </ListItem>
-              </OrderedList>
+              <Text fontSize="20px" textAlign="center">
+                Arreglan el punto de encuentro
+              </Text>
             </Box>
           </Stack>
           <Stack>
@@ -311,14 +339,18 @@ export const Services = (props: Props) => {
             />
           </Stack>
           <Stack h="full" spacing={8}>
-            <Box display="flex" flexDirection="column" mt={5} mb={5}>
+            <Box display="flex" flexDirection="column" m={5}>
               <Text fontSize="20px">En este menú podrás ver rápidamente:</Text>
               <Box width={"350px"} h="4px" bgColor="yellow.200" />
-              <Text fontSize="20px">tus publicaciones activas</Text>
-              <Text fontSize="20px">
-                las publicaciones aceptadas por ambas partes
-              </Text>
-              <Text fontSize="20px">todas las publicaciones activas</Text>
+              <UnorderedList>
+                <ListItem fontSize="20px">tus publicaciones activas</ListItem>
+                <ListItem fontSize="20px">
+                  las publicaciones aceptadas por ambas partes
+                </ListItem>
+                <ListItem fontSize="20px">
+                  todas las publicaciones activas
+                </ListItem>
+              </UnorderedList>
             </Box>
           </Stack>
         </Stack>
@@ -339,8 +371,12 @@ export const Services = (props: Props) => {
             color={"gray.600"}
             mt={10}
           >
-            <Stack direction="column" justifyContent="center" alignItems="center">
-              <Box width={"375px"} h="4px" bgColor="green.100"/>
+            <Stack
+              direction="column"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Box width={"375px"} h="4px" bgColor="green.100" />
               <Text textAlign="center" fontSize="20px">
                 Participando en la aplicación podés obtener
               </Text>

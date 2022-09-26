@@ -14,17 +14,6 @@ import {
   useDisclosure,
   Image,
   Link as ChakraLink,
-  Button,
-  FormControl,
-  FormLabel,
-  Input,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import { NavbarLinkProps } from "./NavbarLink";
@@ -37,6 +26,7 @@ export const Navbar = () => {
     isOpen: isOpenDrawer,
     onOpen: onOpenDrawer,
     onClose: onCloseDrawer,
+    onToggle: onToggleDrawer,
   } = useDisclosure();
   const {
     isOpen: isOpenModal,
@@ -44,12 +34,7 @@ export const Navbar = () => {
     onClose: onCloseModal,
   } = useDisclosure();
 
-  const NAVBAR_LINKS: NavbarLinkProps[] = [
-    // {
-    //   href: "/login",
-    //   img: "/icons/login.png",
-    //   label: "Ingresar",
-    // },
+  const NAVBAR_LINKS = [
     {
       href: "#id-about",
       img: "/icons/aboutRecyclapp.png",
@@ -109,7 +94,12 @@ export const Navbar = () => {
             fontWeight={700}
             spacing={12}
           >
-            <ChakraLink onClick={onOpenModal}>
+            <ChakraLink
+              onClick={onOpenModal}
+              _hover={{
+                textDecoration: "none",
+              }}
+            >
               <Stack spacing={2} direction="row">
                 <Image src="/icons/login.png" width="6" height="6" />
                 <Text
@@ -117,6 +107,9 @@ export const Navbar = () => {
                   cursor="pointer"
                   fontWeight={600}
                   color="gray.700"
+                  _hover={{
+                    color: "green.400",
+                  }}
                 >
                   Ingresar
                 </Text>
@@ -157,12 +150,34 @@ export const Navbar = () => {
                   onClick={onCloseDrawer}
                 />
                 <Stack align="center" pt={10} spacing={10}>
+                  <ChakraLink
+                    onClick={onOpenModal}
+                    _hover={{
+                      textDecoration: "none",
+                    }}
+                  >
+                    <Stack spacing={2} direction="row">
+                      <Image src="/icons/login.png" width="6" height="6" />
+                      <Text
+                        as="span"
+                        cursor="pointer"
+                        fontWeight={600}
+                        color="gray.700"
+                        _hover={{
+                          color: "green.400",
+                        }}
+                      >
+                        Ingresar
+                      </Text>
+                    </Stack>
+                  </ChakraLink>
                   {NAVBAR_LINKS.map((link, index) => (
                     <NavbarLink
                       key={index}
                       href={link.href}
                       img={link.img}
                       label={link.label}
+                      onToggleDrawer={onToggleDrawer}
                     />
                   ))}
                 </Stack>

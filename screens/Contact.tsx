@@ -23,6 +23,7 @@ export const Contact = (props: Props) => {
           width="128px"
           height="128px"
           alt="headset atención al usuario"
+          mt={10}
         />
       </Box>
       <Stack
@@ -85,7 +86,13 @@ export const Contact = (props: Props) => {
             <Textarea />
           </Box>
         </Stack>
-        <Button bgColor="teal.500" color="gray.100">
+        <Button
+          bgColor="teal.500"
+          color="gray.100"
+          _hover={{
+            backgroundColor: "green.400",
+          }}
+        >
           Enviar consulta
         </Button>
       </Box>

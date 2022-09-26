@@ -14,9 +14,8 @@ export const Hero = (props: Props) => {
         h="60vh"
         alignItems="center"
       >
-        <GridItem rowSpan={1} colSpan={{ sm: 9, md: 4 }} p="50px" >
-          <Box 
-            display="flex" flexDirection="row"> 
+        <GridItem rowSpan={1} colSpan={{ sm: 9, md: 4 }} p="50px">
+          <Box display="flex" flexDirection="row">
             <Text
               as="h1"
               textAlign={{ base: "left" }}
@@ -93,7 +92,11 @@ export const Hero = (props: Props) => {
         borderWidth="1px"
         borderRadius="2xl"
       >
-        <Text textAlign={{ base: "center" }} fontSize={{ base: "24px" }} textColor="gray.700">
+        <Text
+          textAlign={{ base: "center" }}
+          fontSize={{ base: "24px" }}
+          textColor="gray.700"
+        >
           Nuestro objetivo principal es que tengan a un click de distancia todas
           las herramientas necesarias para que reciclar sea sencillo y puedan
           incorporarlo en su día a día
