@@ -1,27 +1,30 @@
 import React from "react";
 import Router from "next/router";
+import axios from "axios";
+import { UserCreate } from "../models/user";
+import { NextPageContext } from "next";
 
-type Props = {};
+export const Image = ({images}) => {
+  // const [images, setImages] = React.useState([
+  //   {
+  //     publicId: "",
+  //     version: 0,
+  //     format: "",
+  //   },
+  // ]); // set the type of the state to an array of objects
 
-export const Image = () => {
-  const [images, setImages] = React.useState([
-    {
-      publicId: "",
-      version: 0,
-      format: "",
-    },
-  ]); // set the type of the state to an array of objects
+  // const fetchImages = async () => {
+  //   const response = await fetch("http://localhost:5000/api/images");
+  //   const data = await response.json();
+  //   setImages(data);
+  //   console.log(data);
+  // };
 
-  const fetchImages = async () => {
-    const response = await fetch("http://localhost:5000/api/images");
-    const data = await response.json();
-    // setImages(data);
-    console.log(data);
-  };
+  // React.useEffect(() => {
+  //   fetchImages();
+  // }, []);
 
-  React.useEffect(() => {
-    fetchImages();
-  }, []);
+  console.log('images', images)
 
   return (
     <>
@@ -29,12 +32,12 @@ export const Image = () => {
         <h1>Image Gallery</h1>
         <Upload />
         <main>
-          {images.map((image) => (
+          {/* {images.map((image) => (
             <img
               src={`https://res.cloudinary.com/dakunjike/v${image.version}/${image.publicId}.${image.format}`}
               key={image.publicId}
             />
-          ))}
+          ))}       */}
         </main>
       </div>
       <style jsx>{`
@@ -53,33 +56,85 @@ export const Image = () => {
   );
 };
 
+const initialState: UserCreate = {
+  name: "Elsa",
+  surname: "Prisma222222",
+  mail: "elsa2@prisma.io",
+  phone: "01144446666",
+  password: "password",
+  username: "elsaprisma",
+  userType: "CUSTOMER",
+};
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "name":
+      return { ...state, name: action.payload };
+    case "surname":
+      return { ...state, surname: action.payload };
+    case "mail":
+      return { ...state, mail: action.payload };
+    case "phone":
+      return { ...state, phone: action.payload };
+    case "password":
+      return { ...state, password: action.payload };
+    case "username":
+      return { ...state, username: action.payload };
+    case "userType":
+      return { ...state, userType: action.payload };
+    default:
+      return state;
+  }
+};
+
 export const Upload = () => {
   const [imageUploaded, setImageUploaded] = React.useState();
+  const [formValues, dispatch] = React.useReducer(reducer, initialState);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     console.log("event.target.files[0]", event.target.files[0]);
     setImageUploaded(event.target.files[0]);
   };
 
+  const handleChangeForm = (event: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch({ type: event.target.name, payload: event.target.value });
+  };
+
   const submitData = async (e) => {
+    // http://localhost:5000/api/user
     e.preventDefault();
 
-    if (!imageUploaded) {
-      return;
-    }
+    if (!imageUploaded) return;
 
     try {
-      const formData = new FormData();
-      formData.append("mi_file", imageUploaded);
+      const imageData = new FormData();
+      imageData.append("image_file", imageUploaded);
 
-      console.log(formData);
+      console.log('formValues', formValues)
+      console.log(imageData);
 
-      await fetch("http://localhost:5000/api/image", {
+      const res = await axios.post("http://localhost:5000/api/user", formValues, {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+        },
+      });
+      
+      console.log(res)
+
+      imageData.append("publicid", "cleeteqqv0000up5soh9k24cs");
+
+      const resImg = await fetch("http://localhost:5000/api/image", {
         method: "POST",
-        body: formData,
+        body: imageData,
+          // username: "cleeteqqv0000up5soh9k24cs",
+
       });
 
+      console.log('res', resImg);
+
       // Router.push("/");
+
     } catch (error) {
       console.error(error);
     }
@@ -95,7 +150,46 @@ export const Upload = () => {
             onChange={handleChange}
             accept=".jpg, .png, .gif, .jpeg"
             type="file"
-          ></input>
+          />
+
+            <label>
+              Nombre:
+            </label>
+            <input type="text" name="name" value={formValues.name} onChange={handleChangeForm}/>
+            <label>
+              Apellido:
+            </label>
+            <input type="text" name="surname" value={formValues.surname} onChange={handleChangeForm}/>
+            <label>
+              Mail:
+            </label>
+            <input type="mail" name="mail" value={formValues.mail} onChange={handleChangeForm}/>
+            <label>
+              Telefono:
+            </label>
+            <input type="number" name="phone" value={formValues.phone} onChange={handleChangeForm}/>
+            <label>
+              Password:
+            </label>
+            <input type="password" name="password" value={formValues.password} onChange={handleChangeForm}/>
+            <label>
+              Username:
+            </label>
+            <input type="text" name="username" value={formValues.username} onChange={handleChangeForm}/>
+            <label>
+              Tipo de usuario:
+            </label>
+            <select>
+              <option defaultValue={"CUSTOMER"} value="CUSTOMER">General</option>
+              <option value="STORE">Tienda</option>
+            </select>
+
+        {/* genera user > devuelve username > genera request para cloudinary
+        genera user > devuelve error > drop/mantain pending > se reenvia otro form con el nuevo/mismo pending
+        
+        1 mostrar en la web datos cargados (incluyendo la imagen)
+        2 mostrar errores pero mantener la carga de datos (se pierde la imagen????)*/}
+
 
           <input type="submit" value="Upload" />
         </form>
@@ -117,3 +211,15 @@ export const Upload = () => {
     </>
   );
 };
+
+export async function getServerSideProps(context: NextPageContext) {
+  const { req, res } = context;
+  const response = await fetch("http://localhost:5000/api/images");
+  const data = await response.json();
+  
+  return {
+    props: {
+      images: data,
+    },
+  };
+}
