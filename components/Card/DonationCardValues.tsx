@@ -11,12 +11,10 @@ import {
 import { TransactionModal } from "../Modal";
 
 interface IDonationCardValues {
-    donationPrice: string;
-  }
+  donationPrice: string;
+}
 
-export const DonationCardValues = ({
-    donationPrice,
-  }: IDonationCardValues) => {
+export const DonationCardValues = ({ donationPrice }: IDonationCardValues) => {
   const {
     isOpen: isOpenModal,
     onOpen: onOpenModal,
@@ -71,7 +69,12 @@ export const DonationCardValues = ({
 
       <Box display="flex" h="2px" w="full" bgColor="yellow.200" />
 
-      <TransactionModal isOpenModal={isOpenModal} onCloseModal={onCloseModal} cardType={"Donación"} duration={"Semanal"} price={donationPrice}/>
+      <TransactionModal
+        isOpenModal={isOpenModal}
+        onCloseModal={onCloseModal}
+        duration={"Semanal"}
+        price={donationPrice}
+      />
     </Stack>
   );
 };

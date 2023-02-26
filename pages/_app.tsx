@@ -1,6 +1,12 @@
 import type { AppProps } from "next/app";
+import { useState } from "react";
 import { ChakraProvider } from "@chakra-ui/react";
 import { extendTheme } from "@chakra-ui/react";
+import {
+  Hydrate,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
 
 const colors = {
   gray: {
@@ -148,10 +154,15 @@ const fonts = {
 const theme = extendTheme({ styles: global, colors, fonts });
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const [queryClient] = useState(() => new QueryClient());
   return (
-    <ChakraProvider theme={theme}>
-      <Component {...pageProps} />
-    </ChakraProvider>
+    <QueryClientProvider client={queryClient}>
+      <Hydrate state={pageProps.dehydratedState}>
+        <ChakraProvider theme={theme}>
+          <Component {...pageProps} />
+        </ChakraProvider>
+      </Hydrate>
+    </QueryClientProvider>
   );
 }
 

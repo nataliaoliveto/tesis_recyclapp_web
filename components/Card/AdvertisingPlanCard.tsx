@@ -72,11 +72,10 @@ export const AdvertisingPlanCard = ({
           Solicitar
         </Button>
       </ChakraLink>
-      
+
       <TransactionModal
         isOpenModal={isOpenModal}
         onCloseModal={onCloseModal}
-        cardType={"Publicidad"}
         duration={title}
         price={oneTimePrice}
       />

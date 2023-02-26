@@ -4,7 +4,7 @@ import axios from "axios";
 import { UserCreate } from "../models/user";
 import { NextPageContext } from "next";
 
-export const Image = ({images}) => {
+export const Image = ({ images }) => {
   // const [images, setImages] = React.useState([
   //   {
   //     publicId: "",
@@ -24,7 +24,7 @@ export const Image = ({images}) => {
   //   fetchImages();
   // }, []);
 
-  console.log('images', images)
+  console.log("images", images);
 
   return (
     <>
@@ -110,31 +110,34 @@ export const Upload = () => {
       const imageData = new FormData();
       imageData.append("image_file", imageUploaded);
 
-      console.log('formValues', formValues)
+      console.log("formValues", formValues);
       console.log(imageData);
 
-      const res = await axios.post("http://localhost:5000/api/user", formValues, {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-        },
-      });
-      
-      console.log(res)
+      const res = await axios.post(
+        "http://localhost:5000/api/user",
+        formValues,
+        {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log(res);
 
       imageData.append("publicid", "cleeteqqv0000up5soh9k24cs");
+      imageData.append("subfolder", "User");
 
       const resImg = await fetch("http://localhost:5000/api/image", {
-        method: "POST",
+        method: "PUT",
         body: imageData,
-          // username: "cleeteqqv0000up5soh9k24cs",
-
+        // username: "cleeteqqv0000up5soh9k24cs",
       });
 
-      console.log('res', resImg);
+      console.log("res", resImg);
 
       // Router.push("/");
-
     } catch (error) {
       console.error(error);
     }
@@ -152,44 +155,61 @@ export const Upload = () => {
             type="file"
           />
 
-            <label>
-              Nombre:
-            </label>
-            <input type="text" name="name" value={formValues.name} onChange={handleChangeForm}/>
-            <label>
-              Apellido:
-            </label>
-            <input type="text" name="surname" value={formValues.surname} onChange={handleChangeForm}/>
-            <label>
-              Mail:
-            </label>
-            <input type="mail" name="mail" value={formValues.mail} onChange={handleChangeForm}/>
-            <label>
-              Telefono:
-            </label>
-            <input type="number" name="phone" value={formValues.phone} onChange={handleChangeForm}/>
-            <label>
-              Password:
-            </label>
-            <input type="password" name="password" value={formValues.password} onChange={handleChangeForm}/>
-            <label>
-              Username:
-            </label>
-            <input type="text" name="username" value={formValues.username} onChange={handleChangeForm}/>
-            <label>
-              Tipo de usuario:
-            </label>
-            <select>
-              <option defaultValue={"CUSTOMER"} value="CUSTOMER">General</option>
-              <option value="STORE">Tienda</option>
-            </select>
+          <label>Nombre:</label>
+          <input
+            type="text"
+            name="name"
+            value={formValues.name}
+            onChange={handleChangeForm}
+          />
+          <label>Apellido:</label>
+          <input
+            type="text"
+            name="surname"
+            value={formValues.surname}
+            onChange={handleChangeForm}
+          />
+          <label>Mail:</label>
+          <input
+            type="mail"
+            name="mail"
+            value={formValues.mail}
+            onChange={handleChangeForm}
+          />
+          <label>Telefono:</label>
+          <input
+            type="number"
+            name="phone"
+            value={formValues.phone}
+            onChange={handleChangeForm}
+          />
+          <label>Password:</label>
+          <input
+            type="password"
+            name="password"
+            value={formValues.password}
+            onChange={handleChangeForm}
+          />
+          <label>Username:</label>
+          <input
+            type="text"
+            name="username"
+            value={formValues.username}
+            onChange={handleChangeForm}
+          />
+          <label>Tipo de usuario:</label>
+          <select>
+            <option defaultValue={"CUSTOMER"} value="CUSTOMER">
+              General
+            </option>
+            <option value="STORE">Tienda</option>
+          </select>
 
-        {/* genera user > devuelve username > genera request para cloudinary
+          {/* genera user > devuelve username > genera request para cloudinary
         genera user > devuelve error > drop/mantain pending > se reenvia otro form con el nuevo/mismo pending
         
         1 mostrar en la web datos cargados (incluyendo la imagen)
         2 mostrar errores pero mantener la carga de datos (se pierde la imagen????)*/}
-
 
           <input type="submit" value="Upload" />
         </form>
@@ -216,7 +236,7 @@ export async function getServerSideProps(context: NextPageContext) {
   const { req, res } = context;
   const response = await fetch("http://localhost:5000/api/images");
   const data = await response.json();
-  
+
   return {
     props: {
       images: data,
