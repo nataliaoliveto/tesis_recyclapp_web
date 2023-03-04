@@ -56,8 +56,8 @@ export const TransactionModal = ({
 
   const [formValues, dispatch] = React.useReducer(reducer, {
     userId: "cle0gegsm0000v8dwm58hlynv",
-    title: "titulin",
-    text: "textin",
+    title: "",
+    text: "",
     duration,
   });
 
@@ -175,6 +175,7 @@ export const TransactionModal = ({
                 name="title"
                 value={formValues.title}
                 onChange={handleChangeForm}
+                required
               />
             </FormControl>
 
@@ -186,6 +187,7 @@ export const TransactionModal = ({
                 name="text"
                 value={formValues.text}
                 onChange={handleChangeForm}
+                required
               />
             </FormControl>
 

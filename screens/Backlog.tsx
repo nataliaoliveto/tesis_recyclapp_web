@@ -10,7 +10,7 @@ import {
 
 type Props = {};
 
-export const Services = (props: Props) => {
+export const Backlog = (props: Props) => {
   return (
     <>
       <Stack
