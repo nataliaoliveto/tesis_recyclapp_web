@@ -49,12 +49,11 @@ export const Services = (props: Props) => {
           alignItems={{ base: "center", lg: "flex-start" }}
           color="gray.600"
         >
-          <Stack direction="row" alignItems="center" bgColor="cyan.400">
-            <Stack direction="column" px={4} maxW="600px" bgColor="red.100">
+          <Stack direction="row" alignItems="center">
+            <Stack direction="column" px={4} maxW="600px">
               <Stack
                 direction="row"
                 alignItems="center"
-                bgColor="green.200"
                 justifyContent="center"
               >
                 <Image
@@ -103,12 +102,11 @@ export const Services = (props: Props) => {
             </Stack>
           </Stack>
 
-          <Stack direction="row" alignItems="center" bgColor="cyan.400">
-            <Stack direction="column" px={4} maxW="600px" bgColor="red.100">
+          <Stack direction="row" alignItems="center">
+            <Stack direction="column" px={4} maxW="600px">
               <Stack
                 direction="row"
                 alignItems="center"
-                bgColor="green.200"
                 justifyContent="center"
               >
                 <Image

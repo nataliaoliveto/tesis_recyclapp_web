@@ -1,4 +1,4 @@
-import axios from "axios";
+import { axiosCustom } from "./axios";
 
 interface UploadImage {
   image: File;
@@ -12,8 +12,8 @@ export const imagesApi = {
     formData.append("image_file", image);
     formData.append("publicid", publicid);
     formData.append("subfolder", subfolder);
-    const result = await axios.put(
-      "http://localhost:5000/api/image",
+    const result = await axiosCustom.put(
+      "/api/image",
       formData,
       {
         headers: {
@@ -25,5 +25,3 @@ export const imagesApi = {
     return result.data;
   },
 };
-
-//TODO: Add services for api.user.ts and whatever is required.

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { axiosCustom } from "./axios";
 
 export interface CreateUser {
   name: string;
@@ -29,7 +30,7 @@ export const usersApi = {
       password,
       userType,
     };
-    const result = await axios.post("http://localhost:5000/api/user", body, {
+    const result = await axiosCustom.post("/api/user", body, {
       headers: {
         "Content-Type": "application/json",
       },

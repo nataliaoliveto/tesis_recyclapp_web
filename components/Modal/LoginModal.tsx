@@ -40,11 +40,6 @@ interface FormData {
   userType: string;
 }
 
-// ! extension Todo Tree
-// TODO check validation cuando se clickea
-// TODO check ruedita sube y baja números de tel
-// TODO handle error from backend when DB issue or restriction
-
 const userSchema = z
   .object({
     name: z
@@ -119,7 +114,7 @@ const userSchema = z
   .refine((data) => data.password === data.passwordTwice, {
     message: "Las contraseñas no coinciden",
     path: ["passwordTwice"],
-  });
+  })
 
 type ValidationSchema = z.infer<typeof userSchema>;
 
@@ -139,10 +134,16 @@ export const LoginModal = ({ isOpenModal, onCloseModal }: ILoginModal) => {
     handleSubmit,
     register,
     reset,
+    watch,
     formState: { errors, isValid },
   } = useForm<ValidationSchema>({
     mode: "all",
     resolver: zodResolver(userSchema),
+    resetOptions: {
+      keepDirty: true,
+      keepDirtyValues: true,
+    },
+    reValidateMode: "onChange",
   });
 
   const onSubmit = async (values: any) => {
@@ -155,8 +156,7 @@ export const LoginModal = ({ isOpenModal, onCloseModal }: ILoginModal) => {
       password: values.password,
       userType: values.userType,
     });
-
-    reset();
+    // reset();
   };
 
   const handleCloseModal = () => {
@@ -164,6 +164,13 @@ export const LoginModal = ({ isOpenModal, onCloseModal }: ILoginModal) => {
     reset();
     onCloseModal();
   };
+
+  const handlerBackModal = () => {
+    setRegisterUser(false);
+    reset();
+  }
+
+  console.log('isValid', isValid)
 
   return (
     <Modal
@@ -234,12 +241,16 @@ export const LoginModal = ({ isOpenModal, onCloseModal }: ILoginModal) => {
 
             <FormControl isInvalid={errors.phone ? true : false}>
               <FormLabel htmlFor="phone">Teléfono</FormLabel>
+              <Text color="gray.400">Ingresar los 10 números luego del + 54 9 ...</Text>
               <Input
                 id="phone"
                 placeholder="teléfono"
                 type="number"
                 required
                 pattern="[0,9]"
+                onWheel={(e) => {
+                  e.currentTarget.blur();
+                }}
                 {...register("phone")}
                 onKeyPress={(e) => {
                   if (!/[0-9]/.test(e.key)) {
@@ -250,6 +261,11 @@ export const LoginModal = ({ isOpenModal, onCloseModal }: ILoginModal) => {
                   if (e.target.value.length > 10) {
                     e.target.value = e.target.value.slice(0, 10);
                   }
+
+                  if (+e.target.value < 0) {
+                    e.target.value = e.target.value.slice(0, 0);
+                  }
+
                 }}
               />
               <FormErrorMessage>
@@ -349,7 +365,7 @@ export const LoginModal = ({ isOpenModal, onCloseModal }: ILoginModal) => {
                 Crear
               </Button>
               <Button
-                onClick={() => setRegisterUser(false)}
+                onClick={() => handlerBackModal()}
                 borderColor="teal.200"
                 borderStyle="solid"
                 borderWidth="thin"
