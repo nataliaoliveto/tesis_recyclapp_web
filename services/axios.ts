@@ -7,7 +7,6 @@ export const axiosCustom = axios.create({
 });
 
 axiosCustom.interceptors.response.use((response) => response,(error) => {
-    console.log(error)
     const string = error.response.data.message
     //const string = error.response.data.error.meta.target[0]
     toast.error(string)

@@ -21,7 +21,7 @@ export const imagesApi = {
         },
       }
     );
-
+    console.log(formData)  
     return result.data;
   },
 };

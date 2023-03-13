@@ -8,13 +8,18 @@ import {
   ModalBody,
   FormControl,
   FormLabel,
+  FormErrorMessage,
   Input,
   ModalFooter,
   Stack,
   Button,
 } from "@chakra-ui/react";
-import axios from "axios";
 import { useUploadImage } from "../../hooks/useUploadImage";
+import { advertisementsApi, CreateAdvertisement } from "../../services/api.advertisements";
+import { useMutation } from "@tanstack/react-query";
+import { useForm, Resolver } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 
 interface ITransactionModal {
   isOpenModal: boolean;
@@ -23,17 +28,33 @@ interface ITransactionModal {
   price: string;
 }
 
-const reducer = (state: any, action: any) => {
-  switch (action.type) {
-    case "userId":
-      return { ...state, userId: action.payload };
-    case "title":
-      return { ...state, title: action.payload };
-    case "text":
-      return { ...state, text: action.payload };
-    default:
-      return state;
-  }
+const advertisementSchema = z
+.object({
+  title: z.string().min(4, {
+    message: "El mínimo del título son 3 caracteres y el máximo 30",
+  })
+  .max(30, {
+    message: "El máximo del título son 30 caracteres",
+  })
+  .regex(new RegExp(/^[a-zA-Z0-9]{4,30}$/), {
+    message: "El título puede incluir sólo letras y números",
+  }),
+  text: z.string()
+  .min(25, {
+    message: "El mínimo del texto son 25 caracteres y el máximo 255",
+  })
+  .max(255, {
+    message: "El máximo del texto son 255 caracteres",
+  }),
+}) 
+
+type ValidationSchema = z.infer<typeof advertisementSchema>;
+
+const resolver: Resolver<FormData> = async (values) => {
+  return {
+    values: values || {},
+    errors: {},
+  };
 };
 
 export const TransactionModal = ({
@@ -42,32 +63,9 @@ export const TransactionModal = ({
   duration,
   price,
 }: ITransactionModal) => {
-  const { uploadImage, image, handleImageChange } = useUploadImage({
+  const { uploadImage, image, handleImageChange, isLoading: isLoadingImage } = useUploadImage({
     subfolder: "Advertisement",
   });
-
-  // const pepe = useUploadImage({
-  //   subfolder: "Advertisement",
-  // });
-
-  // pepe.uploadImage
-  // pepe.image
-  // pepe.handleImageChange
-
-  const [formValues, dispatch] = React.useReducer(reducer, {
-    userId: "cle0gegsm0000v8dwm58hlynv",
-    title: "",
-    text: "",
-    duration,
-  });
-
-  const handleCloseModal = () => {
-    onCloseModal();
-  };
-
-  const handleChangeForm = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch({ type: event.target.name, payload: event.target.value });
-  };
 
   const durationDays = () => {
     if (duration === "Diaria") return 1;
@@ -76,25 +74,46 @@ export const TransactionModal = ({
     return 0;
   };
 
-  const submitData = async () => {
-    if (!image) return;
+  const { mutateAsync, isLoading } = useMutation({
+    mutationFn: async (data: CreateAdvertisement) => {
+      return await advertisementsApi.createAdvertisement(data).then((res) => res);
+    }
+  });
+  const {
+    handleSubmit,
+    register,
+    reset,
+    formState: { errors, isValid },
+  } = useForm<ValidationSchema>({
+    mode: "all",
+    resolver: zodResolver(advertisementSchema),
+    resetOptions: {
+      keepDirty: true,
+      keepDirtyValues: true,
+    },
+    reValidateMode: "onChange",
+  });
 
+  const onSubmit = async (values: any) => {
+    console.clear();
     try {
-      const res = await axios.post(
-        "http://localhost:5000/api/advertisement",
-        formValues,
-        {
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const res = await mutateAsync({
+        userId: "cleeteqqv0000up5soh9k24cs",
+        title: values.title,
+        text: values.text,
+        duration,
+      })
 
-      await uploadImage(res.data);
+      await uploadImage(res.advertisementId);
     } catch (error) {
       console.error(error);
     }
+    // reset();
+  };
+
+  const handleCloseModal = () => {
+    reset();
+    onCloseModal();
   };
 
   // Formulario y por transferencia con confirmación email
@@ -119,17 +138,17 @@ export const TransactionModal = ({
   return (
     <Modal
       isOpen={isOpenModal}
-      onClose={handleCloseModal}
+      onClose={onCloseModal}
       isCentered
       scrollBehavior="inside"
     >
       <ModalOverlay />
       {
-        <ModalContent>
+        <ModalContent as="form" onSubmit={handleSubmit(onSubmit)}>
           {/*AUTOPOPULAR DE CLICK */}
 
           <ModalHeader>Solicitud de Publicidad {duration}</ModalHeader>
-          <ModalCloseButton />
+          <ModalCloseButton onClick={() => handleCloseModal()} />
           <ModalBody pb={6}>
             <FormControl>
               <FormLabel fontSize="20px" fontWeight={400} color="cyan.800">
@@ -158,6 +177,7 @@ export const TransactionModal = ({
               </FormLabel>
               <Input placeholder="NombreContacto" disabled={true} />
             </FormControl>
+            
             <FormControl mt={4}>
               <FormLabel fontSize="20px" fontWeight={400} color="cyan.800">
                 Mail de contacto{" "}
@@ -167,28 +187,32 @@ export const TransactionModal = ({
 
             {/*PURO INPUT*/}
 
-            <FormControl>
+            <FormControl isInvalid={errors.title ? true : false}>
               <FormLabel>Título a mostrar en la publicidad</FormLabel>
               <Input
+                id="title"
                 placeholder="Título de publicidad"
-                maxLength={30}
-                name="title"
-                value={formValues.title}
-                onChange={handleChangeForm}
-                required
+                type="text"
+                required 
+                {...register("title")}
               />
+              <FormErrorMessage>
+                {errors.title && errors.title?.message}
+              </FormErrorMessage>
             </FormControl>
 
-            <FormControl>
+            <FormControl isInvalid={errors.text ? true : false}>
               <FormLabel>Texto a mostrar en la publicidad</FormLabel>
               <Input
+                id="text"
                 placeholder="Texto de publicidad"
-                maxLength={255}
-                name="text"
-                value={formValues.text}
-                onChange={handleChangeForm}
-                required
+                type="text"
+                required 
+                {...register("text")}
               />
+              <FormErrorMessage>
+                {errors.text && errors.text?.message}
+              </FormErrorMessage>
             </FormControl>
 
             <FormControl>
@@ -208,11 +232,13 @@ export const TransactionModal = ({
                 bgColor="teal.500"
                 color="gray.100"
                 borderRadius="2xl"
+                type="submit"
                 _hover={{
                   backgroundColor: "green.400",
                   color: "gray.50",
                 }}
-                onClick={() => submitData()}
+                isDisabled={!isValid}
+                isLoading={isLoading || isLoadingImage}
               >
                 Enviar solicitud
               </Button>

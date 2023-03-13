@@ -8,7 +8,7 @@ interface UseUploadImageProps {
 
 export const useUploadImage = ({ subfolder }: UseUploadImageProps) => {
   const [image, setImage] = useState<File | null>(null);
-  const mutation = useMutation(["imagesApi"], (publicid: string) =>
+  const { mutate, isLoading } = useMutation(["imagesApi"], (publicid: string) =>
     imagesApi.uploadImage({
       image: image ?? new File([""], ""),
       publicid,
@@ -20,5 +20,5 @@ export const useUploadImage = ({ subfolder }: UseUploadImageProps) => {
     if (e.target.files) setImage(e.target.files[0]);
   };
 
-  return { image, handleImageChange, uploadImage: mutation.mutate };
+  return { image, handleImageChange, uploadImage: mutate, isLoading};
 };

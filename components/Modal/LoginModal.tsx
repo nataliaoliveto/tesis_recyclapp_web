@@ -156,7 +156,6 @@ export const LoginModal = ({ isOpenModal, onCloseModal }: ILoginModal) => {
       password: values.password,
       userType: values.userType,
     });
-    // reset();
   };
 
   const handleCloseModal = () => {
@@ -169,8 +168,6 @@ export const LoginModal = ({ isOpenModal, onCloseModal }: ILoginModal) => {
     setRegisterUser(false);
     reset();
   }
-
-  console.log('isValid', isValid)
 
   return (
     <Modal

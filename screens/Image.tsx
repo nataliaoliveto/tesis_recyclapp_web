@@ -17,14 +17,11 @@ export const Image = ({ images }) => {
   //   const response = await fetch("http://localhost:5000/api/images");
   //   const data = await response.json();
   //   setImages(data);
-  //   console.log(data);
   // };
 
   // React.useEffect(() => {
   //   fetchImages();
   // }, []);
-
-  console.log("images", images);
 
   return (
     <>
@@ -92,7 +89,6 @@ export const Upload = () => {
   const [formValues, dispatch] = React.useReducer(reducer, initialState);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("event.target.files[0]", event.target.files[0]);
     setImageUploaded(event.target.files[0]);
   };
 
@@ -110,9 +106,6 @@ export const Upload = () => {
       const imageData = new FormData();
       imageData.append("image_file", imageUploaded);
 
-      console.log("formValues", formValues);
-      console.log(imageData);
-
       const res = await axios.post(
         "http://localhost:5000/api/user",
         formValues,
@@ -124,8 +117,6 @@ export const Upload = () => {
         }
       );
 
-      console.log(res);
-
       imageData.append("publicid", "cleeteqqv0000up5soh9k24cs");
       imageData.append("subfolder", "User");
 
@@ -134,8 +125,6 @@ export const Upload = () => {
         body: imageData,
         // username: "cleeteqqv0000up5soh9k24cs",
       });
-
-      console.log("res", resImg);
 
       // Router.push("/");
     } catch (error) {
