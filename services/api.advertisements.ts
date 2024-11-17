@@ -1,4 +1,3 @@
-import axios, {AxiosResponse} from "axios";
 import { axiosCustom } from "./axios";
 
 export interface CreateAdvertisement {
@@ -7,8 +6,6 @@ export interface CreateAdvertisement {
   text: string;
   duration: string;
 }
-
-type CreateAdvertisementResponse = { advertisementId: string }
 
 export const advertisementsApi = {
   createAdvertisement: async ({
