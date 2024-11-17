@@ -12,14 +12,3 @@ axiosCustom.interceptors.response.use((response) => response,(error) => {
     toast.error(string)
     return Promise.reject(error)
 })
-
-//        ______
-//   .---<__. \ \
-//   `---._  \ \ \
-//    ,----`- `.))         E
-//   / ,--.   )  |
-//  /_/    >     |
-//  |,\__-'      |
-//   \_           \
-//     ~~-___      )
-//           \      \
