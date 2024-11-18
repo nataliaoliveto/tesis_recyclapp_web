@@ -3,7 +3,6 @@ import { RatingCarousel } from "./components/rating-carousel";
 
 import { LeaveAComment } from "./components/leave-a-comment";
 import { auth } from "@clerk/nextjs/server";
-import { useRatingsQuery } from "@/hooks/useRatingsQuery";
 
 export const Rating = async () => {
   const { userId } = await auth();

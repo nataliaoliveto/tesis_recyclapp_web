@@ -12,38 +12,38 @@ import { useRatingsQuery } from "@/hooks/useRatingsQuery";
 
 export const RatingCarousel = () => {
   const { data: ratings } = useRatingsQuery();
-  const mockCards = [
-    {
-      id: 0,
-      rating: 5,
-      text: "Aprendí mucho con esta app!! Es muy buena para quienes quieren aprender como yo, tiene DE TODO!",
-      name: "ALEJANDRO DEL MONTE",
-    },
-    {
-      id: 1,
-      rating: 4,
-      text: "me gusta y es fácil de usar pero estaría bueno que agreguen más beneficios.",
-      name: "Santi",
-    },
-    {
-      id: 2,
-      rating: 3,
-      text: "en casa la usamos para acompañar a los chicos en la concientización! PLANETA HAY UNO SOLO, CUIDÉMOSLO!!!",
-      name: "Maria",
-    },
-    {
-      id: 3,
-      rating: 3,
-      text: "en casa la usamos para acompañar a los chicos en la concientización! PLANETA HAY UNO SOLO, CUIDÉMOSLO!!!",
-      name: "Maria",
-    },
-    {
-      id: 4,
-      rating: 3,
-      text: "en casa la usamos para acompañar a los chicos en la concientización! PLANETA HAY UNO SOLO, CUIDÉMOSLO!!!",
-      name: "Maria",
-    },
-  ];
+  // const mockCards = [
+  //   {
+  //     id: 0,
+  //     rating: 5,
+  //     text: "Aprendí mucho con esta app!! Es muy buena para quienes quieren aprender como yo, tiene DE TODO!",
+  //     name: "ALEJANDRO DEL MONTE",
+  //   },
+  //   {
+  //     id: 1,
+  //     rating: 4,
+  //     text: "me gusta y es fácil de usar pero estaría bueno que agreguen más beneficios.",
+  //     name: "Santi",
+  //   },
+  //   {
+  //     id: 2,
+  //     rating: 3,
+  //     text: "en casa la usamos para acompañar a los chicos en la concientización! PLANETA HAY UNO SOLO, CUIDÉMOSLO!!!",
+  //     name: "Maria",
+  //   },
+  //   {
+  //     id: 3,
+  //     rating: 3,
+  //     text: "en casa la usamos para acompañar a los chicos en la concientización! PLANETA HAY UNO SOLO, CUIDÉMOSLO!!!",
+  //     name: "Maria",
+  //   },
+  //   {
+  //     id: 4,
+  //     rating: 3,
+  //     text: "en casa la usamos para acompañar a los chicos en la concientización! PLANETA HAY UNO SOLO, CUIDÉMOSLO!!!",
+  //     name: "Maria",
+  //   },
+  // ];
 
   return (
     <Carousel
