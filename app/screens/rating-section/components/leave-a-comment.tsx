@@ -14,6 +14,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { useCreateRatingMutation } from "@/hooks/useRatingsQuery";
 
 type FormValues = {
   name: string;
@@ -23,6 +24,7 @@ type FormValues = {
 
 export const LeaveAComment = () => {
   const [hover, setHover] = useState(0);
+  const { mutate: createRating } = useCreateRatingMutation();
   const form = useForm<FormValues>({
     defaultValues: {
       name: "",
@@ -33,9 +35,18 @@ export const LeaveAComment = () => {
 
   const rating = form.watch("rating");
 
-  const onSubmit = (data: FormValues) => {
-    console.log('Submitted:', data);
-    form.reset();
+  const onSubmit = async (data: FormValues) => {
+    try {
+      await createRating({
+        userId: "1923801jkashd890123hjkasd892",
+        text: data.comment,
+        value: +data.rating,
+      });
+
+      form.reset();
+    } catch (error) {
+      throw error;
+    }
   };
 
   return (
@@ -87,11 +98,17 @@ export const LeaveAComment = () => {
                               />
                               <FaStar
                                 className="transition-all duration-200 ease-in-out"
-                                color={ratingValue <= (hover || rating) ? "#fbbf24" : "#e5e7eb"}
+                                color={
+                                  ratingValue <= (hover || rating)
+                                    ? "#fbbf24"
+                                    : "#e5e7eb"
+                                }
                                 size={32}
                                 onMouseEnter={() => setHover(ratingValue)}
                                 onMouseLeave={() => setHover(0)}
-                                onClick={() => form.setValue("rating", ratingValue)}
+                                onClick={() =>
+                                  form.setValue("rating", ratingValue)
+                                }
                               />
                             </label>
                           );
@@ -111,10 +128,10 @@ export const LeaveAComment = () => {
                   <FormItem>
                     <FormLabel>Deja un comentario</FormLabel>
                     <FormControl>
-                      <Textarea 
-                        placeholder="Escribe tu opinión aquí" 
+                      <Textarea
+                        placeholder="Escribe tu opinión aquí"
                         rows={4}
-                        {...field} 
+                        {...field}
                       />
                     </FormControl>
                     <FormMessage />
