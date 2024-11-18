@@ -11,7 +11,14 @@ export const registerSchema = z
     userType: z.enum(["general", "tienda"]),
     password: z
       .string()
-      .min(8, "La contraseña debe tener al menos 8 caracteres"),
+      .min(8, "La contraseña debe tener 8 caracteres")
+      .regex(/[A-Z]/, "Debe contener al menos una letra mayúscula")
+      .regex(/[a-z]/, "Debe contener al menos una letra minúscula")
+      .regex(/\d/, "Debe contener al menos un número")
+      .regex(
+        /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/,
+        "Debe contener al menos un carácter especial"
+      ),
     confirmPassword: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {
