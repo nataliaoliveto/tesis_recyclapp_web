@@ -1,3 +1,5 @@
+"use client";
+
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -9,7 +11,6 @@ import {
 } from "../../components/ui/form";
 import { Button } from "../../components/ui/button";
 import * as z from "zod";
-import { useRouter } from "next/navigation";
 import { useSignUp, useClerk } from "@clerk/nextjs";
 import { toast } from "sonner";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "../../components/ui/input-otp";
@@ -25,7 +26,6 @@ const schema = z.object({
 export const VerifyEmail = () => {
   const { signUp, isLoaded } = useSignUp();
   const { setActive } = useClerk();
-  const router = useRouter();
   const [resendDisabled, setResendDisabled] = useState(false);
   const [countdown, setCountdown] = useState(60);
 
@@ -47,7 +47,7 @@ export const VerifyEmail = () => {
       if (signUpAttempt.status === "complete") {
         await setActive({ session: signUpAttempt.createdSessionId });
         toast.success("Email verificado correctamente!");
-        router.replace("/");
+        window.location.href = "/";
       } else {
         console.error(JSON.stringify(signUpAttempt, null, 2));
         toast.error("Código inválido. Por favor, intenta nuevamente.");
