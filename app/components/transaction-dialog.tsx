@@ -10,13 +10,7 @@ import {
 
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { useUploadImage } from "@/hooks/useUploadImage";
 import { useForm } from "react-hook-form";
-import { useMutation } from "@tanstack/react-query";
-import {
-  advertisementsApi,
-  CreateAdvertisement,
-} from "@/services/api.advertisements";
 import { Input } from "@/components/ui/input";
 import { FormField } from "@/components/ui/form";
 import {
@@ -32,6 +26,7 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { ReactNode } from "react";
 import { Textarea } from "@/components/ui/textarea";
+import { useImageUpload } from "@/hooks/useImageUpload";
 
 const advertisementSchema = z.object({
   title: z
@@ -42,8 +37,8 @@ const advertisementSchema = z.object({
     .max(30, {
       message: "El máximo del título son 30 caracteres",
     })
-    .regex(new RegExp(/^[a-zA-Z0-9]{4,30}$/), {
-      message: "El título puede incluir sólo letras y números",
+    .regex(new RegExp(/^[a-zA-Z0-9\s]{4,30}$/), {
+      message: "El título puede incluir sólo letras, números y espacios",
     }),
   text: z
     .string()
@@ -53,7 +48,9 @@ const advertisementSchema = z.object({
     .max(255, {
       message: "El máximo del texto son 255 caracteres",
     }),
-  price: z.string(),
+  price: z.string().min(1, {
+    message: "El precio es requerido",
+  }),
   duration: z.string(),
   contactName: z.string(),
   contactEmail: z.string(),
@@ -72,11 +69,9 @@ export const TransactionDialog = ({
   price,
   children,
 }: TransactionDialogProps) => {
-  const { uploadImage, handleImageChange } = useUploadImage({
-    subfolder: "Advertisement",
-  });
+  const { handleImageChange, convertImageToBase64 } = useImageUpload();
 
-  const durationDays = () => {
+  const durationDays = (): number => {
     if (duration === "Diaria") return 1;
     if (duration === "Semanal") return 7;
     if (duration === "Mensual") return 28;
@@ -86,29 +81,43 @@ export const TransactionDialog = ({
   const form = useForm<ValidationSchema>({
     resolver: zodResolver(advertisementSchema),
     mode: "onSubmit",
-  });
-
-  const { mutateAsync } = useMutation({
-    mutationKey: ["advertisementsApi"],
-    mutationFn: async (data: CreateAdvertisement) => {
-      return await advertisementsApi
-        .createAdvertisement(data)
-        .then((res) => res);
+    defaultValues: {
+      price: price,
+      duration: durationDays().toString(),
     },
   });
 
   const onSubmit = async (values: ValidationSchema) => {
     try {
-      const res = await mutateAsync({
-        userId: "cleeteqqv0000up5soh9k24cs",
+      const imageBase64 = await convertImageToBase64();
+
+      const emailData = {
         title: values.title,
         text: values.text,
+        price,
         duration,
+        durationDays: durationDays(),
+        contactName: values.contactName,
+        contactEmail: values.contactEmail,
+        imageBase64,
+      };
+
+      const response = await fetch("/api/send/advertisement", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(emailData),
       });
 
-      await uploadImage(res.advertisementId);
+      if (!response.ok) {
+        throw new Error("Failed to send email");
+      }
+
+      form.reset();
     } catch (error) {
-      console.error(error);
+      console.error("Error submitting form:", error);
+      throw error;
     }
   };
 
@@ -129,8 +138,9 @@ export const TransactionDialog = ({
                 <FormItem>
                   <FormLabel>Valor $</FormLabel>
                   <FormControl>
-                    <Input {...field} disabled value={price} />
+                    <Input {...field} readOnly value={price} />
                   </FormControl>
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -142,8 +152,13 @@ export const TransactionDialog = ({
                 <FormItem>
                   <FormLabel>Duración en días</FormLabel>
                   <FormControl>
-                    <Input {...field} disabled value={durationDays()} />
+                    <Input
+                      {...field}
+                      readOnly
+                      value={durationDays().toString()}
+                    />
                   </FormControl>
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -155,8 +170,9 @@ export const TransactionDialog = ({
                 <FormItem>
                   <FormLabel>Nombre de contacto</FormLabel>
                   <FormControl>
-                    <Input {...field} disabled placeholder="Nombre de contacto" />
+                    <Input {...field} placeholder="Nombre de contacto" />
                   </FormControl>
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -168,8 +184,9 @@ export const TransactionDialog = ({
                 <FormItem>
                   <FormLabel>Mail de contacto</FormLabel>
                   <FormControl>
-                    <Input {...field} disabled placeholder="Mail" />
+                    <Input {...field} placeholder="Mail" />
                   </FormControl>
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -195,8 +212,8 @@ export const TransactionDialog = ({
                 <FormItem>
                   <FormLabel>Texto a mostrar en la publicidad</FormLabel>
                   <FormControl>
-                    <Textarea 
-                      {...field} 
+                    <Textarea
+                      {...field}
                       placeholder="Texto de publicidad"
                       className="resize-none"
                       rows={4}
@@ -216,12 +233,12 @@ export const TransactionDialog = ({
                   onChange={handleImageChange}
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
 
             <DialogFooter className="gap-2">
               <Button
                 type="submit"
-                disabled={!form.formState.isValid}
                 className="w-full bg-teal-500 hover:bg-green-400 text-white"
               >
                 Enviar solicitud

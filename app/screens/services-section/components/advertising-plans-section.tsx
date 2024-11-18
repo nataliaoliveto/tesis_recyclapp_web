@@ -15,20 +15,29 @@ export const AdvertisingPlansSection = () => {
           <AdvertisingPlanCard
             titleBgColor="bg-teal-100"
             title="Diaria"
-            oneTimePrice="375.-"
+            oneTimePrice={Intl.NumberFormat("es-AR", {
+              style: "currency",
+              currency: "ARS",
+            }).format(375)}
           />
           <AdvertisingPlanCard
             titleBgColor="bg-teal-200"
             title="Semanal"
-            oneTimePrice="2.115.-"
+            oneTimePrice={Intl.NumberFormat("es-AR", {
+              style: "currency",
+              currency: "ARS",
+            }).format(2115)}
           />
           <AdvertisingPlanCard
             titleBgColor="bg-teal-300"
             title="Mensual"
-            oneTimePrice="7.615.-"
+            oneTimePrice={Intl.NumberFormat("es-AR", {
+              style: "currency",
+              currency: "ARS",
+            }).format(7615)}
           />
         </div>
       </div>
     </Section>
   );
-}; 
+};
