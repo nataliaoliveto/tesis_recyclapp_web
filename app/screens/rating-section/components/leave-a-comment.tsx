@@ -38,9 +38,11 @@ export const LeaveAComment = () => {
   const onSubmit = async (data: FormValues) => {
     try {
       await createRating({
+        // TODO: Get user from db
         userId: "1923801jkashd890123hjkasd892",
         text: data.comment,
         value: +data.rating,
+        userName: data.name,
       });
 
       form.reset();

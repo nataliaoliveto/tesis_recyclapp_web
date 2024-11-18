@@ -4,6 +4,7 @@ type BaseRating = {
   userId: string;
   text: string;
   value: number;
+  userName: string;
 };
 
 export type CreateRating = BaseRating;
