@@ -4,6 +4,8 @@ export interface CreateAdvertisement {
   userId: string;
   title: string;
   text: string;
+  durationStart: string | null;
+  durationEnd: string | null;
   duration: string;
 }
 
@@ -12,15 +14,19 @@ export const advertisementsApi = {
     userId,
     title,
     text,
+    durationStart,
+    durationEnd,
     duration,
   }: CreateAdvertisement) => {
     const body = {
-        userId,
-        title,
-        text,
-        duration,
+      userId,
+      title,
+      text,
+      durationStart,
+      durationEnd,
+      duration,
     };
-    const result = await axiosCustom.post("/api/advertisement", body, {
+    const result = await axiosCustom.post("/advertisement", body, {
       headers: {
         "Content-Type": "application/json",
       },

@@ -27,6 +27,8 @@ import { Button } from "@/components/ui/button";
 import { ReactNode } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { useImageUpload } from "@/hooks/useImageUpload";
+import { useMutation } from "@tanstack/react-query";
+import { advertisementsApi } from "@/services/api.advertisements";
 
 const advertisementSchema = z.object({
   title: z
@@ -64,42 +66,64 @@ interface TransactionDialogProps {
   children: ReactNode;
 }
 
+const durationDays = (duration: string) => {
+  if (duration === "Diaria") return 1;
+  if (duration === "Semanal") return 7;
+  if (duration === "Mensual") return 28;
+  return 0;
+};
+
+const durationType = (duration: string) => {
+  if (duration === "Diaria") return "diaria";
+  if (duration === "Semanal") return "semanal";
+  if (duration === "Mensual") return "mensual";
+  return "";
+};
+
 export const TransactionDialog = ({
   duration,
   price,
   children,
 }: TransactionDialogProps) => {
-  const { handleImageChange, convertImageToBase64 } = useImageUpload();
+  const { handleImageChange } = useImageUpload();
 
-  const durationDays = (): number => {
-    if (duration === "Diaria") return 1;
-    if (duration === "Semanal") return 7;
-    if (duration === "Mensual") return 28;
-    return 0;
-  };
+  const { mutateAsync: createAdvertisement } = useMutation({
+    mutationKey: ["createAdvertisement"],
+    mutationFn: advertisementsApi.createAdvertisement,
+  });
 
   const form = useForm<ValidationSchema>({
     resolver: zodResolver(advertisementSchema),
     mode: "onSubmit",
     defaultValues: {
       price: price,
-      duration: durationDays().toString(),
+      duration: durationDays(duration).toString(),
     },
   });
 
   const onSubmit = async (values: ValidationSchema) => {
     try {
-      const imageBase64 = await convertImageToBase64();
+      const advertisement = await createAdvertisement({
+        userId: "1923801jkashd890123hjkasd892",
+        title: values.title,
+        text: values.text,
+        durationStart: null,
+        durationEnd: null,
+        duration: durationType(duration),
+      });
+
+      if (advertisement.error) {
+        throw new Error(advertisement.error);
+      }
 
       const emailData = {
         title: values.title,
         text: values.text,
         price,
         duration,
-        durationDays: durationDays(),
+        durationDays: durationDays(duration),
         contactName: values.contactName,
         contactEmail: values.contactEmail,
-        imageBase64,
       };
 
       const response = await fetch("/api/send/advertisement", {
@@ -155,7 +179,7 @@ export const TransactionDialog = ({
                     <Input
                       {...field}
                       readOnly
-                      value={durationDays().toString()}
+                      value={durationDays(duration).toString()}
                     />
                   </FormControl>
                   <FormMessage />

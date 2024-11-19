@@ -1,5 +1,5 @@
-import { Resend } from 'resend';
-import { NextResponse } from 'next/server';
+import { Resend } from "resend";
+import { NextResponse } from "next/server";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -13,30 +13,12 @@ export async function POST(request: Request) {
       durationDays,
       contactName,
       contactEmail,
-      imageBase64,
     } = await request.json();
 
-    // Prepare attachments if image exists
-    const attachments = [];
-    if (imageBase64) {
-      // Extract base64 data and file type
-      const matches = imageBase64.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
-      
-      if (matches && matches.length === 3) {
-        const fileType = matches[1].split('/')[1];
-        const base64Data = matches[2];
-        
-        attachments.push({
-          filename: `advertisement-image.${fileType}`,
-          content: base64Data,
-          encoding: 'base64',
-        });
-      }
-    }
-
     const { data, error } = await resend.emails.send({
-      from: 'Acme <onboarding@resend.dev>',
-      to: process.env.NEXT_PUBLIC_EMAIL_TO as string,
+      from: "Acme <onboarding@resend.dev>",
+      to: contactEmail,
+      cc: process.env.NEXT_PUBLIC_EMAIL_ID as string,
       subject: `Nueva solicitud de publicidad: ${title}`,
       html: `
         <h2>Nueva solicitud de publicidad</h2>
@@ -46,8 +28,16 @@ export async function POST(request: Request) {
         <p><strong>Duración:</strong> ${duration} (${durationDays} días)</p>
         <p><strong>Nombre de contacto:</strong> ${contactName}</p>
         <p><strong>Email de contacto:</strong> ${contactEmail}</p>
+        
+        <h3>Instrucciones de pago</h3>
+        <p>Por favor, realice la transferencia al siguiente CBU/CVU:</p>
+        <p><strong>CBU/CVU:</strong> 0000003100093276578392</p>
+        
+        <p>Una vez realizado el pago, responda a ${process.env.NEXT_PUBLIC_EMAIL_ID} 
+        adjuntando el comprobante de pago para proceder con la publicacion de publicidad.</p>
+        
+        <p>¡Gracias por elegir nuestros servicios!</p>
       `,
-      attachments,
     });
 
     if (error) {
@@ -58,4 +48,4 @@ export async function POST(request: Request) {
   } catch (error) {
     return NextResponse.json({ error }, { status: 500 });
   }
-} 
+}
