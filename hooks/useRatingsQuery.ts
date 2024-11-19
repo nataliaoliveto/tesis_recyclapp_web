@@ -1,4 +1,10 @@
-import { CreateRating, DeleteRating, ratingsApi, UpdateRating } from "@/services/api.ratings";
+import {
+  CreateRating,
+  DeleteRating,
+  ratingsApi,
+  RatingsResponse,
+  UpdateRating,
+} from "@/services/api.ratings";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
@@ -22,7 +28,7 @@ export const useCreateRatingMutation = () => {
     mutationKey: ["create-rating"],
     mutationFn: (rating: CreateRating) => ratingsApi.createRating(rating),
     onSuccess: (rating: CreateRating) => {
-      queryClient.setQueryData(["ratings"], (old: any) => {
+      queryClient.setQueryData(["ratings"], (old: RatingsResponse[]) => {
         return [...old, rating];
       });
       toast.success("¡Gracias por tu comentario!");
@@ -42,8 +48,10 @@ export const useUpdateRatingMutation = () => {
     mutationKey: ["ratings", "update-rating"],
     mutationFn: (rating: UpdateRating) => ratingsApi.updateRating(rating),
     onSuccess: (rating: UpdateRating) => {
-      queryClient.setQueryData(["ratings"], (old: any) => {
-        return old.map((r: any) => (r.id === rating.id ? rating : r));
+      queryClient.setQueryData(["ratings"], (old: RatingsResponse[]) => {
+        return old.map((r: RatingsResponse) =>
+          r.id === rating.id ? rating : r
+        );
       });
       toast.success("Comentario actualizado correctamente");
     },
@@ -62,8 +70,8 @@ export const useDeleteRatingMutation = () => {
     mutationKey: ["ratings", "delete-rating"],
     mutationFn: (id: string) => ratingsApi.deleteRating(id),
     onSuccess: (rating: DeleteRating) => {
-      queryClient.setQueryData(["ratings"], (old: any) => {
-        return old.filter((r: any) => r.id !== rating.id);
+      queryClient.setQueryData(["ratings"], (old: RatingsResponse[]) => {
+        return old.filter((r: RatingsResponse) => r.id !== rating.id);
       });
       toast.success("Comentario eliminado correctamente");
     },

@@ -24,7 +24,7 @@ export const Rating = async () => {
 
       {userId && (
         <Section className="bg-gray-50">
-          <LeaveAComment />
+          <LeaveAComment userId={userId} />
         </Section>
       )}
     </>

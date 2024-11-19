@@ -15,17 +15,18 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useCreateRatingMutation } from "@/hooks/useRatingsQuery";
+import { RatingForm, ratingFormSchema } from "./schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useQueryClient } from "@tanstack/react-query";
+import { RatingsResponse } from "@/services/api.ratings";
+import { toast } from "sonner";
 
-type FormValues = {
-  name: string;
-  comment: string;
-  rating: number;
-};
-
-export const LeaveAComment = () => {
+export const LeaveAComment = ({ userId }: { userId: string }) => {
   const [hover, setHover] = useState(0);
-  const { mutate: createRating } = useCreateRatingMutation();
-  const form = useForm<FormValues>({
+  const queryClient = useQueryClient();
+  const { mutateAsync: createRating } = useCreateRatingMutation();
+  const form = useForm<RatingForm>({
+    resolver: zodResolver(ratingFormSchema),
     defaultValues: {
       name: "",
       comment: "",
@@ -35,11 +36,18 @@ export const LeaveAComment = () => {
 
   const rating = form.watch("rating");
 
-  const onSubmit = async (data: FormValues) => {
+  const onSubmit = async (data: RatingForm) => {
+    const ratings = queryClient.getQueryData<RatingsResponse[]>(["ratings"]);
+    const hasAlreadyRated = ratings?.some((rating) => rating.userId === userId);
+
+    if (hasAlreadyRated) {
+      toast.error("Ya has dejado un comentario anteriormente");
+      return;
+    }
+
     try {
       await createRating({
-        // TODO: Get user from db
-        userId: "1923801jkashd890123hjkasd892",
+        userId,
         text: data.comment,
         value: +data.rating,
         userName: data.name,

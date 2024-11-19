@@ -1,29 +1,29 @@
 import { fetchCustom } from "./fetch-wrapper";
 
 type BaseRating = {
+  id: string;
   userId: string;
   text: string;
   value: number;
   userName: string;
 };
 
-export type CreateRating = BaseRating;
-export type UpdateRating = BaseRating & {
-  id: string;
-};
-export type DeleteRating = UpdateRating & {
+export type CreateRating = Omit<BaseRating, "id">;
+export type UpdateRating = Partial<BaseRating>;
+export type DeleteRating = BaseRating & {
   isArchived: boolean;
 };
 
+export type RatingsResponse = {
+  id: string;
+  userId: string;
+  text: string;
+  value: number;
+  userName: string;
+};
+
 export const ratingsApi = {
-  getRatings: async (): Promise<
-    {
-      id: string;
-      userId: string;
-      text: string;
-      value: number;
-    }[]
-  > => {
+  getRatings: async (): Promise<RatingsResponse[]> => {
     const result = await fetchCustom.get("/ratings");
     return result;
   },
@@ -31,11 +31,12 @@ export const ratingsApi = {
     const result = await fetchCustom.get(`/rating/${id}`);
     return result;
   },
-  createRating: async ({ userId, text, value }: CreateRating) => {
+  createRating: async ({ userId, text, value, userName }: CreateRating) => {
     const body = {
       userId,
       text,
       value,
+      userName,
     };
     const result = await fetchCustom.post("/rating", body, {
       headers: {
@@ -45,11 +46,12 @@ export const ratingsApi = {
 
     return result;
   },
-  updateRating: async ({ id, userId, text, value }: UpdateRating) => {
+  updateRating: async ({ id, userId, text, value, userName }: UpdateRating) => {
     const body = {
       userId,
       text,
       value,
+      userName,
     };
     const result = await fetchCustom.put(`/rating/${id}`, body, {
       headers: {

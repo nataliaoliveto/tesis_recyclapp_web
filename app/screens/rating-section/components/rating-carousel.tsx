@@ -62,7 +62,7 @@ export const RatingCarousel = () => {
             <RatingCard
               text={ratingCard.text}
               rating={ratingCard.value}
-              name={"tbdname"}
+              name={ratingCard.userName}
             />
           </CarouselItem>
         ))}
