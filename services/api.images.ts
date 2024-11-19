@@ -1,4 +1,4 @@
-import { axiosCustom } from "./axios";
+import { fetchCustom } from "./fetch-wrapper";
 
 interface UploadImage {
   image: File;
@@ -12,16 +12,12 @@ export const imagesApi = {
     formData.append("image_file", image);
     formData.append("publicid", publicid);
     formData.append("subfolder", subfolder);
-    const result = await axiosCustom.put(
-      "/api/image",
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
-    console.log(formData)  
-    return result.data;
+    const result = await fetchCustom.put("/api/image", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    return result;
   },
 };

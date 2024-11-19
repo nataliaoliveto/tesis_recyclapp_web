@@ -1,10 +1,12 @@
 import { Section } from "@/app/components/section";
 import { RatingCarousel } from "./components/rating-carousel";
 
-import "../../star-rate.module.css";
 import { LeaveAComment } from "./components/leave-a-comment";
+import { auth } from "@clerk/nextjs/server";
 
-export const Rating = () => {
+export const Rating = async () => {
+  const { userId } = await auth();
+
   return (
     <>
       <Section id="id-rating" className="bg-gray-50 pt-12">
@@ -20,9 +22,11 @@ export const Rating = () => {
         </div>
       </Section>
 
-      <Section className="bg-gray-50">
-        <LeaveAComment />
-      </Section>
+      {userId && (
+        <Section className="bg-gray-50">
+          <LeaveAComment userId={userId} />
+        </Section>
+      )}
     </>
   );
 };

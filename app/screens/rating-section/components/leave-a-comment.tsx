@@ -14,16 +14,19 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { useCreateRatingMutation } from "@/hooks/useRatingsQuery";
+import { RatingForm, ratingFormSchema } from "./schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useQueryClient } from "@tanstack/react-query";
+import { RatingsResponse } from "@/services/api.ratings";
+import { toast } from "sonner";
 
-type FormValues = {
-  name: string;
-  comment: string;
-  rating: number;
-};
-
-export const LeaveAComment = () => {
+export const LeaveAComment = ({ userId }: { userId: string }) => {
   const [hover, setHover] = useState(0);
-  const form = useForm<FormValues>({
+  const queryClient = useQueryClient();
+  const { mutateAsync: createRating } = useCreateRatingMutation();
+  const form = useForm<RatingForm>({
+    resolver: zodResolver(ratingFormSchema),
     defaultValues: {
       name: "",
       comment: "",
@@ -33,9 +36,27 @@ export const LeaveAComment = () => {
 
   const rating = form.watch("rating");
 
-  const onSubmit = (data: FormValues) => {
-    console.log('Submitted:', data);
-    form.reset();
+  const onSubmit = async (data: RatingForm) => {
+    const ratings = queryClient.getQueryData<RatingsResponse[]>(["ratings"]);
+    const hasAlreadyRated = ratings?.some((rating) => rating.userId === userId);
+
+    if (hasAlreadyRated) {
+      toast.error("Ya has dejado un comentario anteriormente");
+      return;
+    }
+
+    try {
+      await createRating({
+        userId,
+        text: data.comment,
+        value: +data.rating,
+        userName: data.name,
+      });
+
+      form.reset();
+    } catch (error) {
+      throw error;
+    }
   };
 
   return (
@@ -87,11 +108,17 @@ export const LeaveAComment = () => {
                               />
                               <FaStar
                                 className="transition-all duration-200 ease-in-out"
-                                color={ratingValue <= (hover || rating) ? "#fbbf24" : "#e5e7eb"}
+                                color={
+                                  ratingValue <= (hover || rating)
+                                    ? "#fbbf24"
+                                    : "#e5e7eb"
+                                }
                                 size={32}
                                 onMouseEnter={() => setHover(ratingValue)}
                                 onMouseLeave={() => setHover(0)}
-                                onClick={() => form.setValue("rating", ratingValue)}
+                                onClick={() =>
+                                  form.setValue("rating", ratingValue)
+                                }
                               />
                             </label>
                           );
@@ -111,10 +138,10 @@ export const LeaveAComment = () => {
                   <FormItem>
                     <FormLabel>Deja un comentario</FormLabel>
                     <FormControl>
-                      <Textarea 
-                        placeholder="Escribe tu opinión aquí" 
+                      <Textarea
+                        placeholder="Escribe tu opinión aquí"
                         rows={4}
-                        {...field} 
+                        {...field}
                       />
                     </FormControl>
                     <FormMessage />

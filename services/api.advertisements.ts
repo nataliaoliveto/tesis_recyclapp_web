@@ -1,4 +1,4 @@
-import { axiosCustom } from "./axios";
+import { fetchCustom } from "./fetch-wrapper";
 
 export interface CreateAdvertisement {
   userId: string;
@@ -15,17 +15,17 @@ export const advertisementsApi = {
     duration,
   }: CreateAdvertisement) => {
     const body = {
-        userId,
-        title,
-        text,
-        duration,
+      userId,
+      title,
+      text,
+      duration,
     };
-    const result = await axiosCustom.post("/api/advertisement", body, {
+    const result = await fetchCustom.post("/api/advertisement", body, {
       headers: {
         "Content-Type": "application/json",
       },
     });
 
-    return result.data;
+    return result;
   },
 };
