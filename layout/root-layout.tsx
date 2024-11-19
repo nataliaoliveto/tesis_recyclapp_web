@@ -1,17 +1,15 @@
 import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
+import { auth } from "@clerk/nextjs/server";
 import type { ReactNode } from "react";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
-export const RootLayout = ({ children }: { children: ReactNode }) => {
+export const RootLayout = async ({ children }: { children: ReactNode }) => {
+  const { userId } = await auth();
+
   return (
     <>
       <div className="min-h-screen flex flex-col bg-gray-50">
-        <Navbar />
-        <div>          
-          <ToastContainer />
-        </div>
+        <Navbar userId={userId} />
         <div className="flex flex-col flex-1 w-full">
           {children}
           <Footer />

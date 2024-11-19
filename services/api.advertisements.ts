@@ -1,4 +1,4 @@
-import { axiosCustom } from "./axios";
+import { fetchCustom } from "./fetch-wrapper";
 
 export interface CreateAdvertisement {
   userId: string;
@@ -32,6 +32,6 @@ export const advertisementsApi = {
       },
     });
 
-    return result.data;
+    return result;
   },
 };

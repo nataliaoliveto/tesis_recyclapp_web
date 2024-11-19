@@ -7,7 +7,7 @@ import { Download } from "./screens/download-section/download";
 import { Rating } from "./screens/rating-section/rating";
 import { Contact } from "./screens/contact-section/contact";
 
-export default function Home() {
+export default async function Home() {
   return (
     <RootLayout>
       <Hero />
