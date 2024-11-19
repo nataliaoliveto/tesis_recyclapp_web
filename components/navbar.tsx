@@ -1,6 +1,3 @@
-"use client";
-
-import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Menu } from "lucide-react";
@@ -12,7 +9,7 @@ import {
   SheetClose,
 } from "@/components/ui/sheet";
 import { Container } from "@/components/ui/container";
-import { LoginDialog } from "./login-dialog/login-dialog";
+import { UserButton } from "@clerk/nextjs";
 
 interface NavbarLinkProps {
   href: string;
@@ -20,6 +17,39 @@ interface NavbarLinkProps {
   label: string;
   onToggleDrawer?: () => void;
 }
+
+const NAVBAR_LINKS = [
+  {
+    href: "#id-about",
+    img: "/icons/aboutRecyclapp.png",
+    label: "Acerca de",
+  },
+  {
+    href: "#id-services",
+    img: "/icons/services.png",
+    label: "Servicios",
+  },
+  {
+    href: "#id-download",
+    img: "/icons/download.png",
+    label: "Descarga",
+  },
+  {
+    href: "#id-rating",
+    img: "/icons/rating.png",
+    label: "Opiniones",
+  },
+  {
+    href: "#id-contact",
+    img: "/icons/contact.png",
+    label: "Contacto",
+  },
+  {
+    href: "#id-footer",
+    img: "/icons/leaves.png",
+    label: "Seguinos",
+  },
+];
 
 const NavbarLink = ({ href, img, label, onToggleDrawer }: NavbarLinkProps) => {
   return (
@@ -34,42 +64,7 @@ const NavbarLink = ({ href, img, label, onToggleDrawer }: NavbarLinkProps) => {
   );
 };
 
-export const Navbar = () => {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-
-  const NAVBAR_LINKS = [
-    {
-      href: "#id-about",
-      img: "/icons/aboutRecyclapp.png",
-      label: "Acerca de",
-    },
-    {
-      href: "#id-services",
-      img: "/icons/services.png",
-      label: "Servicios",
-    },
-    {
-      href: "#id-download",
-      img: "/icons/download.png",
-      label: "Descarga",
-    },
-    {
-      href: "#id-rating",
-      img: "/icons/rating.png",
-      label: "Opiniones",
-    },
-    {
-      href: "#id-contact",
-      img: "/icons/contact.png",
-      label: "Contacto",
-    },
-    {
-      href: "#id-footer",
-      img: "/icons/leaves.png",
-      label: "Seguinos",
-    },
-  ];
-
+export const Navbar = async ({ userId }: { userId: string | null }) => {
   return (
     <nav className="sticky top-0 w-full h-20 bg-gray-50 shadow-2xl z-50">
       <Container className="h-full">
@@ -79,9 +74,20 @@ export const Navbar = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden xl:flex items-center gap-12">
-            <LoginDialog onOpenChange={setIsDialogOpen} isOpen={isDialogOpen}>
-              <Button variant="ghost" className="flex items-center gap-2">
+          <div className="relative hidden xl:flex items-center gap-12">
+            {NAVBAR_LINKS.map((link) => (
+              <NavbarLink
+                key={link.href}
+                href={link.href}
+                img={link.img}
+                label={link.label}
+              />
+            ))}
+
+            {userId ? (
+              <UserButton />
+            ) : (
+              <Link href="/sign-in" className="flex items-center gap-2">
                 <Image
                   src="/icons/login.png"
                   width={24}
@@ -91,17 +97,8 @@ export const Navbar = () => {
                 <span className="font-semibold text-gray-700 hover:text-green-500">
                   Ingresar
                 </span>
-              </Button>
-            </LoginDialog>
-
-            {NAVBAR_LINKS.map((link) => (
-              <NavbarLink
-                key={link.href}
-                href={link.href}
-                img={link.img}
-                label={link.label}
-              />
-            ))}
+              </Link>
+            )}
           </div>
 
           {/* Mobile Navigation */}
@@ -113,11 +110,10 @@ export const Navbar = () => {
             </SheetTrigger>
             <SheetContent>
               <div className="flex flex-col items-center gap-10 pt-10">
-                <LoginDialog
-                  onOpenChange={setIsDialogOpen}
-                  isOpen={isDialogOpen}
-                >
-                  <Button variant="ghost" className="flex items-center gap-2">
+                {userId ? (
+                  <UserButton />
+                ) : (
+                  <Link href="/sign-in" className="flex items-center gap-2">
                     <Image
                       src="/icons/login.png"
                       width={24}
@@ -127,8 +123,8 @@ export const Navbar = () => {
                     <span className="font-semibold text-gray-700 hover:text-green-500">
                       Ingresar
                     </span>
-                  </Button>
-                </LoginDialog>
+                  </Link>
+                )}
 
                 {NAVBAR_LINKS.map((link) => (
                   <SheetClose asChild key={link.href}>
