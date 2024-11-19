@@ -103,6 +103,8 @@ export const TransactionDialog = ({
 
   const onSubmit = async (values: ValidationSchema) => {
     try {
+      // TODO: uplaod image to cloudinary
+      
       const advertisement = await createAdvertisement({
         userId: "1923801jkashd890123hjkasd892",
         title: values.title,
