@@ -18,13 +18,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { PhoneInput } from "@/components/ui/phone-input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -40,7 +33,7 @@ export default function SignUpForm() {
       lastName: "",
       email: "",
       phone: "",
-      userType: "general",
+      username: "",
       password: "",
       confirmPassword: "",
     },
@@ -57,8 +50,8 @@ export default function SignUpForm() {
         lastName: data.lastName,
         emailAddress: data.email,
         password: data.password,
+        username: data.username,
         unsafeMetadata: {
-          userType: data.userType,
           phoneNumber: data.phone,
         },
       });
@@ -131,6 +124,20 @@ export default function SignUpForm() {
 
             <FormField
               control={form.control}
+              name="username"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Nombre de usuario</FormLabel>
+                  <FormControl>
+                    <Input placeholder="juanperez" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
               name="email"
               render={({ field }) => (
                 <FormItem>
@@ -164,31 +171,6 @@ export default function SignUpForm() {
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="userType"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Tipo de usuario</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Seleccione tipo de usuario" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="general">General</SelectItem>
-                      <SelectItem value="tienda">Tienda</SelectItem>
-                    </SelectContent>
-                  </Select>
                   <FormMessage />
                 </FormItem>
               )}

@@ -23,6 +23,8 @@ import {
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const formSchema = z.object({
   name: z.string().min(2, "El nombre debe tener al menos 2 caracteres"),
@@ -42,8 +44,27 @@ export const Contact = () => {
     },
   });
 
-  const onSubmit = (data: FormValues) => {
-    console.log(data);
+  const onSubmit = async (data: FormValues) => {
+    try {
+      const response = await axios.post("/api/send", data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.data.error) {
+        toast.error(
+          "Error al enviar el mensaje. Por favor, intente nuevamente."
+        );
+        return;
+      }
+
+      toast.success("Mensaje enviado exitosamente!");
+      form.reset();
+    } catch (error) {
+      toast.error("Error al enviar el mensaje. Por favor, intente nuevamente.");
+      throw error;
+    }
   };
 
   return (
@@ -92,10 +113,7 @@ export const Contact = () => {
                     <FormItem>
                       <FormLabel>Nombre</FormLabel>
                       <FormControl>
-                        <Input
-                          placeholder="Tu nombre"
-                          {...field}
-                        />
+                        <Input placeholder="Tu nombre" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -107,9 +125,7 @@ export const Contact = () => {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>
-                        Correo electrónico
-                      </FormLabel>
+                      <FormLabel>Correo electrónico</FormLabel>
                       <FormControl>
                         <Input
                           type="email"
@@ -127,9 +143,7 @@ export const Contact = () => {
                   name="message"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>
-                        Como podemos ayudarte
-                      </FormLabel>
+                      <FormLabel>Como podemos ayudarte</FormLabel>
                       <FormControl>
                         <Textarea
                           placeholder="Escribe tu mensaje aquí"

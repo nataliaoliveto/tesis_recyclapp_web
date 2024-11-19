@@ -1,3 +1,5 @@
+"use client";
+
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -9,11 +11,16 @@ import {
 } from "../../components/ui/form";
 import { Button } from "../../components/ui/button";
 import * as z from "zod";
-import { useRouter } from "next/navigation";
 import { useSignUp, useClerk } from "@clerk/nextjs";
 import { toast } from "sonner";
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "../../components/ui/input-otp";
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSlot,
+} from "../../components/ui/input-otp";
 import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { userCustomerApi } from "@/services/api.userCustomer";
 
 const schema = z.object({
   code: z
@@ -25,9 +32,22 @@ const schema = z.object({
 export const VerifyEmail = () => {
   const { signUp, isLoaded } = useSignUp();
   const { setActive } = useClerk();
-  const router = useRouter();
   const [resendDisabled, setResendDisabled] = useState(false);
   const [countdown, setCountdown] = useState(60);
+
+  const { mutateAsync: createUserCustomer } = useMutation({
+    mutationKey: ["userCustomer"],
+    mutationFn: userCustomerApi.createUserCustomer,
+    onSuccess: () => {
+      toast.success("Email verificado correctamente!");
+      window.location.href = "/";
+    },
+    onError: () => {
+      toast.error(
+        "Ocurrió un error durante la verificación del correo electrónico."
+      );
+    },
+  });
 
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
@@ -43,20 +63,18 @@ export const VerifyEmail = () => {
       const signUpAttempt = await signUp.attemptEmailAddressVerification({
         code: values.code,
       });
-
-      if (signUpAttempt.status === "complete") {
-        await setActive({ session: signUpAttempt.createdSessionId });
-        toast.success("Email verificado correctamente!");
-        router.replace("/");
-      } else {
-        console.error(JSON.stringify(signUpAttempt, null, 2));
+      if (signUpAttempt.status !== "complete") {
         toast.error("Código inválido. Por favor, intenta nuevamente.");
+        return;
       }
+      if (!signUpAttempt.createdUserId) throw new Error("User not created");
+
+      await setActive({ session: signUpAttempt.createdSessionId });
+      await createUserCustomer({
+        clerkUserId: signUpAttempt.createdUserId,
+      });
     } catch (err) {
-      console.error("Error:", err);
-      toast.error(
-        "Ocurrió un error durante la verificación del correo electrónico."
-      );
+      throw err;
     }
   };
 
@@ -66,14 +84,14 @@ export const VerifyEmail = () => {
     try {
       await signUp.prepareEmailAddressVerification();
       setResendDisabled(true);
-      
+
       let timeLeft = 60;
       setCountdown(timeLeft);
-      
+
       const timer = setInterval(() => {
         timeLeft -= 1;
         setCountdown(timeLeft);
-        
+
         if (timeLeft === 0) {
           clearInterval(timer);
           setResendDisabled(false);
@@ -139,7 +157,7 @@ export const VerifyEmail = () => {
               >
                 Verificar correo
               </Button>
-              
+
               <Button
                 type="button"
                 variant="ghost"
@@ -147,7 +165,7 @@ export const VerifyEmail = () => {
                 disabled={resendDisabled}
                 className="text-sm text-muted-foreground hover:text-foreground"
               >
-                {resendDisabled 
+                {resendDisabled
                   ? `Reenviar código (${countdown}s)`
                   : "¿No recibiste el código? Reenviar"}
               </Button>
