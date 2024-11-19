@@ -128,7 +128,7 @@ export const TransactionDialog = ({
         contactEmail: values.contactEmail,
       };
 
-      const response = await fetch("/api/send/advertisement", {
+      const response = await fetch("/api/advertisement", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
