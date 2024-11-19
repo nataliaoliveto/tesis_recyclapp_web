@@ -1,14 +1,12 @@
 import axios from "axios";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 export const axiosCustom = axios.create({
-    baseURL: "http://localhost:5000",
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
 });
 
-axiosCustom.interceptors.response.use((response) => response,(error) => {
-    const string = error.response.data.message
-    //const string = error.response.data.error.meta.target[0]
-    toast.error(string)
-    return Promise.reject(error)
-})
+axiosCustom.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    return Promise.reject(error);
+  }
+);

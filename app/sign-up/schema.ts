@@ -8,7 +8,7 @@ export const registerSchema = z
     phone: z
       .string()
       .regex(/^\+?[1-9]\d{1,14}$/, "Número de teléfono inválido"),
-    userType: z.enum(["general", "tienda"]),
+    username: z.string().min(1, "El nombre de usuario es requerido"),
     password: z
       .string()
       .min(8, "La contraseña debe tener 8 caracteres")
