@@ -1,4 +1,4 @@
-import { fetchCustom } from "./fetch-wrapper";
+import { axiosCustom } from "./axios";
 
 export interface CreateAdvertisement {
   userId: string;
