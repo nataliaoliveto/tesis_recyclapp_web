@@ -1,4 +1,4 @@
-import { TransactionDialog } from "./transaction-dialog";
+import { StorePlanDialog } from "./store-plan-dialog";
 import { Button } from "@/components/ui/button";
 
 interface IStoreSubscriptionCard {
@@ -6,6 +6,9 @@ interface IStoreSubscriptionCard {
   titleSS: string;
   monthlyPrice: string;
   message: string;
+  userId: string;
+  subscriptionId: string;
+  subscriptionName: string;
 }
 
 export const StoreSubscriptionCard = ({
@@ -13,6 +16,9 @@ export const StoreSubscriptionCard = ({
   titleSS,
   monthlyPrice,
   message,
+  userId,
+  subscriptionId,
+  subscriptionName,
 }: IStoreSubscriptionCard) => {
   return (
     <div className="w-full lg:w-[350px] h-full p-6 rounded-2xl bg-white border border-gray-100 transition-all duration-300 shadow-lg">
@@ -33,11 +39,17 @@ export const StoreSubscriptionCard = ({
       </div>
 
       <div className="mt-8">
-        <TransactionDialog duration="Mensual" price={monthlyPrice}>
+        <StorePlanDialog
+          duration="Mensual"
+          userId={userId}
+          price={monthlyPrice}
+          subscriptionId={subscriptionId}
+          subscriptionName={subscriptionName}
+        >
           <Button className="w-full py-6 rounded-xl bg-teal-500 text-white hover:bg-teal-600 transition-colors duration-300">
             Solicitar
           </Button>
-        </TransactionDialog>
+        </StorePlanDialog>
       </div>
     </div>
   );
