@@ -29,6 +29,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { useImageUpload } from "@/hooks/useImageUpload";
 import { useMutation } from "@tanstack/react-query";
 import { advertisementsApi } from "@/services/api.advertisements";
+import { toast } from "sonner";
+import { useCloudinary, IMAGE_INFO } from "@/hooks/useCloudinary";
 
 const advertisementSchema = z.object({
   title: z
@@ -63,6 +65,7 @@ type ValidationSchema = z.infer<typeof advertisementSchema>;
 interface TransactionDialogProps {
   duration: string;
   price: string;
+  userId: string;
   children: ReactNode;
 }
 
@@ -83,13 +86,15 @@ const durationType = (duration: string) => {
 export const TransactionDialog = ({
   duration,
   price,
+  userId,
   children,
 }: TransactionDialogProps) => {
-  const { handleImageChange } = useImageUpload();
-
+  const { image, handleImageChange, convertImageToBase64 } = useImageUpload();
+  const { uploadImage } = useCloudinary();
   const { mutateAsync: createAdvertisement } = useMutation({
     mutationKey: ["createAdvertisement"],
     mutationFn: advertisementsApi.createAdvertisement,
+    onError: () => toast.error("Error al crear la publicidad"),
   });
 
   const form = useForm<ValidationSchema>({
@@ -103,10 +108,12 @@ export const TransactionDialog = ({
 
   const onSubmit = async (values: ValidationSchema) => {
     try {
-      // TODO: uplaod image to cloudinary
-      
-      const advertisement = await createAdvertisement({
-        userId: "1923801jkashd890123hjkasd892",
+      const imageBase64 = await convertImageToBase64();
+      if (!imageBase64) throw new Error("Error al convertir la imagen");
+      if (!image) throw new Error("Error al subir la imagen");
+
+      const resAdvertisement = await createAdvertisement({
+        userId,
         title: values.title,
         text: values.text,
         durationStart: null,
@@ -114,9 +121,13 @@ export const TransactionDialog = ({
         duration: durationType(duration),
       });
 
-      if (advertisement.error) {
-        throw new Error(advertisement.error);
-      }
+      const advertisementId = resAdvertisement.advertisementId;
+
+      await uploadImage({
+        publicId: advertisementId,
+        folder: `${IMAGE_INFO.ADVERTISEMENT_FOLDER}/${userId}`,
+        file: image,
+      });
 
       const emailData = {
         title: values.title,
@@ -126,6 +137,7 @@ export const TransactionDialog = ({
         durationDays: durationDays(duration),
         contactName: values.contactName,
         contactEmail: values.contactEmail,
+        imageInfo: image.name,
       };
 
       const response = await fetch("/api/advertisement", {
@@ -143,6 +155,7 @@ export const TransactionDialog = ({
       form.reset();
     } catch (error) {
       console.error("Error submitting form:", error);
+      toast.error("Error al subir la imagen o crear la publicidad");
       throw error;
     }
   };
@@ -162,9 +175,12 @@ export const TransactionDialog = ({
               name="price"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Valor $</FormLabel>
+                  <FormLabel>Valor</FormLabel>
                   <FormControl>
-                    <Input {...field} readOnly value={price} />
+                    <div className="p-2 border rounded-md">
+                      {price}
+                      <Input type="hidden" {...field} value={price} />
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -178,11 +194,14 @@ export const TransactionDialog = ({
                 <FormItem>
                   <FormLabel>Duración en días</FormLabel>
                   <FormControl>
-                    <Input
-                      {...field}
-                      readOnly
-                      value={durationDays(duration).toString()}
-                    />
+                    <div className="p-2 border rounded-md">
+                      {durationDays(duration)}
+                      <Input
+                        type="hidden"
+                        {...field}
+                        value={durationDays(duration).toString()}
+                      />
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -196,7 +215,11 @@ export const TransactionDialog = ({
                 <FormItem>
                   <FormLabel>Nombre de contacto</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="Nombre de contacto" />
+                    <Input
+                      {...field}
+                      autoFocus
+                      placeholder="Nombre de contacto"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

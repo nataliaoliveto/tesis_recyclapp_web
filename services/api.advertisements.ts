@@ -17,7 +17,7 @@ export const advertisementsApi = {
     durationStart,
     durationEnd,
     duration,
-  }: CreateAdvertisement) => {
+  }: CreateAdvertisement): Promise<{ advertisementId: string }> => {
     const body = {
       userId,
       title,
@@ -32,6 +32,6 @@ export const advertisementsApi = {
       },
     });
 
-    return result;
+    return result.data;
   },
 };

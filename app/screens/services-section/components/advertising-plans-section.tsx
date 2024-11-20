@@ -1,7 +1,31 @@
 import { Section } from "@/app/components/section";
 import { AdvertisingPlanCard } from "@/app/components/ad-plan-card";
+import { subscriptionsApi } from "@/services/api.subscriptions";
+import { auth } from "@clerk/nextjs/server";
 
-export const AdvertisingPlansSection = () => {
+export const AdvertisingPlansSection = async () => {
+  const subscriptions = await subscriptionsApi.getSubscriptions();
+  const { userId } = await auth();
+
+  const adSubscriptions = subscriptions.filter((sub) =>
+    ["ADdiaria", "ADsemanal", "ADmensual"].includes(sub.name)
+  );
+
+  const getTitleFromType = (name: string) => {
+    switch (name) {
+      case "ADdiaria":
+        return "Diaria";
+      case "ADsemanal":
+        return "Semanal";
+      case "ADmensual":
+        return "Mensual";
+      default:
+        return "";
+    }
+  };
+
+  if (!userId) return null;
+
   return (
     <Section className="py-16">
       <div className="flex flex-col items-center justify-center">
@@ -11,31 +35,19 @@ export const AdvertisingPlansSection = () => {
           </h2>
           <div className="w-[400px] h-2 bg-teal-100" />
         </div>
-        <div className="flex flex-col lg:flex-row items-center justify-center gap-6 p-4 rounded-3xl shadow-lg bg-gray-50 text-center">
-          <AdvertisingPlanCard
-            titleBgColor="bg-teal-100"
-            title="Diaria"
-            oneTimePrice={Intl.NumberFormat("es-AR", {
-              style: "currency",
-              currency: "ARS",
-            }).format(375)}
-          />
-          <AdvertisingPlanCard
-            titleBgColor="bg-teal-200"
-            title="Semanal"
-            oneTimePrice={Intl.NumberFormat("es-AR", {
-              style: "currency",
-              currency: "ARS",
-            }).format(2115)}
-          />
-          <AdvertisingPlanCard
-            titleBgColor="bg-teal-300"
-            title="Mensual"
-            oneTimePrice={Intl.NumberFormat("es-AR", {
-              style: "currency",
-              currency: "ARS",
-            }).format(7615)}
-          />
+        <div className="flex flex-col lg:flex-row items-center justify-center gap-6 p-4 text-center">
+          {adSubscriptions.map((subscription) => (
+            <AdvertisingPlanCard
+              key={subscription.id}
+              titleBgColor="bg-teal-100"
+              title={getTitleFromType(subscription.name)}
+              oneTimePrice={Intl.NumberFormat("es-AR", {
+                style: "currency",
+                currency: "ARS",
+              }).format(subscription.amount)}
+              userId={userId}
+            />
+          ))}
         </div>
       </div>
     </Section>

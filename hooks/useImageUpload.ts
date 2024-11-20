@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 interface UseImageUploadReturn {
   image: File | null;
@@ -15,7 +15,7 @@ export const useImageUpload = (): UseImageUploadReturn => {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       setImage(e.target.files[0]);
-      setImageBase64(null); // Reset base64 when new image is selected
+      setImageBase64(null);
     }
   };
 
@@ -45,4 +45,4 @@ export const useImageUpload = (): UseImageUploadReturn => {
     convertImageToBase64,
     clearImage,
   };
-}; 
+};
