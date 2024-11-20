@@ -10,13 +10,7 @@ import {
 
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { useUploadImage } from "@/hooks/useUploadImage";
 import { useForm } from "react-hook-form";
-import { useMutation } from "@tanstack/react-query";
-import {
-  advertisementsApi,
-  CreateAdvertisement,
-} from "@/services/api.advertisements";
 import { Input } from "@/components/ui/input";
 import { FormField } from "@/components/ui/form";
 import {
@@ -32,6 +26,11 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { ReactNode } from "react";
 import { Textarea } from "@/components/ui/textarea";
+import { useImageUpload } from "@/hooks/useImageUpload";
+import { useMutation } from "@tanstack/react-query";
+import { advertisementsApi } from "@/services/api.advertisements";
+import { toast } from "sonner";
+import { useCloudinary, IMAGE_INFO } from "@/hooks/useCloudinary";
 
 const advertisementSchema = z.object({
   title: z
@@ -42,8 +41,8 @@ const advertisementSchema = z.object({
     .max(30, {
       message: "El máximo del título son 30 caracteres",
     })
-    .regex(new RegExp(/^[a-zA-Z0-9]{4,30}$/), {
-      message: "El título puede incluir sólo letras y números",
+    .regex(new RegExp(/^[a-zA-Z0-9\s]{4,30}$/), {
+      message: "El título puede incluir sólo letras, números y espacios",
     }),
   text: z
     .string()
@@ -53,7 +52,9 @@ const advertisementSchema = z.object({
     .max(255, {
       message: "El máximo del texto son 255 caracteres",
     }),
-  price: z.string(),
+  price: z.string().min(1, {
+    message: "El precio es requerido",
+  }),
   duration: z.string(),
   contactName: z.string(),
   contactEmail: z.string(),
@@ -64,51 +65,98 @@ type ValidationSchema = z.infer<typeof advertisementSchema>;
 interface TransactionDialogProps {
   duration: string;
   price: string;
+  userId: string;
   children: ReactNode;
 }
+
+const durationDays = (duration: string) => {
+  if (duration === "Diaria") return 1;
+  if (duration === "Semanal") return 7;
+  if (duration === "Mensual") return 28;
+  return 0;
+};
+
+const durationType = (duration: string) => {
+  if (duration === "Diaria") return "diaria";
+  if (duration === "Semanal") return "semanal";
+  if (duration === "Mensual") return "mensual";
+  return "";
+};
 
 export const TransactionDialog = ({
   duration,
   price,
+  userId,
   children,
 }: TransactionDialogProps) => {
-  const { uploadImage, handleImageChange } = useUploadImage({
-    subfolder: "Advertisement",
+  const { image, handleImageChange, convertImageToBase64 } = useImageUpload();
+  const { uploadImage } = useCloudinary();
+  const { mutateAsync: createAdvertisement } = useMutation({
+    mutationKey: ["createAdvertisement"],
+    mutationFn: advertisementsApi.createAdvertisement,
+    onError: () => toast.error("Error al crear la publicidad"),
   });
-
-  const durationDays = () => {
-    if (duration === "Diaria") return 1;
-    if (duration === "Semanal") return 7;
-    if (duration === "Mensual") return 28;
-    return 0;
-  };
 
   const form = useForm<ValidationSchema>({
     resolver: zodResolver(advertisementSchema),
     mode: "onSubmit",
-  });
-
-  const { mutateAsync } = useMutation({
-    mutationKey: ["advertisementsApi"],
-    mutationFn: async (data: CreateAdvertisement) => {
-      return await advertisementsApi
-        .createAdvertisement(data)
-        .then((res) => res);
+    defaultValues: {
+      price: price,
+      duration: durationDays(duration).toString(),
     },
   });
 
   const onSubmit = async (values: ValidationSchema) => {
     try {
-      const res = await mutateAsync({
-        userId: "cleeteqqv0000up5soh9k24cs",
+      const imageBase64 = await convertImageToBase64();
+      if (!imageBase64) throw new Error("Error al convertir la imagen");
+      if (!image) throw new Error("Error al subir la imagen");
+
+      const resAdvertisement = await createAdvertisement({
+        userId,
         title: values.title,
         text: values.text,
-        duration,
+        durationStart: null,
+        durationEnd: null,
+        duration: durationType(duration),
       });
 
-      await uploadImage(res.advertisementId);
+      const advertisementId = resAdvertisement.advertisementId;
+
+      await uploadImage({
+        publicId: advertisementId,
+        folder: `${IMAGE_INFO.ADVERTISEMENT_FOLDER}/${userId}`,
+        file: image,
+      });
+
+      const emailData = {
+        title: values.title,
+        text: values.text,
+        price,
+        duration,
+        durationDays: durationDays(duration),
+        contactName: values.contactName,
+        contactEmail: values.contactEmail,
+        imageInfo: image.name,
+      };
+
+      const response = await fetch("/api/advertisement", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(emailData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to send email");
+      }
+
+      form.reset();
     } catch (error) {
-      console.error(error);
+      console.error("Error submitting form:", error);
+      toast.error("Error al subir la imagen o crear la publicidad");
+      throw error;
     }
   };
 
@@ -127,10 +175,14 @@ export const TransactionDialog = ({
               name="price"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Valor $</FormLabel>
+                  <FormLabel>Valor</FormLabel>
                   <FormControl>
-                    <Input {...field} disabled value={price} />
+                    <div className="p-2 border rounded-md">
+                      {price}
+                      <Input type="hidden" {...field} value={price} />
+                    </div>
                   </FormControl>
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -142,8 +194,16 @@ export const TransactionDialog = ({
                 <FormItem>
                   <FormLabel>Duración en días</FormLabel>
                   <FormControl>
-                    <Input {...field} disabled value={durationDays()} />
+                    <div className="p-2 border rounded-md">
+                      {durationDays(duration)}
+                      <Input
+                        type="hidden"
+                        {...field}
+                        value={durationDays(duration).toString()}
+                      />
+                    </div>
                   </FormControl>
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -155,8 +215,13 @@ export const TransactionDialog = ({
                 <FormItem>
                   <FormLabel>Nombre de contacto</FormLabel>
                   <FormControl>
-                    <Input {...field} disabled placeholder="Nombre de contacto" />
+                    <Input
+                      {...field}
+                      autoFocus
+                      placeholder="Nombre de contacto"
+                    />
                   </FormControl>
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -168,8 +233,9 @@ export const TransactionDialog = ({
                 <FormItem>
                   <FormLabel>Mail de contacto</FormLabel>
                   <FormControl>
-                    <Input {...field} disabled placeholder="Mail" />
+                    <Input {...field} placeholder="Mail" />
                   </FormControl>
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -195,8 +261,8 @@ export const TransactionDialog = ({
                 <FormItem>
                   <FormLabel>Texto a mostrar en la publicidad</FormLabel>
                   <FormControl>
-                    <Textarea 
-                      {...field} 
+                    <Textarea
+                      {...field}
                       placeholder="Texto de publicidad"
                       className="resize-none"
                       rows={4}
@@ -216,12 +282,12 @@ export const TransactionDialog = ({
                   onChange={handleImageChange}
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
 
             <DialogFooter className="gap-2">
               <Button
                 type="submit"
-                disabled={!form.formState.isValid}
                 className="w-full bg-teal-500 hover:bg-green-400 text-white"
               >
                 Enviar solicitud

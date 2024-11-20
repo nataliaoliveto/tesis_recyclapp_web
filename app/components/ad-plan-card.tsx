@@ -5,15 +5,17 @@ interface IAdvertisingPlanCard {
   titleBgColor: string;
   title: string;
   oneTimePrice: string;
+  userId: string;
 }
 
-export const AdvertisingPlanCard = ({
+export const AdvertisingPlanCard = async ({
   titleBgColor,
   title,
   oneTimePrice,
+  userId,
 }: IAdvertisingPlanCard) => {
   return (
-    <div className="flex flex-col justify-between p-4 rounded-[20px] h-[300px] shadow-xl min-w-[300px]">
+    <div className="flex flex-col justify-between p-4 rounded-[20px] h-80 shadow-xl min-w-[300px]">
       <div className={`${titleBgColor} rounded-full w-full py-1`}>
         <p className="text-[28px] font-semibold text-gray-700">{title}</p>
       </div>
@@ -25,10 +27,8 @@ export const AdvertisingPlanCard = ({
         </p>
       </div>
 
-      <TransactionDialog duration={title} price={oneTimePrice}>
-        <Button
-          className="border border-teal-200 rounded-2xl bg-gray-50 text-gray-500 hover:bg-green-400 hover:text-gray-50"
-        >
+      <TransactionDialog duration={title} price={oneTimePrice} userId={userId}>
+        <Button className="border border-teal-200 rounded-2xl bg-gray-50 text-gray-500 hover:bg-green-400 hover:text-gray-50">
           Solicitar
         </Button>
       </TransactionDialog>
