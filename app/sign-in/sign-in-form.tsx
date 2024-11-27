@@ -66,7 +66,7 @@ export const SignInForm = () => {
               )}
 
               <FormItem>
-                <FormLabel className="text-gray-700">Usuario</FormLabel>
+                <FormLabel className="text-gray-700">Usuario o Email</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Usuario"
@@ -86,6 +86,13 @@ export const SignInForm = () => {
                     className="w-full"
                   />
                 </FormControl>
+                <Button
+                  asChild
+                  variant="link"
+                  className="p-0 h-auto text-green-600 hover:text-green-700"
+                >
+                  <Link href="/reset-password">¿Olvidaste tu contraseña?</Link>
+                </Button>
               </FormItem>
             </div>
 
