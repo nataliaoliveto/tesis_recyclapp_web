@@ -9,7 +9,7 @@ import {
   SheetClose,
 } from "@/components/ui/sheet";
 import { Container } from "@/components/ui/container";
-import { UserButton } from "@clerk/nextjs";
+import { UserButton } from "./user-button";
 
 interface NavbarLinkProps {
   href: string;
@@ -111,7 +111,7 @@ export const Navbar = async ({ userId }: { userId: string | null }) => {
             <SheetContent>
               <div className="flex flex-col items-center gap-10 pt-10">
                 {userId ? (
-                  <UserButton />
+                  <UserButton mobile />
                 ) : (
                   <Link href="/sign-in" className="flex items-center gap-2">
                     <Image
