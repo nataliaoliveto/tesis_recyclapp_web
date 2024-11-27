@@ -25,8 +25,8 @@ import { userCustomerApi } from "@/services/api.userCustomer";
 const schema = z.object({
   code: z
     .string()
-    .min(6, "Code must be 6 characters")
-    .max(6, "Code must be 6 characters"),
+    .min(6, "Código debe tener 6 dígitos")
+    .max(6, "Código debe tener 6 dígitos"),
 });
 
 export const VerifyEmail = () => {
