@@ -7,20 +7,22 @@ export const History = () => {
     <Section id="id-history" className="bg-gray-100">
       <div className="w-full bg-gray-100 py-6 text-gray-700">
         <div className="flex flex-col items-center justify-center space-y-8">
-          <h2 className="text-6xl font-semibold">
-            Nuestra Historia
-          </h2>
+          <h2 className="text-6xl font-semibold">Nuestra Historia</h2>
           <div className="w-[400px] h-2 bg-yellow-100" />
 
           <p className="text-2xl max-w-[1000px] text-center">
             El cuidado del medioambiente es un problema que se agrava con el
             paso del tiempo y, ante la falta de acciones,{" "}
-            <strong>comienza a modificarse el ecosistema en el que vivimos.</strong>
+            <strong>
+              comienza a modificarse el ecosistema en el que vivimos.
+            </strong>
           </p>
 
           <div>
-            <div className="max-w-[880px] min-h-[300px] bg-yellow-50 rounded-[20px] 
-              flex flex-col lg:flex-row justify-center items-center space-y-8 lg:space-x-8 p-8">
+            <div
+              className="max-w-[880px] min-h-[300px] bg-yellow-50 rounded-[20px] 
+              flex flex-col lg:flex-row justify-center items-center space-y-8 lg:space-x-8 p-8"
+            >
               <Image
                 src="/icons/survey.png"
                 width={256}
@@ -75,9 +77,7 @@ export const History = () => {
           {/* Vision Section */}
           <div className="grid grid-cols-4 lg:grid-cols-12">
             <div className="col-start-2 lg:col-start-2 col-end-4 lg:col-end-9">
-              <h3 className="text-5xl font-semibold text-gray-600">
-                Visión
-              </h3>
+              <h3 className="text-5xl font-semibold text-gray-600">Visión</h3>
             </div>
             <div className="col-start-2 lg:col-start-4 col-end-4 lg:col-end-9">
               <div className="min-w-[20px] h-[10px] bg-cyan-100" />

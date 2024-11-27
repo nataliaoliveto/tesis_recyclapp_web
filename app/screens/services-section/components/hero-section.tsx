@@ -1,7 +1,6 @@
 import { Section } from "@/app/components/section";
 import Image from "next/image";
 
-
 export const HeroSection = () => {
   return (
     <Section id="id-services" className="bg-gray-100">
@@ -22,4 +21,4 @@ export const HeroSection = () => {
       </div>
     </Section>
   );
-}; 
+};

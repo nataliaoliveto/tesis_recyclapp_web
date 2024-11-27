@@ -12,7 +12,7 @@ class FetchWrapper {
   private errorInterceptors: InterceptorFn[];
 
   constructor(config: RequestConfig = {}) {
-    this.baseURL = config.baseURL || '';
+    this.baseURL = config.baseURL || "";
     this.headers = config.headers || {};
     this.responseInterceptors = [];
     this.errorInterceptors = [];
@@ -23,7 +23,7 @@ class FetchWrapper {
       if (!response.ok) {
         throw response;
       }
-      
+
       const data = await response.json();
       return this.runInterceptors(this.responseInterceptors, data);
     } catch (error) {
@@ -44,8 +44,8 @@ class FetchWrapper {
       use: (onFulfilled: InterceptorFn, onRejected?: InterceptorFn) => {
         if (onFulfilled) this.responseInterceptors.push(onFulfilled);
         if (onRejected) this.errorInterceptors.push(onRejected);
-      }
-    }
+      },
+    },
   };
 
   private createUrl(endpoint: string): string {
@@ -55,7 +55,7 @@ class FetchWrapper {
   private async request(endpoint: string, options: RequestInit = {}) {
     const url = this.createUrl(endpoint);
     const headers = { ...this.headers, ...options.headers };
-    
+
     try {
       const response = await fetch(url, { ...options, headers });
       return this.handleResponse(response);
@@ -65,15 +65,15 @@ class FetchWrapper {
   }
 
   async get(endpoint: string, options: RequestInit = {}) {
-    return this.request(endpoint, { ...options, method: 'GET' });
+    return this.request(endpoint, { ...options, method: "GET" });
   }
 
   async post(endpoint: string, data?: any, options: RequestInit = {}) {
     return this.request(endpoint, {
       ...options,
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         ...options.headers,
       },
       body: JSON.stringify(data),
@@ -83,9 +83,9 @@ class FetchWrapper {
   async put(endpoint: string, data?: any, options: RequestInit = {}) {
     return this.request(endpoint, {
       ...options,
-      method: 'PUT',
+      method: "PUT",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         ...options.headers,
       },
       body: JSON.stringify(data),
@@ -93,7 +93,7 @@ class FetchWrapper {
   }
 
   async delete(endpoint: string, options: RequestInit = {}) {
-    return this.request(endpoint, { ...options, method: 'DELETE' });
+    return this.request(endpoint, { ...options, method: "DELETE" });
   }
 }
 
@@ -107,4 +107,4 @@ fetchCustom.interceptors.response.use(
   (error) => {
     return Promise.reject(error);
   }
-); 
+);

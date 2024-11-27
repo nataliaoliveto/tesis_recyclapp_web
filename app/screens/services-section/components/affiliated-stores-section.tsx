@@ -23,8 +23,8 @@ export const AffiliatedStoresSection = () => {
           </p>
           <div className="w-[375px] h-1 bg-green-100" />
           <p className="text-xl">
-            Además podrás ofrecer beneficios a aquellos que cuenten con
-            puntos acumulados
+            Además podrás ofrecer beneficios a aquellos que cuenten con puntos
+            acumulados
           </p>
         </div>
         <Image
@@ -36,4 +36,4 @@ export const AffiliatedStoresSection = () => {
       </div>
     </div>
   );
-}; 
+};

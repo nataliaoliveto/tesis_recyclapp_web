@@ -30,7 +30,7 @@ export const SignInForm = () => {
         identifier: data.username,
         password: data.password,
       });
-      console.log("123")
+      console.log("123");
 
       if (result.status === "complete") {
         toast.success("¡Inicio de sesión exitoso!");

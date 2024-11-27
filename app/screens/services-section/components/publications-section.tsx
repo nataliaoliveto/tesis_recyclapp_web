@@ -39,9 +39,7 @@ export const PublicationsSection = () => {
             alt="estructura de un celular"
             className="my-5"
           />
-          <p className="text-xl text-center">
-            Arreglan el punto de encuentro
-          </p>
+          <p className="text-xl text-center">Arreglan el punto de encuentro</p>
         </div>
       </div>
       <div className="lg:w-1/3 flex justify-center my-8 lg:my-0">
@@ -67,4 +65,4 @@ export const PublicationsSection = () => {
       </div>
     </div>
   );
-}; 
+};

@@ -6,7 +6,10 @@ import { ParallaxSection } from "./components/parallax-section";
 export const About = () => {
   return (
     <>
-      <Section id="id-about" className="bg-gradient-to-t from-green-100 to-white">
+      <Section
+        id="id-about"
+        className="bg-gradient-to-t from-green-100 to-white"
+      >
         <div className="flex justify-center mb-20 mt-20">
           <h2 className="text-5xl font-semibold text-green-600">
             En RecyclApp pueden aprender
@@ -33,8 +36,8 @@ export const About = () => {
               alt="planeta tierra rodeado de una planta"
             />
             <p className="w-[200px] text-center text-xl text-gray-700">
-              Ver <strong>dónde se encuentran todos los Puntos Verdes</strong> a los que
-              pueden ir a alcanzarlos
+              Ver <strong>dónde se encuentran todos los Puntos Verdes</strong> a
+              los que pueden ir a alcanzarlos
             </p>
           </div>
 
@@ -46,8 +49,8 @@ export const About = () => {
               alt="iconos de usuarios conectados entre sí"
             />
             <p className="w-[200px] text-center text-xl text-gray-700">
-              <strong>Conectar con más gente</strong> para intercambiar materiales y
-              reutilizarlos
+              <strong>Conectar con más gente</strong> para intercambiar
+              materiales y reutilizarlos
             </p>
           </div>
         </div>
@@ -85,8 +88,8 @@ export const About = () => {
         <div className="flex flex-col lg:flex-row justify-center items-center">
           <div className="flex justify-center">
             <p className="w-[300px] text-center text-gray-700">
-              La <strong>materia orgánica</strong> también puede ser reducida a través del
-              compost para la nutrición de la tierra
+              La <strong>materia orgánica</strong> también puede ser reducida a
+              través del compost para la nutrición de la tierra
             </p>
           </div>
           <div className="flex justify-center px-8">
@@ -120,9 +123,9 @@ export const About = () => {
           <div className="flex justify-center max-w-screen-sm">
             <p className="text-gray-700">
               Para todas las personas comprometidas con las tres R (reducir,
-              reutilizar y reciclar) <strong>ofrecemos un sistema de puntos</strong> que
-              van a poder cambiar por descuentos o beneficios en las Tiendas
-              adheridas
+              reutilizar y reciclar){" "}
+              <strong>ofrecemos un sistema de puntos</strong> que van a poder
+              cambiar por descuentos o beneficios en las Tiendas adheridas
             </p>
           </div>
         </div>
