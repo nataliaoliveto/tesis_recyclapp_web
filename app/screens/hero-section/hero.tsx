@@ -49,9 +49,9 @@ export const Hero = () => {
       <div className="bg-gradient-to-r from-green-100 to-green-50 p-8 md:p-12 border rounded-2xl shadow-md">
         <div className="flex flex-col items-center space-y-4">
           <p className="text-xl md:text-2xl text-gray-700 text-center leading-relaxed max-w-screen-lg italic">
-            Nuestro objetivo principal es que tengan a un click de distancia todas
-            las herramientas necesarias para que reciclar sea sencillo y puedan
-            incorporarlo en su día a día
+            Nuestro objetivo principal es que tengan a un click de distancia
+            todas las herramientas necesarias para que reciclar sea sencillo y
+            puedan incorporarlo en su día a día
           </p>
         </div>
       </div>

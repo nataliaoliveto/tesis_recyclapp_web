@@ -17,15 +17,13 @@ export const WikiNewsSection = () => {
                 <div className="w-[350px] h-1 bg-yellow-200 my-5" />
                 <ul className="list-disc pl-6">
                   <li className="text-xl">
-                    Los diferentes tipos de materiales que son reciclables y
-                    los que no deben ser tirados como basura orgánica
+                    Los diferentes tipos de materiales que son reciclables y los
+                    que no deben ser tirados como basura orgánica
                   </li>
                   <li className="text-xl">
                     Cómo emplear las técnicas de reciclaje o reutilización
                   </li>
-                  <li className="text-xl">
-                    Cómo hacer compost en casa
-                  </li>
+                  <li className="text-xl">Cómo hacer compost en casa</li>
                 </ul>
                 <div className="w-[350px] h-1 bg-yellow-200 my-5" />
                 <p className="text-xl text-center">
@@ -76,13 +74,11 @@ const ServiceCard = ({ title, bgColor, content }: ServiceCardProps) => {
             className="w-[252px] h-[534px]"
           />
           <div className={`flex ${bgColor} px-4 py-2 rounded-full`}>
-            <h2 className="text-2xl lg:text-3xl font-semibold">
-              {title}
-            </h2>
+            <h2 className="text-2xl lg:text-3xl font-semibold">{title}</h2>
           </div>
         </div>
         {content}
       </div>
     </div>
   );
-}; 
+};

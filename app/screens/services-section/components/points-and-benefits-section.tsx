@@ -25,11 +25,9 @@ export const PointsAndBenefitsSection = () => {
           <div className="flex flex-col max-w-[450px] justify-center">
             <p className="text-xl">
               Por cada publicación en la que participes,{" "}
-              <span className="font-semibold">sumarás puntos</span> que
-              luego podrás{" "}
-              <span className="font-semibold">
-                intercambiar por beneficios
-              </span>{" "}
+              <span className="font-semibold">sumarás puntos</span> que luego
+              podrás{" "}
+              <span className="font-semibold">intercambiar por beneficios</span>{" "}
               ofrecidos por las Tiendas adheridas
             </p>
           </div>
@@ -37,4 +35,4 @@ export const PointsAndBenefitsSection = () => {
       </div>
     </div>
   );
-}; 
+};

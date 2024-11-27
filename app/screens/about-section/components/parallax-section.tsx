@@ -10,15 +10,15 @@ interface ParallaxSectionProps {
   height?: string;
 }
 
-export const ParallaxSection = ({ 
-  imageUrl, 
-  alt, 
-  height = "600px" 
+export const ParallaxSection = ({
+  imageUrl,
+  alt,
+  height = "600px",
 }: ParallaxSectionProps) => {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start end", "end start"]
+    offset: ["start end", "end start"],
   });
 
   const y = useTransform(scrollYProgress, [0, 1], ["-20%", "20%"]);
@@ -29,10 +29,7 @@ export const ParallaxSection = ({
       className="relative w-full overflow-hidden"
       style={{ height }}
     >
-      <motion.div
-        className="relative w-full h-[100%]"
-        style={{ y }}
-      >
+      <motion.div className="relative w-full h-[100%]" style={{ y }}>
         <Image
           src={imageUrl}
           alt={alt}
@@ -43,4 +40,4 @@ export const ParallaxSection = ({
       </motion.div>
     </div>
   );
-}; 
+};

@@ -28,14 +28,14 @@ export const MapsAndListingsSection = () => {
                 <li>Tiendas adheridas</li>
               </ul>
               <p className="max-w-[240px] text-xl font-light mt-5">
-                <span className="font-semibold">En dos formatos:</span> a
-                través del mapa o en forma de lista
+                <span className="font-semibold">En dos formatos:</span> a través
+                del mapa o en forma de lista
               </p>
             </div>
             <div className="flex justify-end text-xl font-light">
               <p className="text-right max-w-[240px] mt-5">
-                Podrás <span className="font-semibold">usar filtros</span>{" "}
-                para ajustar la búsqueda a tus necesidades
+                Podrás <span className="font-semibold">usar filtros</span> para
+                ajustar la búsqueda a tus necesidades
               </p>
             </div>
             <div className="w-[300px] h-1 bg-green-100" />
@@ -50,4 +50,4 @@ export const MapsAndListingsSection = () => {
       </div>
     </div>
   );
-}; 
+};

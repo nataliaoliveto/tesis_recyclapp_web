@@ -44,9 +44,6 @@ export async function POST(request: Request) {
       `,
     });
 
-    console.log('data', data)
-    console.log('error', error)
-
     if (error) {
       return NextResponse.json({ error }, { status: 400 });
     }
