@@ -17,7 +17,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { PhoneInput } from "@/components/ui/phone-input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -32,7 +31,6 @@ export default function SignUpForm() {
       firstName: "",
       lastName: "",
       email: "",
-      phone: "",
       username: "",
       password: "",
       confirmPassword: "",
@@ -51,9 +49,6 @@ export default function SignUpForm() {
         emailAddress: data.email,
         password: data.password,
         username: data.username,
-        unsafeMetadata: {
-          phoneNumber: data.phone,
-        },
       });
 
       await signUp.prepareEmailAddressVerification({
@@ -152,25 +147,6 @@ export default function SignUpForm() {
                   <FormDescription>
                     Te enviaremos un código de verificación a este correo.
                   </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="phone"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Teléfono</FormLabel>
-                  <FormControl>
-                    <PhoneInput
-                      type="tel"
-                      placeholder="11 1234-5678"
-                      defaultCountry="AR"
-                      {...field}
-                    />
-                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}

@@ -5,9 +5,6 @@ export const registerSchema = z
     firstName: z.string().min(1, "El nombre es requerido"),
     lastName: z.string().min(1, "El apellido es requerido"),
     email: z.string().email("Correo electrónico inválido"),
-    phone: z
-      .string()
-      .regex(/^\+?[1-9]\d{1,14}$/, "Número de teléfono inválido"),
     username: z.string().min(1, "El nombre de usuario es requerido"),
     password: z
       .string()
