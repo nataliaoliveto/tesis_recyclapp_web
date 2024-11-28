@@ -6,6 +6,7 @@ import { Services } from "./screens/services-section/services";
 import { Download } from "./screens/download-section/download";
 import { Rating } from "./screens/rating-section/rating";
 import { Contact } from "./screens/contact-section/contact";
+import { Donations } from "./screens/donations-section/donations";
 
 export default async function Home() {
   return (
@@ -15,6 +16,7 @@ export default async function Home() {
       <History />
       <Services />
       <Download />
+      <Donations />
       <Rating />
       <Contact />
     </RootLayout>
