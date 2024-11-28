@@ -30,9 +30,7 @@ export const StorePlansSection = async () => {
         <div className="w-[400px] h-[10px] bg-teal-100" />
       </div>
       <div className="relative w-full">
-        <StoreSuccessOverlay
-          show={Boolean(userStore?.id && userStore?.paymentCompleted)}
-        />
+        <StoreSuccessOverlay show={Boolean(userStore?.id)} />
         <div className="flex flex-col lg:flex-row items-center justify-center text-center p-4 rounded-3xl bg-gray-50 space-y-6 lg:space-y-0 lg:space-x-6">
           {storeSubscriptions.map((subscription) => (
             <StoreSubscriptionCard

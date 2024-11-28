@@ -38,6 +38,8 @@ export const AdvertisingPlanCard = ({
           duration={title}
           price={oneTimePrice}
           userId={userId}
+          open={showSignInDialog}
+          setOpen={setShowSignInDialog}
         >
           <Button className="border border-teal-200 rounded-2xl bg-gray-50 text-gray-500 hover:bg-green-400 hover:text-gray-50">
             Solicitar

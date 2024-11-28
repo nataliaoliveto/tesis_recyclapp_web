@@ -7,6 +7,7 @@ export interface CreateAdvertisement {
   durationStart: string | null;
   durationEnd: string | null;
   duration: string;
+  displayName: string;
 }
 
 export const advertisementsApi = {
@@ -17,6 +18,7 @@ export const advertisementsApi = {
     durationStart,
     durationEnd,
     duration,
+    displayName,
   }: CreateAdvertisement): Promise<{ advertisementId: string }> => {
     const body = {
       userId,
@@ -25,6 +27,7 @@ export const advertisementsApi = {
       durationStart,
       durationEnd,
       duration,
+      displayName,
     };
     const result = await axiosCustom.post("/advertisement", body, {
       headers: {

@@ -52,13 +52,18 @@ export const StoreSubscriptionCard = ({
             price={monthlyPrice}
             subscriptionId={subscriptionId}
             subscriptionName={subscriptionName}
+            open={showSignInDialog}
+            setOpen={setShowSignInDialog}
           >
             <Button className="w-full py-6 rounded-xl bg-teal-500 text-white hover:bg-teal-600 transition-colors duration-300">
               Solicitar
             </Button>
           </StorePlanDialog>
         ) : (
-          <SignInDialog open={showSignInDialog} onOpenChange={setShowSignInDialog}>
+          <SignInDialog
+            open={showSignInDialog}
+            onOpenChange={setShowSignInDialog}
+          >
             <Button
               onClick={() => setShowSignInDialog(true)}
               className="w-full py-6 rounded-xl bg-teal-500 text-white hover:bg-teal-600 transition-colors duration-300"

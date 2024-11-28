@@ -24,10 +24,11 @@ import {
 } from "@/components/ui/dialog";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useMutation } from "@tanstack/react-query";
 import { userStoreApi } from "@/services/api.userStore";
+import { useUser } from "@clerk/nextjs";
 
 const storeSubscriptionSchema = z.object({
   price: z.string().min(1, {
@@ -50,6 +51,8 @@ interface TransactionDialogProps {
   subscriptionId: string;
   subscriptionName: string;
   children: ReactNode;
+  open: boolean;
+  setOpen: (open: boolean) => void;
 }
 
 const hasBenefits = (subscriptionName: string) => {
@@ -69,13 +72,20 @@ export const StorePlanDialog = ({
   subscriptionId,
   subscriptionName,
   children,
+  open,
+  setOpen,
 }: TransactionDialogProps) => {
-  const { mutateAsync: createUserStore, isPending: isCreatingUserStore } =
-    useMutation({
-      mutationKey: ["createStoreSubscription"],
-      mutationFn: userStoreApi.createUserStore,
-      onError: () => toast.error("Error al crear la suscripción"),
-    });
+  const { user } = useUser();
+  const [isSending, setIsSending] = useState(false);
+  const { mutateAsync: createUserStore } = useMutation({
+    mutationKey: ["createStoreSubscription"],
+    mutationFn: userStoreApi.createUserStore,
+    onError: () => toast.error("Error al crear la suscripción"),
+    onSuccess: () => {
+      toast.success("Plan solicitado correctamente");
+      form.reset();
+    },
+  });
 
   const form = useForm<ValidationSchema>({
     resolver: zodResolver(storeSubscriptionSchema),
@@ -83,8 +93,8 @@ export const StorePlanDialog = ({
     defaultValues: {
       price,
       duration,
-      contactName: "",
-      contactEmail: "",
+      contactName: user?.username ?? "",
+      contactEmail: user?.emailAddresses[0].emailAddress ?? "",
       userId,
       subscriptionId,
       hasBenefits: hasBenefits(subscriptionName),
@@ -92,6 +102,7 @@ export const StorePlanDialog = ({
   });
 
   const onSubmit = async (values: ValidationSchema) => {
+    setIsSending(true);
     const body = {
       expiryDate: new Date(new Date().setMonth(new Date().getMonth() + 1)),
       userId: values.userId,
@@ -127,15 +138,25 @@ export const StorePlanDialog = ({
       }
 
       form.reset();
+      setOpen(false);
     } catch (error) {
       console.error("Error submitting form:", error);
       toast.error("Error al subir la imagen o crear la publicidad");
       throw error;
+    } finally {
+      setIsSending(false);
     }
   };
 
+  useEffect(() => {
+    if (user) {
+      form.setValue("contactName", user.username ?? "");
+      form.setValue("contactEmail", user.emailAddresses[0].emailAddress ?? "");
+    }
+  }, [user, form]);
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
@@ -195,13 +216,16 @@ export const StorePlanDialog = ({
               name="contactName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Nombre de contacto</FormLabel>
+                  <FormLabel>Usuario</FormLabel>
                   <FormControl>
-                    <Input
-                      {...field}
-                      autoFocus
-                      placeholder="Nombre de contacto"
-                    />
+                    <div className="p-2 border rounded-md">
+                      {user?.username}
+                      <Input
+                        {...field}
+                        value={user?.username ?? ""}
+                        type="hidden"
+                      />
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -215,7 +239,14 @@ export const StorePlanDialog = ({
                 <FormItem>
                   <FormLabel>Mail de contacto</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="Mail" />
+                    <div className="p-2 border rounded-md">
+                      {user?.emailAddresses[0].emailAddress}
+                      <Input
+                        {...field}
+                        value={user?.emailAddresses[0].emailAddress ?? ""}
+                        type="hidden"
+                      />
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -226,15 +257,17 @@ export const StorePlanDialog = ({
               <Button
                 type="submit"
                 className="w-full bg-teal-500 hover:bg-green-400 text-white"
-                disabled={isCreatingUserStore}
+                disabled={isSending}
               >
-                {isCreatingUserStore ? "Enviando..." : "Enviar solicitud"}
+                {isSending ? "Enviando..." : "Enviar solicitud"}
               </Button>
               <DialogClose asChild>
                 <Button
                   type="button"
                   variant="outline"
                   className="w-full border-teal-200"
+                  onClick={() => form.reset()}
+                  disabled={isSending}
                 >
                   Cancelar
                 </Button>
