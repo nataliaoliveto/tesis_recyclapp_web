@@ -24,7 +24,7 @@ import { toast } from "sonner";
 export const LeaveAComment = ({ userId }: { userId: string }) => {
   const [hover, setHover] = useState(0);
   const queryClient = useQueryClient();
-  const { mutateAsync: createRating } = useCreateRatingMutation();
+  const { mutateAsync: createRating, isPending } = useCreateRatingMutation();
   const form = useForm<RatingForm>({
     resolver: zodResolver(ratingFormSchema),
     defaultValues: {
@@ -153,8 +153,9 @@ export const LeaveAComment = ({ userId }: { userId: string }) => {
                 <Button
                   type="submit"
                   className="w-full sm:w-auto px-6 py-3 text-base font-medium bg-green-600 hover:bg-green-700 text-white"
+                  disabled={isPending}
                 >
-                  Enviar comentario
+                  {isPending ? "Enviando..." : "Enviar comentario"}
                 </Button>
               </div>
             </form>
