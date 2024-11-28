@@ -1,12 +1,16 @@
+"use client";
+
 import { StorePlanDialog } from "./store-plan-dialog";
 import { Button } from "@/components/ui/button";
+import { SignInDialog } from "./sign-in-dialog";
+import { useState } from "react";
 
 interface IStoreSubscriptionCard {
   titleBgColorSS: string;
   titleSS: string;
   monthlyPrice: string;
   message: string;
-  userId: string;
+  userId?: string | null;
   subscriptionId: string;
   subscriptionName: string;
 }
@@ -20,6 +24,8 @@ export const StoreSubscriptionCard = ({
   subscriptionId,
   subscriptionName,
 }: IStoreSubscriptionCard) => {
+  const [showSignInDialog, setShowSignInDialog] = useState(false);
+
   return (
     <div className="w-full lg:w-[350px] h-full p-6 rounded-2xl bg-white border border-gray-100 transition-all duration-300 shadow-lg">
       <div className={`inline-block px-4 py-2 rounded-full ${titleBgColorSS}`}>
@@ -39,17 +45,28 @@ export const StoreSubscriptionCard = ({
       </div>
 
       <div className="mt-8">
-        <StorePlanDialog
-          duration="Mensual"
-          userId={userId}
-          price={monthlyPrice}
-          subscriptionId={subscriptionId}
-          subscriptionName={subscriptionName}
-        >
-          <Button className="w-full py-6 rounded-xl bg-teal-500 text-white hover:bg-teal-600 transition-colors duration-300">
-            Solicitar
-          </Button>
-        </StorePlanDialog>
+        {userId ? (
+          <StorePlanDialog
+            duration="Mensual"
+            userId={userId}
+            price={monthlyPrice}
+            subscriptionId={subscriptionId}
+            subscriptionName={subscriptionName}
+          >
+            <Button className="w-full py-6 rounded-xl bg-teal-500 text-white hover:bg-teal-600 transition-colors duration-300">
+              Solicitar
+            </Button>
+          </StorePlanDialog>
+        ) : (
+          <SignInDialog open={showSignInDialog} onOpenChange={setShowSignInDialog}>
+            <Button
+              onClick={() => setShowSignInDialog(true)}
+              className="w-full py-6 rounded-xl bg-teal-500 text-white hover:bg-teal-600 transition-colors duration-300"
+            >
+              Solicitar
+            </Button>
+          </SignInDialog>
+        )}
       </div>
     </div>
   );
