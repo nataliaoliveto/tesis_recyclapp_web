@@ -34,6 +34,7 @@ export const VerifyEmail = () => {
   const { setActive } = useClerk();
   const [resendDisabled, setResendDisabled] = useState(false);
   const [countdown, setCountdown] = useState(60);
+  const [isVerifying, setIsVerifying] = useState(false);
 
   const { mutateAsync: createUserCustomer } = useMutation({
     mutationKey: ["userCustomer"],
@@ -59,6 +60,7 @@ export const VerifyEmail = () => {
   const onSubmit = async (values: z.infer<typeof schema>) => {
     if (!isLoaded) return;
 
+    setIsVerifying(true);
     try {
       const signUpAttempt = await signUp.attemptEmailAddressVerification({
         code: values.code,
@@ -75,6 +77,8 @@ export const VerifyEmail = () => {
       });
     } catch (err) {
       throw err;
+    } finally {
+      setIsVerifying(false);
     }
   };
 
@@ -153,9 +157,10 @@ export const VerifyEmail = () => {
             <div className="flex flex-col gap-2 w-full">
               <Button
                 type="submit"
+                disabled={isVerifying}
                 className="w-full bg-green-500 hover:bg-green-600 text-white transition-colors"
               >
-                Verificar correo
+                {isVerifying ? "Verificando..." : "Verificar correo"}
               </Button>
 
               <Button

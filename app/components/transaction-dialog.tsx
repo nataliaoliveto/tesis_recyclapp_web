@@ -32,6 +32,7 @@ import { advertisementsApi } from "@/services/api.advertisements";
 import { toast } from "sonner";
 import { useCloudinary, IMAGE_INFO } from "@/hooks/useCloudinary";
 import { useUser } from "@clerk/nextjs";
+import { cn } from "../lib/utils";
 
 const advertisementSchema = z.object({
   title: z
@@ -190,7 +191,9 @@ export const TransactionDialog = ({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="sm:max-w-lg">
+      <DialogContent
+        className={cn("sm:max-w-lg", isSending && "[&>button]:hidden")}
+      >
         <DialogHeader>
           <DialogTitle className="text-2xl font-semibold text-gray-900">
             Solicitud de Publicidad {duration}

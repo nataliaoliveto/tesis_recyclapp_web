@@ -27,10 +27,6 @@ export const ratingsApi = {
     const result = await fetchCustom.get("/ratings");
     return result;
   },
-  getRatingById: async (id: string) => {
-    const result = await fetchCustom.get(`/rating/${id}`);
-    return result;
-  },
   createRating: async ({ userId, text, value, userName }: CreateRating) => {
     const body = {
       userId,
@@ -44,24 +40,6 @@ export const ratingsApi = {
       },
     });
 
-    return result;
-  },
-  updateRating: async ({ id, userId, text, value, userName }: UpdateRating) => {
-    const body = {
-      userId,
-      text,
-      value,
-      userName,
-    };
-    const result = await fetchCustom.put(`/rating/${id}`, body, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    return result;
-  },
-  deleteRating: async (id: string): Promise<DeleteRating> => {
-    const result = await fetchCustom.delete(`/rating/${id}`);
     return result;
   },
 };
