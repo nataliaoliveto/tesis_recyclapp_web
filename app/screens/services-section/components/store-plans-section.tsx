@@ -1,18 +1,25 @@
 import { auth } from "@clerk/nextjs/server";
 import { StoreSubscriptionCard } from "../../../components/store-subscription-card";
 import { subscriptionsApi } from "@/services/api.subscriptions";
+import { userStoreApi } from "@/services/api.userStore";
+import { StoreSuccessOverlay } from "./store-success-overlay";
 
 export const STORE_SUBSCRIPTIONS = ["USBONmensual", "USBOFFmensual"];
+
+const getUserStore = async (userId: string) => {
+  const userStore = await userStoreApi.getUserStore(userId);
+  return userStore;
+};
 
 export const StorePlansSection = async () => {
   const subscriptions = await subscriptionsApi.getSubscriptions();
   const { userId } = await auth();
+  if (!userId) return null;
+  const userStore = await getUserStore(userId);
 
   const storeSubscriptions = subscriptions.filter((sub) =>
     STORE_SUBSCRIPTIONS.includes(sub.name)
   );
-
-  if (!userId) return null;
 
   return (
     <div className="flex flex-col items-center justify-center pb-16">
@@ -22,22 +29,27 @@ export const StorePlansSection = async () => {
         </h2>
         <div className="w-[400px] h-[10px] bg-teal-100" />
       </div>
-      <div className="flex flex-col lg:flex-row items-center justify-center text-center p-4 rounded-3xl bg-gray-50 space-y-6 lg:space-y-0 lg:space-x-6">
-        {storeSubscriptions.map((subscription) => (
-          <StoreSubscriptionCard
-            key={subscription.id}
-            userId={userId}
-            subscriptionId={subscription.id}
-            subscriptionName={subscription.name}
-            titleBgColorSS="bg-teal-200"
-            titleSS={getTitleFromType(subscription.name).title}
-            message={getTitleFromType(subscription.name).message}
-            monthlyPrice={Intl.NumberFormat("es-AR", {
-              style: "currency",
-              currency: "ARS",
-            }).format(subscription.amount)}
-          />
-        ))}
+      <div className="relative w-full">
+        <StoreSuccessOverlay
+          show={Boolean(userStore?.id && userStore?.paymentCompleted)}
+        />
+        <div className="flex flex-col lg:flex-row items-center justify-center text-center p-4 rounded-3xl bg-gray-50 space-y-6 lg:space-y-0 lg:space-x-6">
+          {storeSubscriptions.map((subscription) => (
+            <StoreSubscriptionCard
+              key={subscription.id}
+              userId={userId}
+              subscriptionId={subscription.id}
+              subscriptionName={subscription.name}
+              titleBgColorSS="bg-teal-200"
+              titleSS={getTitleFromType(subscription.name).title}
+              message={getTitleFromType(subscription.name).message}
+              monthlyPrice={Intl.NumberFormat("es-AR", {
+                style: "currency",
+                currency: "ARS",
+              }).format(subscription.amount)}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

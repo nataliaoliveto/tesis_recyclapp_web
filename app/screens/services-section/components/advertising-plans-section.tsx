@@ -24,8 +24,6 @@ export const AdvertisingPlansSection = async () => {
     }
   };
 
-  if (!userId) return null;
-
   return (
     <Section className="py-16">
       <div className="flex flex-col items-center justify-center">

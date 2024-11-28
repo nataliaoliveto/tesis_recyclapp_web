@@ -1,19 +1,25 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { TransactionDialog } from "./transaction-dialog";
+import { SignInDialog } from "./sign-in-dialog";
+import { useState } from "react";
 
 interface IAdvertisingPlanCard {
   titleBgColor: string;
   title: string;
   oneTimePrice: string;
-  userId: string;
+  userId?: string | null;
 }
 
-export const AdvertisingPlanCard = async ({
+export const AdvertisingPlanCard = ({
   titleBgColor,
   title,
   oneTimePrice,
   userId,
 }: IAdvertisingPlanCard) => {
+  const [showSignInDialog, setShowSignInDialog] = useState(false);
+
   return (
     <div className="flex flex-col justify-between p-4 rounded-[20px] h-80 shadow-xl min-w-[300px]">
       <div className={`${titleBgColor} rounded-full w-full py-1`}>
@@ -27,11 +33,29 @@ export const AdvertisingPlanCard = async ({
         </p>
       </div>
 
-      <TransactionDialog duration={title} price={oneTimePrice} userId={userId}>
-        <Button className="border border-teal-200 rounded-2xl bg-gray-50 text-gray-500 hover:bg-green-400 hover:text-gray-50">
-          Solicitar
-        </Button>
-      </TransactionDialog>
+      {userId ? (
+        <TransactionDialog
+          duration={title}
+          price={oneTimePrice}
+          userId={userId}
+        >
+          <Button className="border border-teal-200 rounded-2xl bg-gray-50 text-gray-500 hover:bg-green-400 hover:text-gray-50">
+            Solicitar
+          </Button>
+        </TransactionDialog>
+      ) : (
+        <SignInDialog
+          open={showSignInDialog}
+          onOpenChange={setShowSignInDialog}
+        >
+          <Button
+            onClick={() => setShowSignInDialog(true)}
+            className="border border-teal-200 rounded-2xl bg-gray-50 text-gray-500 hover:bg-green-400 hover:text-gray-50"
+          >
+            Solicitar
+          </Button>
+        </SignInDialog>
+      )}
     </div>
   );
 };
