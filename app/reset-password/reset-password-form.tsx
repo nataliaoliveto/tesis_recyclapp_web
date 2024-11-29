@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useSignIn } from "@clerk/nextjs";
+import { isClerkAPIResponseError } from "@clerk/nextjs/errors";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -55,6 +56,7 @@ export const ResetPasswordForm = () => {
 
   const emailForm = useForm<EmailSchema>({
     resolver: zodResolver(emailSchema),
+    mode: "onChange",
     defaultValues: {
       email: "",
     },
@@ -62,6 +64,7 @@ export const ResetPasswordForm = () => {
 
   const resetForm = useForm<ResetSchema>({
     resolver: zodResolver(resetSchema),
+    mode: "onChange",
     defaultValues: {
       code: "",
       password: "",
@@ -82,7 +85,12 @@ export const ResetPasswordForm = () => {
       toast.success("Código enviado a tu correo electrónico");
     } catch (err) {
       console.error("Error:", err);
-      setError("Error al enviar el código de verificación");
+      if (isClerkAPIResponseError(err)) {
+        setError(
+          err.errors[0].longMessage ??
+            "Error al enviar el código de verificación"
+        );
+      }
     } finally {
       setIsLoading(false);
     }
@@ -106,7 +114,11 @@ export const ResetPasswordForm = () => {
       }
     } catch (err) {
       console.error("Error:", err);
-      setError("Error al restablecer la contraseña");
+      if (isClerkAPIResponseError(err)) {
+        setError(
+          err.errors[0].longMessage ?? "Error al restablecer la contraseña"
+        );
+      }
     } finally {
       setIsLoading(false);
     }

@@ -19,6 +19,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { isClerkAPIResponseError } from "@clerk/nextjs/errors";
 
 export default function SignUpForm() {
   const { isLoaded, signUp } = useSignUp();
@@ -27,6 +28,7 @@ export default function SignUpForm() {
 
   const form = useForm<RegisterForm>({
     resolver: zodResolver(registerSchema),
+    mode: "onChange",
     defaultValues: {
       firstName: "",
       lastName: "",
@@ -57,12 +59,17 @@ export default function SignUpForm() {
 
       setVerifyEmail(true);
 
-      toast("Por favor verifica tu correo electrónico para continuar.", {
+      toast.info("Por favor verifica tu correo electrónico para continuar.", {
         richColors: true,
       });
     } catch (error) {
-      const err = error as Error;
-      toast(err.message || "Ocurrió un error durante el registro");
+      if (isClerkAPIResponseError(error)) {
+        toast.error(
+          error.errors[0].longMessage ?? "Ocurrió un error durante el registro"
+        );
+      } else {
+        toast("Ocurrió un error durante el registro");
+      }
     } finally {
       setLoading(false);
     }
