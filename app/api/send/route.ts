@@ -7,8 +7,6 @@ export async function POST(request: Request) {
   try {
     const data = await request.json();
 
-    console.log("data", data);
-
     const { data: emailData, error } = await resend.emails.send({
       from: "RecyclApp <onboarding@resend.dev>",
       to: [process.env.NEXT_PUBLIC_EMAIL_TO!],
