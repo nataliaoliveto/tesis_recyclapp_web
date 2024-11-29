@@ -10,6 +10,7 @@ import { Form, FormControl, FormItem, FormLabel } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { isClerkAPIResponseError } from "@clerk/nextjs/errors";
 
 export const SignInForm = () => {
   const { signIn } = useSignIn();
@@ -39,7 +40,12 @@ export const SignInForm = () => {
         setError("Error al iniciar sesión. Por favor, intente nuevamente.");
       }
     } catch (err) {
-      setError("Credenciales inválidas");
+      if (isClerkAPIResponseError(err)) {
+        setError(
+          err.errors[0].longMessage ??
+            "Error al iniciar sesión. Por favor, intente nuevamente."
+        );
+      }
       throw err;
     } finally {
       setIsLoading(false);

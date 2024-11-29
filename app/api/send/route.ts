@@ -22,8 +22,6 @@ export async function POST(request: Request) {
       return Response.json({ error }, { status: 500 });
     }
 
-    console.log("emailData", emailData);
-
     return Response.json({ success: true, emailData });
   } catch (error) {
     return Response.json({ error }, { status: 500 });
