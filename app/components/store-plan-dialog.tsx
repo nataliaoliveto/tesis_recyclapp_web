@@ -140,11 +140,11 @@ export const StorePlanDialog = ({
       form.reset();
       setOpen(false);
     } catch (error) {
-      console.error("Error submitting form:", error);
-      toast.error("Error al subir la imagen o crear la publicidad");
+      toast.error("Error al solicitar la suscripción");
       throw error;
     } finally {
       setIsSending(false);
+      window.location.reload();
     }
   };
 
