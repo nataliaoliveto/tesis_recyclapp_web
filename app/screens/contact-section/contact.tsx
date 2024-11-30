@@ -23,9 +23,9 @@ import {
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
-import { toast } from "react-toastify";
 import axios from "axios";
-
+import { toast } from "sonner";
+import { useState } from "react";
 const formSchema = z.object({
   name: z.string().min(2, "El nombre debe tener al menos 2 caracteres"),
   email: z.string().email("Correo electrónico inválido"),
@@ -35,6 +35,7 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 export const Contact = () => {
+  const [isSending, setIsSending] = useState(false);
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -45,14 +46,14 @@ export const Contact = () => {
   });
 
   const onSubmit = async (data: FormValues) => {
+    setIsSending(true);
     try {
       const response = await axios.post("/api/send", data, {
         headers: {
           "Content-Type": "application/json",
         },
       });
-
-      if (response.data.error) {
+      if (response.status !== 200) {
         toast.error(
           "Error al enviar el mensaje. Por favor, intente nuevamente."
         );
@@ -64,6 +65,8 @@ export const Contact = () => {
     } catch (error) {
       toast.error("Error al enviar el mensaje. Por favor, intente nuevamente.");
       throw error;
+    } finally {
+      setIsSending(false);
     }
   };
 
@@ -159,8 +162,9 @@ export const Contact = () => {
                   <Button
                     type="submit"
                     className="w-full sm:w-auto px-6 py-3 text-base font-medium bg-green-600 hover:bg-green-700 text-white"
+                    disabled={isSending}
                   >
-                    Enviar Mensaje
+                    {isSending ? "Enviando..." : "Enviar Mensaje"}
                   </Button>
                 </CardFooter>
               </form>
