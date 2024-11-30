@@ -19,8 +19,7 @@ export const PublicationsSection = () => {
             className="mb-5"
           />
           <p className="text-xl text-center">
-            Podrás publicar qué materiales ofreces o buscas (o necesitas que
-            trasladen a un Punto Verde)
+            Podrás publicar qué materiales ofreces o buscas
           </p>
           <Image
             src="/icons/numberTwo.png"
@@ -44,10 +43,11 @@ export const PublicationsSection = () => {
       </div>
       <div className="lg:w-1/3 flex justify-center my-8 lg:my-0">
         <Image
-          src="/assets/mobilePhone.png"
+          src="/assets/RecyclAppPublicaciones.jpeg"
           width={252}
           height={534}
-          alt="estructura de un celular"
+          alt="RecyclApp publicaciones"
+          style={{ borderWidth: 5, borderColor: "black", borderRadius: 30 }}
         />
       </div>
       <div className="lg:w-1/3 h-full space-y-8 flex justify-center">
@@ -56,10 +56,8 @@ export const PublicationsSection = () => {
           <div className="w-[350px] h-1 bg-yellow-200" />
           <ul className="list-disc pl-5">
             <li className="text-xl">tus publicaciones activas</li>
-            <li className="text-xl">
-              las publicaciones aceptadas por ambas partes
-            </li>
-            <li className="text-xl">todas las publicaciones activas</li>
+            <li className="text-xl">las publicaciones activas de los demás</li>
+            <li className="text-xl">las publicaciones cerradas</li>
           </ul>
         </div>
       </div>

@@ -17,10 +17,11 @@ export const PointsAndBenefitsSection = () => {
         </div>
         <div className="flex flex-col md:flex-row gap-8">
           <Image
-            src="/assets/mobilePhone.png"
+            src="/assets/RecyclAppBeneficios.jpeg"
             width={252}
             height={534}
-            alt="estructura de un celular"
+            alt="RecyclApp Puntos"
+            style={{ borderWidth: 5, borderColor: "black", borderRadius: 30 }}
           />
           <div className="flex flex-col max-w-[450px] justify-center">
             <p className="text-xl">

@@ -6,11 +6,12 @@ export const HeroSection = () => {
     <Section id="id-services" className="bg-gray-100">
       <div className="flex flex-col lg:flex-row justify-center items-center gap-16 text-gray-600">
         <Image
-          src="/assets/mobilePhone.png"
+          src="/assets/RecyclAppInicio.jpeg"
           width={252}
           height={534}
-          alt="estructura de un celular"
+          alt="RecyclApp Home"
           className="w-[252px] h-[534px]"
+          style={{ borderWidth: 5, borderColor: "black", borderRadius: 30 }}
         />
         <div className="flex flex-col justify-center items-center">
           <h2 className="text-6xl font-semibold text-center">

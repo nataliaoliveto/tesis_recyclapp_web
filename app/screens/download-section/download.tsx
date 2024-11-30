@@ -6,10 +6,11 @@ export const Download = () => {
     <Section id="id-download" className="bg-yellow-100">
       <div className="flex flex-col lg:flex-row items-center justify-center gap-12">
         <Image
-          src="/assets/mobilePhone.png"
+          src="/assets/RecyclAppSplash.jpeg"
           width={252}
           height={534}
-          alt="estructura de un celular"
+          alt="RecyclApp Splash"
+          style={{ borderWidth: 5, borderColor: "black", borderRadius: 30 }}
         />
 
         <div className="h-full flex flex-col justify-between">

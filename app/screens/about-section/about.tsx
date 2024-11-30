@@ -103,7 +103,7 @@ export const About = () => {
           <div className="flex justify-center">
             <p className="w-[300px] text-center text-gray-700">
               Te contamos cómo comenzar en este proceso y dónde se encuentran
-              las <strong>composteras comunitarias</strong>
+              los <strong>puntos verdes</strong>
             </p>
           </div>
         </div>
