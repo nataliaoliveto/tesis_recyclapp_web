@@ -8,7 +8,7 @@ export async function POST(request: Request) {
     const data = await request.json();
 
     const { data: emailData, error } = await resend.emails.send({
-      from: "RecyclApp <onboarding@resend.dev>",
+      from: "RecyclApp <no-reply@rodrito.dev>",
       to: [process.env.NEXT_PUBLIC_EMAIL_TO!],
       subject: "Nuevo mensaje de contacto - RecyclApp",
       react: EmailTemplate({
