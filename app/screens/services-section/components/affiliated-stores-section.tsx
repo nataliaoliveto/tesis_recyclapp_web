@@ -28,10 +28,11 @@ export const AffiliatedStoresSection = () => {
           </p>
         </div>
         <Image
-          src="/assets/mobilePhone.png"
+          src="/assets/RecyclAppBeneficiosTienda.jpeg"
           width={252}
           height={534}
-          alt="estructura de un celular"
+          alt="beneficios tiendar"
+          style={{ borderWidth: 5, borderColor: "black", borderRadius: 30 }}
         />
       </div>
     </div>
