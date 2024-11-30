@@ -1,6 +1,7 @@
 "use client";
 
 import { useForm } from "react-hook-form";
+import { isClerkAPIResponseError } from "@clerk/nextjs/errors";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
@@ -35,6 +36,7 @@ export const VerifyEmail = () => {
   const [resendDisabled, setResendDisabled] = useState(false);
   const [countdown, setCountdown] = useState(60);
   const [isVerifying, setIsVerifying] = useState(false);
+  const [error, setError] = useState("");
 
   const { mutateAsync: createUserCustomer } = useMutation({
     mutationKey: ["userCustomer"],
@@ -76,7 +78,9 @@ export const VerifyEmail = () => {
         clerkUserId: signUpAttempt.createdUserId,
       });
     } catch (err) {
-      throw err;
+      if (isClerkAPIResponseError(err)) {
+        setError(err.errors[0].longMessage ?? "Error al validar el código.");
+      }
     } finally {
       setIsVerifying(false);
     }
@@ -120,6 +124,12 @@ export const VerifyEmail = () => {
             Te hemos enviado un código de verificación a tu correo electrónico
           </p>
         </div>
+
+        {error && (
+          <div className="p-3 text-sm text-red-500 bg-red-50 border border-red-200 rounded-md">
+            {error}
+          </div>
+        )}
 
         <Form {...form}>
           <form
